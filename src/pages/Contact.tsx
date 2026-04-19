@@ -9,6 +9,7 @@ import { Send, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT } from "@/config/services";
 import { useQuote } from "@/hooks/useQuote";
+import { toast } from "@/components/ui/use-toast";
 
 const serviceOptions = SERVICES;
 
@@ -32,6 +33,7 @@ const Contact = () => {
   });
   const [selectedServices, setSelectedServices] = useState<string[]>(initialServices);
   const [contactError, setContactError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setSelectedServices(initialServices);
@@ -45,14 +47,65 @@ const Contact = () => {
 
   const quote = useQuote(selectedServices);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email.trim() && !formData.phone.trim()) {
       setContactError(true);
       return;
     }
+
     setContactError(false);
-    // submission logic
+    setIsSubmitting(true);
+
+    const serviceWanted =
+      quote.selected.length > 0
+        ? quote.selected.map((service) => service.label).join(", ")
+        : "Non précisé";
+
+    try {
+      const response = await fetch("/.netlify/functions/submit-contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          address: formData.address,
+          serviceWanted,
+        }),
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.error || "Submission failed");
+      }
+
+      toast({
+        title: "Demande envoyée",
+        description: "Nous vous répondrons rapidement.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        address: "",
+        phone: "",
+        message: "",
+      });
+      setSelectedServices([]);
+    } catch (error) {
+      console.error("Contact submission failed", error);
+      toast({
+        title: "Envoi impossible",
+        description: "Veuillez réessayer ou nous contacter directement.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -323,8 +376,8 @@ const Contact = () => {
               </div>
 
               <div className="pt-2">
-                <Button type="submit" variant="default" size="lg" className="w-full sm:w-auto">
-                  Envoyer la demande
+                <Button type="submit" variant="default" size="lg" className="w-full sm:w-auto" disabled={isSubmitting}>
+                  {isSubmitting ? "Envoi..." : "Envoyer la demande"}
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
