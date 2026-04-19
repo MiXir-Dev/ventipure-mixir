@@ -13,6 +13,11 @@ const readString = (value, maxLength = 1000) => {
   return value.trim().slice(0, maxLength);
 };
 
+const readNumber = (value) => {
+  if (typeof value !== "number") return null;
+  return Number.isFinite(value) ? value : null;
+};
+
 const escapeHtml = (value) =>
   String(value)
     .replaceAll("&", "&amp;")
@@ -23,6 +28,8 @@ const escapeHtml = (value) =>
 
 const buildMapsLink = (address) =>
   address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : "";
+
+const formatMoney = (value) => `${new Intl.NumberFormat("fr-CA", { maximumFractionDigits: 0 }).format(value)} $`;
 
 const formatServiceList = (serviceWanted) => {
   const items = String(serviceWanted || "")
@@ -41,6 +48,7 @@ const formatTelegramMessage = ({
   address,
   googleMapsLink,
   serviceWanted,
+  estimatedTotal,
   message,
 }) => {
   const safeName = escapeHtml(fullName || "Non fourni");
@@ -48,6 +56,8 @@ const formatTelegramMessage = ({
   const safeEmail = escapeHtml(email || "Non fourni");
   const safeAddress = escapeHtml(address || "Non fournie");
   const serviceList = formatServiceList(serviceWanted);
+  const safeEstimatedTotal =
+    estimatedTotal !== null ? escapeHtml(formatMoney(estimatedTotal)) : "Sur estimation";
   const safeMessage = escapeHtml(message || "Aucun message");
   const mapsLine = googleMapsLink
     ? `<a href="${escapeHtml(googleMapsLink)}">Ouvrir dans Google Maps</a>`
@@ -67,6 +77,7 @@ const formatTelegramMessage = ({
     "",
     "<b>Service souhaité</b>",
     serviceList,
+    `Total estimé: ${safeEstimatedTotal}`,
     "",
     "<b>Message</b>",
     safeMessage,
@@ -102,7 +113,15 @@ export const handler = async (event) => {
   const email = readString(payload.email, 200);
   const address = readString(payload.address, 500);
   const serviceWanted = readString(payload.serviceWanted, 1000);
+  const estimatedTotal = readNumber(payload.estimatedTotal);
   const message = readString(payload.message, 2000);
+
+  if (!fullName || !address || !serviceWanted) {
+    return jsonResponse(400, {
+      success: false,
+      error: "Missing required fields",
+    });
+  }
 
   if (!phone && !email) {
     return jsonResponse(400, {
@@ -119,6 +138,7 @@ export const handler = async (event) => {
     address,
     googleMapsLink,
     serviceWanted,
+    estimatedTotal,
     message,
   });
 

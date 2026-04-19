@@ -47,6 +47,13 @@ type AddressSuggestion = {
   label: string;
 };
 
+type FormErrors = {
+  name: boolean;
+  address: boolean;
+  services: boolean;
+  contact: boolean;
+};
+
 const resolveCity = (address?: NominatimAddress) =>
   address?.city ||
   address?.town ||
@@ -89,7 +96,12 @@ const Contact = () => {
   const [selectedServices, setSelectedServices] = useState<string[]>(
     hasServicePresetFromQuery ? initialServices : persistedDraft.selectedServices,
   );
-  const [contactError, setContactError] = useState(false);
+  const [formErrors, setFormErrors] = useState<FormErrors>({
+    name: false,
+    address: false,
+    services: false,
+    contact: false,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isAddressFocused, setIsAddressFocused] = useState(false);
@@ -193,9 +205,13 @@ const Contact = () => {
   );
 
   const toggleService = (value: string) => {
-    setSelectedServices((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
-    );
+    setSelectedServices((prev) => {
+      const next = prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value];
+      if (formErrors.services && next.length > 0) {
+        setFormErrors((current) => ({ ...current, services: false }));
+      }
+      return next;
+    });
   };
 
   const quote = useQuote(selectedServices);
@@ -216,18 +232,32 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.email.trim() && !formData.phone.trim()) {
-      setContactError(true);
+
+    const nextErrors: FormErrors = {
+      name: !formData.name.trim(),
+      address: !formData.address.trim(),
+      services: selectedServices.length === 0,
+      contact: !formData.email.trim() && !formData.phone.trim(),
+    };
+
+    if (Object.values(nextErrors).some(Boolean)) {
+      setFormErrors(nextErrors);
       return;
     }
 
-    setContactError(false);
+    setFormErrors({
+      name: false,
+      address: false,
+      services: false,
+      contact: false,
+    });
     setIsSubmitting(true);
 
     const serviceWanted =
       quote.selected.length > 0
         ? quote.selected.map((service) => service.label).join(", ")
-        : "Non précisé";
+        : "";
+    const estimatedTotal = !quote.needsEstimate && quote.numericItems.length > 0 ? quote.total : null;
 
     try {
       const response = await fetch("/api/submit-contact", {
@@ -241,6 +271,7 @@ const Contact = () => {
           email: formData.email,
           address: formData.address,
           serviceWanted,
+          estimatedTotal,
           message: formData.message,
         }),
       });
@@ -311,13 +342,18 @@ const Contact = () => {
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
-                    Nom complet <span className="text-muted-foreground/60 normal-case tracking-normal">(optionnel)</span>
+                    Nom complet
                   </label>
                   <input
                     type="text"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={inputClass}
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                      if (formErrors.name && e.target.value.trim()) {
+                        setFormErrors((current) => ({ ...current, name: false }));
+                      }
+                    }}
+                    className={`${inputClass} ${formErrors.name ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
                     placeholder="Jean Tremblay"
                   />
                 </div>
@@ -332,11 +368,11 @@ const Contact = () => {
                     onBlur={() => setIsEmailFocused(false)}
                     onChange={(e) => {
                       setFormData({ ...formData, email: e.target.value });
-                      if (contactError && (e.target.value.trim() || formData.phone.trim())) {
-                        setContactError(false);
+                      if (formErrors.contact && (e.target.value.trim() || formData.phone.trim())) {
+                        setFormErrors((current) => ({ ...current, contact: false }));
                       }
                     }}
-                    className={`${inputClass} ${contactError ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
+                    className={`${inputClass} ${formErrors.contact ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
                     placeholder="votre@courriel.com"
                     autoComplete="email"
                   />
@@ -353,8 +389,8 @@ const Contact = () => {
                                 if (!localPart) return;
                                 const nextEmail = `${localPart}@${domain}`;
                                 setFormData((prev) => ({ ...prev, email: nextEmail }));
-                                if (contactError && (nextEmail.trim() || formData.phone.trim())) {
-                                  setContactError(false);
+                                if (formErrors.contact && (nextEmail.trim() || formData.phone.trim())) {
+                                  setFormErrors((current) => ({ ...current, contact: false }));
                                 }
                               }}
                               className="w-full text-left px-3 py-2.5 text-sm text-foreground/85 hover:bg-muted/40 transition-colors"
@@ -374,7 +410,7 @@ const Contact = () => {
               <div className="grid sm:grid-cols-2 gap-5">
                 <div className="relative">
                   <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
-                    Adresse <span className="text-muted-foreground/60 normal-case tracking-normal">(optionnel)</span>
+                    Adresse
                   </label>
                   <input
                     type="text"
@@ -399,6 +435,9 @@ const Contact = () => {
                     }}
                     onChange={(e) => {
                       setFormData({ ...formData, address: e.target.value });
+                      if (formErrors.address && e.target.value.trim()) {
+                        setFormErrors((current) => ({ ...current, address: false }));
+                      }
                       setAddressLookupFailed(false);
                       if (e.target.value.trim().length >= 3) {
                         setIsAddressDropdownOpen(true);
@@ -407,7 +446,7 @@ const Contact = () => {
                         setIsAddressDropdownOpen(false);
                       }
                     }}
-                    className={inputClass}
+                    className={`${inputClass} ${formErrors.address ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
                     placeholder="123 rue Exemple, Montréal"
                     autoComplete="street-address"
                   />
@@ -457,25 +496,25 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={(e) => {
                       setFormData({ ...formData, phone: e.target.value });
-                      if (contactError && (e.target.value.trim() || formData.email.trim())) {
-                        setContactError(false);
+                      if (formErrors.contact && (e.target.value.trim() || formData.email.trim())) {
+                        setFormErrors((current) => ({ ...current, contact: false }));
                       }
                     }}
-                    className={`${inputClass} ${contactError ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
+                    className={`${inputClass} ${formErrors.contact ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
                     placeholder="438-000-0000"
                   />
                 </div>
               </div>
 
               <AnimatePresence>
-                {contactError && (
+                {Object.values(formErrors).some(Boolean) && (
                   <motion.p
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -4 }}
                     className="text-xs text-destructive font-medium"
                   >
-                    Veuillez laisser au moins un moyen de contact (courriel ou téléphone).
+                    Veuillez remplir les champs obligatoires: nom, adresse, service souhaité, et au moins un moyen de contact (courriel ou téléphone).
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -484,11 +523,8 @@ const Contact = () => {
               <div className="pt-2">
                 <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3 block">
                   Services souhaités
-                  <span className="ml-2 normal-case tracking-normal text-muted-foreground/60">
-                    (sélectionnez un ou plusieurs)
-                  </span>
                 </label>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${formErrors.services ? "rounded-xl border border-destructive/60 p-2" : ""}`}>
                   {serviceOptions.map((opt) => {
                     const active = selectedServices.includes(opt.id);
                     return (
