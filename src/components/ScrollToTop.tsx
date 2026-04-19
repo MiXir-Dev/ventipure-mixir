@@ -5,7 +5,12 @@ export function ScrollToTop() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    // Ensure route changes always reset scroll position, including query-string navigations.
+    window.scrollTo(0, 0);
+    const rafId = window.requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => window.cancelAnimationFrame(rafId);
   }, [pathname, search]);
 
   return null;

@@ -24,6 +24,16 @@ const escapeHtml = (value) =>
 const buildMapsLink = (address) =>
   address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : "";
 
+const formatServiceList = (serviceWanted) => {
+  const items = String(serviceWanted || "")
+    .split(/[\n,;]+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (items.length === 0) return "- Non précisé";
+  return items.map((item) => `- ${escapeHtml(item)}`).join("\n");
+};
+
 const formatTelegramMessage = ({
   fullName,
   phone,
@@ -37,7 +47,7 @@ const formatTelegramMessage = ({
   const safePhone = escapeHtml(phone || "Non fourni");
   const safeEmail = escapeHtml(email || "Non fourni");
   const safeAddress = escapeHtml(address || "Non fournie");
-  const safeService = escapeHtml(serviceWanted || "Non précisé");
+  const serviceList = formatServiceList(serviceWanted);
   const safeMessage = escapeHtml(message || "Aucun message");
   const mapsLine = googleMapsLink
     ? `<a href="${escapeHtml(googleMapsLink)}">Ouvrir dans Google Maps</a>`
@@ -55,7 +65,8 @@ const formatTelegramMessage = ({
     `📍 Adresse: ${safeAddress}`,
     mapsLine,
     "",
-    `Service souhaité: ${safeService}`,
+    "<b>Service souhaité</b>",
+    serviceList,
     "",
     "<b>Message</b>",
     safeMessage,
@@ -84,9 +95,7 @@ export const handler = async (event) => {
     return jsonResponse(400, { success: false, error: "Invalid JSON body" });
   }
 
-  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
-    return jsonResponse(400, { success: false, error: "Invalid submission data" });
-  }
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return jsonResponse(400, { success: false, error: "Invalid submission data" });
 
   const fullName = readString(payload.fullName ?? payload.name, 200);
   const phone = readString(payload.phone, 100);
