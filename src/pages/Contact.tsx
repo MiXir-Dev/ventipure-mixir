@@ -5,7 +5,7 @@ import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
-import { Send, Check } from "lucide-react";
+import { Send, Check, Plus, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT, COMBO_SERVICES } from "@/config/services";
 import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/config/contact";
@@ -109,6 +109,7 @@ const Contact = () => {
   const [isAddressLoading, setIsAddressLoading] = useState(false);
   const [addressLookupFailed, setAddressLookupFailed] = useState(false);
   const [isAddressDropdownOpen, setIsAddressDropdownOpen] = useState(false);
+  const [isComboUpsellDismissed, setIsComboUpsellDismissed] = useState(false);
   const closeAddressDropdownTimeoutRef = useRef<number | null>(null);
   const skipAddressLookupRef = useRef(false);
 
@@ -221,6 +222,11 @@ const Contact = () => {
     selectedComboCount === 1
       ? serviceOptions.find((service) => COMBO_SERVICES.includes(service.id) && !selectedServices.includes(service.id))
       : null;
+
+  useEffect(() => {
+    setIsComboUpsellDismissed(false);
+  }, [selectedServices]);
+
   const emailSuggestionDomains = useMemo(() => {
     const value = formData.email.trim().toLowerCase();
     const atIndex = value.indexOf("@");
@@ -560,63 +566,6 @@ const Contact = () => {
                   })}
                 </div>
 
-                <AnimatePresence initial={false}>
-                  {selectedComboCount === 1 && missingComboService && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.2 }}
-                      className="mt-3"
-                    >
-                      <motion.button
-                        type="button"
-                        onClick={() => toggleService(missingComboService.id)}
-                        aria-label={`Ajouter ${missingComboService.label} pour activer le rabais combo`}
-                        className="relative overflow-hidden rounded-xl border border-primary/55 bg-gradient-to-r from-primary/20 via-primary/14 to-primary/20 px-3 py-2.5 text-xs sm:text-sm"
-                        animate={
-                          prefersReducedMotion
-                            ? undefined
-                            : {
-                                boxShadow: [
-                                  "0 0 0 1px hsl(var(--primary) / 0.2), 0 0 10px hsl(var(--primary) / 0.14)",
-                                  "0 0 0 1px hsl(var(--primary) / 0.48), 0 0 26px hsl(var(--primary) / 0.38)",
-                                  "0 0 0 1px hsl(var(--primary) / 0.2), 0 0 10px hsl(var(--primary) / 0.14)",
-                                ],
-                              }
-                        }
-                        transition={
-                          prefersReducedMotion
-                            ? undefined
-                            : { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                        }
-                      >
-                        {!prefersReducedMotion && (
-                          <motion.span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_50%,hsl(var(--primary)/0.45),transparent_68%)]"
-                            animate={{ opacity: [0.28, 0.75, 0.28], scale: [1, 1.06, 1] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                          />
-                        )}
-                        <div className="relative z-10 flex w-full items-center justify-between gap-2 text-left">
-                          <p className="text-foreground/85">
-                            Économisez <span className="font-semibold text-primary">{COMBO_DISCOUNT} $</span> en ajoutant{" "}
-                            <span className="font-semibold">{missingComboService.label}</span>.
-                          </p>
-                          <span className="inline-flex shrink-0 items-center">
-                            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-primary/35 bg-background/80 text-base font-semibold leading-none text-primary transition-colors sm:hidden">
-                              +
-                            </span>
-                            <span className="hidden rounded-full border border-primary/30 bg-background/80 px-2.5 py-1 text-[11px] font-semibold text-primary transition-colors sm:inline-flex">
-                              Ajouter
-                            </span>
-                          </span>
-                        </div>
-                      </motion.button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
 
               {/* Live quote */}
@@ -648,7 +597,53 @@ const Contact = () => {
                         ))}
                       </ul>
 
-                      {quote.hasCombo && (
+                      {selectedComboCount === 1 && missingComboService && !isComboUpsellDismissed && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.2 }}
+                          className="w-full mb-4"
+                        >
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex items-start gap-2">
+                              <span className="mt-0.5 inline-flex h-5 items-center rounded-full border border-primary/20 bg-primary/5 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+                                Combo
+                              </span>
+
+                              <p className="text-sm leading-snug text-foreground/85">
+                                Ajoutez{" "}
+                                <span className="font-medium text-foreground">
+                                  {missingComboService.label}
+                                </span>{" "}
+                                et économisez{" "}
+                                <span className="font-medium text-primary">
+                                  {COMBO_DISCOUNT} $
+                                </span>.
+                              </p>
+                            </div>
+
+                            <div className="flex items-center gap-3 pl-7 sm:pl-0">
+                              <button
+                                type="button"
+                                onClick={() => toggleService(missingComboService.id)}
+                                className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                              >
+                                Ajouter
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => setIsComboUpsellDismissed(true)}
+                                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                              >
+                                Ignorer
+                              </button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                                            {quote.hasCombo && (
                         <motion.div
                           initial={{ opacity: 0, scale: 0.97 }}
                           animate={{ opacity: 1, scale: 1 }}
