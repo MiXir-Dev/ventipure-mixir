@@ -95,10 +95,11 @@ const Tarifs = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08, duration: 0.45 }}
+                  className="h-full"
                 >
                   <Link
                     to={`/contact?service=${s.contactValue}`}
-                    className="group block rounded-2xl border border-border bg-card overflow-hidden hover:shadow-[var(--vp-shadow-card)] transition-shadow duration-300"
+                    className="group block h-full rounded-2xl border border-border bg-card overflow-hidden hover:shadow-[var(--vp-shadow-card)] transition-shadow duration-300"
                   >
                     <div className="aspect-[16/10] overflow-hidden bg-muted">
                       <img
@@ -110,7 +111,7 @@ const Tarifs = () => {
                         className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                       />
                     </div>
-                    <div className="p-6 md:p-7">
+                    <div className="p-6 md:p-7 flex h-full flex-col">
                       <h2 className="text-lg font-bold text-foreground tracking-tight mb-3">
                         {s.title}
                       </h2>
@@ -127,7 +128,7 @@ const Tarifs = () => {
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {s.includes}
                       </p>
-                      <div className="mt-5">
+                      <div className="mt-auto pt-5">
                         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary group-hover:text-primary/80 transition-colors">
                           Demander ce service
                           <ArrowRight className="h-3.5 w-3.5" />
