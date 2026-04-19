@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import lifestyleProof from "@/assets/lifestyle-proof.jpg";
-import serviceAction1 from "@/assets/service-action-1.jpg";
+const lifestyleProof = "/nettoyage-ventillations/lifestyle-proof.jpg";
+const serviceAction1 = "/nettoyage-ventillations/service-action-1.jpg";
 
 export function WhySection() {
   return (

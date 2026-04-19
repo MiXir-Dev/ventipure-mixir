@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import equipNexair from "@/assets/equip-nexair.jpg";
-import equipOmega from "@/assets/equip-omega.jpg";
+const equipNexair = "/nettoyage-ventillations/equip-nexair.jpg";
+const equipOmega = "/nettoyage-ventillations/equip-omega.jpg";
 
 const items = [
   {

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroMain from "@/assets/hero-main.jpg";
-import heroSecondary from "@/assets/hero-secondary.jpg";
+const heroMain = "/nettoyage-ventillations/hero-main.jpg";
+const heroSecondary = "/nettoyage-ventillations/hero-secondary.jpg";
 
 export function HeroSection() {
   return (

@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import equipNexair from "@/assets/equip-nexair.jpg";
-import equipOmega from "@/assets/equip-omega.jpg";
-import equipEditorial from "@/assets/equip-editorial.jpg";
+const equipNexair = "/nettoyage-ventillations/equip-nexair.jpg";
+const equipOmega = "/nettoyage-ventillations/equip-omega.jpg";
+const equipEditorial = "/nettoyage-ventillations/equip-editorial.jpg";
 
 const Equipement = () => {
   const [panelOpen, setPanelOpen] = useState(false);

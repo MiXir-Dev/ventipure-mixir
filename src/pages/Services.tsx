@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-import serviceConduits from "@/assets/service-conduits.jpg";
-import serviceEchangeur from "@/assets/service-echangeur.jpg";
-import serviceSecheuse from "@/assets/service-secheuse.jpg";
-import serviceClimatiseur from "@/assets/service-climatiseur.jpg";
-import serviceEditorial from "@/assets/service-editorial.jpg"; // used as fallback for commercial card
+const serviceConduits = "/nettoyage-ventillations/service-conduits.jpg";
+const serviceEchangeur = "/nettoyage-ventillations/service-echangeur.jpg";
+const serviceSecheuse = "/nettoyage-ventillations/service-secheuse.jpg";
+const serviceClimatiseur = "/nettoyage-ventillations/service-climatiseur.jpg";
+const serviceEditorial = "/nettoyage-ventillations/service-editorial.jpg"; // used as fallback for commercial card
 
 const services = [
   {

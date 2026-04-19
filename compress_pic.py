@@ -24,7 +24,7 @@ import sys
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 
 try:
     from PIL import Image

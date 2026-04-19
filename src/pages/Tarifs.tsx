@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-import tarifConduits from "@/assets/tarif-conduits.jpg";
-import tarifEchangeur from "@/assets/tarif-echangeur.jpg";
-import tarifSecheuse from "@/assets/tarif-secheuse.jpg";
-import tarifClimatiseur from "@/assets/tarif-climatiseur.jpg";
-import serviceEditorial from "@/assets/service-editorial.jpg";
+const tarifConduits = "/nettoyage-ventillations/tarif-conduits.jpg";
+const tarifEchangeur = "/nettoyage-ventillations/tarif-echangeur.jpg";
+const tarifSecheuse = "/nettoyage-ventillations/tarif-secheuse.jpg";
+const tarifClimatiseur = "/nettoyage-ventillations/tarif-climatiseur.jpg";
+const serviceEditorial = "/nettoyage-ventillations/service-editorial.jpg";
 
 const services = [
   {

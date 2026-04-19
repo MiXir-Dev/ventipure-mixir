@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import serviceAction3 from "@/assets/service-action-3.jpg";
-import serviceActionPrecision from "@/assets/service-action-precision.jpg";
-import serviceAction4 from "@/assets/service-action-4.jpg";
+const serviceAction3 = "/nettoyage-ventillations/service-action-3.jpg";
+const serviceActionPrecision = "/nettoyage-ventillations/service-action-precision.jpg";
+const serviceAction4 = "/nettoyage-ventillations/service-action-4.jpg";
 
 const slides = [
   {
