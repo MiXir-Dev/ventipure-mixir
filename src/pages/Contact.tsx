@@ -603,15 +603,12 @@ const Contact = () => {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -4 }}
                           transition={{ duration: 0.2 }}
-                          className="w-full mb-4"
+                          className="mb-4"
                         >
-                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                            <div className="flex items-start gap-2">
-                              <span className="mt-0.5 inline-flex h-5 items-center rounded-full border border-primary/20 bg-primary/5 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
-                                Combo
-                              </span>
+                          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                            <div className="min-w-0 flex items-start gap-2">
 
-                              <p className="text-sm leading-snug text-foreground/85">
+                              <p className="min-w-0 text-sm leading-snug text-foreground/85">
                                 Ajoutez{" "}
                                 <span className="font-medium text-foreground">
                                   {missingComboService.label}
@@ -623,11 +620,11 @@ const Contact = () => {
                               </p>
                             </div>
 
-                            <div className="flex items-center gap-3 pl-7 sm:pl-0">
+                            <div className="flex items-center gap-2 pt-3 sm:border-t-0 sm:pt-0">
                               <button
                                 type="button"
                                 onClick={() => toggleService(missingComboService.id)}
-                                className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                                className="flex-1 border h-9 items-center rounded-full px-3 text-sm font-medium text-primary hover:bg-primary/5 transition-colors"
                               >
                                 Ajouter
                               </button>
@@ -635,7 +632,7 @@ const Contact = () => {
                               <button
                                 type="button"
                                 onClick={() => setIsComboUpsellDismissed(true)}
-                                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                                className="flex-1 h-9 border items-center rounded-full px-3 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
                               >
                                 Ignorer
                               </button>
@@ -643,7 +640,7 @@ const Contact = () => {
                           </div>
                         </motion.div>
                       )}
-                                            {quote.hasCombo && (
+                      {quote.hasCombo && (
                         <motion.div
                           initial={{ opacity: 0, scale: 0.97 }}
                           animate={{ opacity: 1, scale: 1 }}
@@ -671,13 +668,13 @@ const Contact = () => {
                             Rabais
                           </span>
                           <span className="font-semibold text-primary tabular-nums">
-                            −{COMBO_DISCOUNT} $
+                            -{COMBO_DISCOUNT} $
                           </span>
                         </motion.div>
                       )}
 
                       {quote.numericItems.length > 0 && (
-                        <div className="flex items-baseline justify-between pt-3 border-t border-border/60">
+                        <div className="flex items-baseline justify-between pt-3">
                           <span className="text-sm font-semibold text-foreground uppercase tracking-wider">
                             Total estimé
                           </span>
