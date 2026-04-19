@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react"; // useMemo kept for initialServices
+import { useState, useEffect, useMemo, useRef } from "react"; // useMemo kept for initialServices
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { SidePanel } from "@/components/SidePanel";
@@ -8,10 +8,56 @@ import { Button } from "@/components/ui/button";
 import { Send, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT } from "@/config/services";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/config/contact";
 import { useQuote } from "@/hooks/useQuote";
 import { toast } from "@/components/ui/use-toast";
 
 const serviceOptions = SERVICES;
+const emailProviderDomains = ["gmail.com", "outlook.com", "hotmail.com", "yahoo.com", "icloud.com"];
+
+type NominatimAddress = {
+  house_number?: string;
+  road?: string;
+  pedestrian?: string;
+  city?: string;
+  town?: string;
+  village?: string;
+  municipality?: string;
+  hamlet?: string;
+  county?: string;
+  state?: string;
+  postcode?: string;
+};
+
+type NominatimResult = {
+  place_id: number;
+  display_name: string;
+  address?: NominatimAddress;
+};
+
+type AddressSuggestion = {
+  id: number;
+  label: string;
+};
+
+const resolveCity = (address?: NominatimAddress) =>
+  address?.city ||
+  address?.town ||
+  address?.village ||
+  address?.municipality ||
+  address?.hamlet ||
+  address?.county ||
+  "";
+
+const formatCompactAddress = (item: NominatimResult) => {
+  const city = resolveCity(item.address);
+  const line1 = [item.address?.house_number, item.address?.road || item.address?.pedestrian]
+    .filter(Boolean)
+    .join(" ");
+  const line2 = [city, item.address?.state, item.address?.postcode].filter(Boolean).join(", ");
+  const compact = [line1, line2].filter(Boolean).join(", ");
+  return compact || item.display_name;
+};
 
 const Contact = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -34,10 +80,97 @@ const Contact = () => {
   const [selectedServices, setSelectedServices] = useState<string[]>(initialServices);
   const [contactError, setContactError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isAddressFocused, setIsAddressFocused] = useState(false);
+  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([]);
+  const [isAddressLoading, setIsAddressLoading] = useState(false);
+  const [addressLookupFailed, setAddressLookupFailed] = useState(false);
+  const [isAddressDropdownOpen, setIsAddressDropdownOpen] = useState(false);
+  const closeAddressDropdownTimeoutRef = useRef<number | null>(null);
+  const skipAddressLookupRef = useRef(false);
 
   useEffect(() => {
     setSelectedServices(initialServices);
   }, [initialServices]);
+
+  useEffect(() => {
+    const query = formData.address.trim();
+
+    if (skipAddressLookupRef.current) {
+      skipAddressLookupRef.current = false;
+      return;
+    }
+
+    if (!isAddressFocused || query.length < 3) {
+      setAddressSuggestions([]);
+      setAddressLookupFailed(false);
+      setIsAddressLoading(false);
+      if (query.length < 3) setIsAddressDropdownOpen(false);
+      return;
+    }
+
+    setIsAddressLoading(true);
+    setAddressLookupFailed(false);
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        const params = new URLSearchParams({
+          format: "jsonv2",
+          addressdetails: "1",
+          limit: "5",
+          countrycodes: "ca",
+          q: query,
+        });
+
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?${params.toString()}`,
+          {
+            signal: controller.signal,
+            headers: {
+              Accept: "application/json",
+              "Accept-Language": "fr-CA,fr;q=0.9,en;q=0.7",
+            },
+          },
+        );
+
+        if (!response.ok) throw new Error("Address lookup failed");
+
+        const data = (await response.json()) as NominatimResult[];
+        const nextSuggestions = data.slice(0, 5).map((item) => ({
+          id: item.place_id,
+          label: formatCompactAddress(item),
+        }));
+
+        setAddressSuggestions(nextSuggestions);
+        setIsAddressDropdownOpen(true);
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        console.error("Address lookup failed", error);
+        setAddressSuggestions([]);
+        setAddressLookupFailed(true);
+        setIsAddressDropdownOpen(true);
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsAddressLoading(false);
+        }
+      }
+    }, 300);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      controller.abort();
+    };
+  }, [formData.address, isAddressFocused]);
+
+  useEffect(
+    () => () => {
+      if (closeAddressDropdownTimeoutRef.current !== null) {
+        window.clearTimeout(closeAddressDropdownTimeoutRef.current);
+      }
+    },
+    [],
+  );
 
   const toggleService = (value: string) => {
     setSelectedServices((prev) =>
@@ -46,6 +179,20 @@ const Contact = () => {
   };
 
   const quote = useQuote(selectedServices);
+  const emailSuggestionDomains = useMemo(() => {
+    const value = formData.email.trim().toLowerCase();
+    const atIndex = value.indexOf("@");
+
+    if (atIndex <= 0) return [];
+    if (value.indexOf("@", atIndex + 1) !== -1) return [];
+
+    const domainPart = value.slice(atIndex + 1);
+    if (domainPart.includes(".")) return [];
+
+    return emailProviderDomains
+      .filter((domain) => !domainPart || domain.startsWith(domainPart))
+      .slice(0, 5);
+  }, [formData.email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,8 +246,8 @@ const Contact = () => {
     } catch (error) {
       console.error("Contact submission failed", error);
       toast({
-        title: "Envoi impossible",
-        description: "Veuillez réessayer ou nous contacter directement.",
+        title: "Service temporairement indisponible",
+        description: `Le service n'est pas disponible pour le moment. Veuillez nous appeler au ${CONTACT_PHONE_DISPLAY}.`,
         variant: "destructive",
       });
     } finally {
@@ -164,6 +311,8 @@ const Contact = () => {
                   <input
                     type="email"
                     value={formData.email}
+                    onFocus={() => setIsEmailFocused(true)}
+                    onBlur={() => setIsEmailFocused(false)}
                     onChange={(e) => {
                       setFormData({ ...formData, email: e.target.value });
                       if (contactError && (e.target.value.trim() || formData.phone.trim())) {
@@ -172,23 +321,112 @@ const Contact = () => {
                     }}
                     className={`${inputClass} ${contactError ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""}`}
                     placeholder="votre@courriel.com"
+                    autoComplete="email"
                   />
+                  {isEmailFocused && emailSuggestionDomains.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {emailSuggestionDomains.map((domain) => (
+                        <button
+                          key={domain}
+                          type="button"
+                          onPointerDown={(e) => e.preventDefault()}
+                          onClick={() => {
+                            const [localPart] = formData.email.split("@");
+                            if (!localPart) return;
+                            const nextEmail = `${localPart}@${domain}`;
+                            setFormData((prev) => ({ ...prev, email: nextEmail }));
+                            if (contactError && (nextEmail.trim() || formData.phone.trim())) {
+                              setContactError(false);
+                            }
+                          }}
+                          className="inline-flex h-7 items-center rounded-full border border-border px-2.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                          aria-label={`Completer avec ${domain}`}
+                        >
+                          @{domain}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Row 2: Adresse + Téléphone */}
               <div className="grid sm:grid-cols-2 gap-5">
-                <div>
+                <div className="relative">
                   <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
                     Adresse <span className="text-muted-foreground/60 normal-case tracking-normal">(optionnel)</span>
                   </label>
                   <input
                     type="text"
                     value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    onFocus={() => {
+                      if (closeAddressDropdownTimeoutRef.current !== null) {
+                        window.clearTimeout(closeAddressDropdownTimeoutRef.current);
+                      }
+                      setIsAddressFocused(true);
+                      if (
+                        formData.address.trim().length >= 3 &&
+                        (addressSuggestions.length > 0 || isAddressLoading || addressLookupFailed)
+                      ) {
+                        setIsAddressDropdownOpen(true);
+                      }
+                    }}
+                    onBlur={() => {
+                      setIsAddressFocused(false);
+                      closeAddressDropdownTimeoutRef.current = window.setTimeout(() => {
+                        setIsAddressDropdownOpen(false);
+                      }, 140);
+                    }}
+                    onChange={(e) => {
+                      setFormData({ ...formData, address: e.target.value });
+                      setAddressLookupFailed(false);
+                      if (e.target.value.trim().length >= 3) {
+                        setIsAddressDropdownOpen(true);
+                      } else {
+                        setAddressSuggestions([]);
+                        setIsAddressDropdownOpen(false);
+                      }
+                    }}
                     className={inputClass}
                     placeholder="123 rue Exemple, Montréal"
+                    autoComplete="street-address"
                   />
+                  {isAddressDropdownOpen && formData.address.trim().length >= 3 && (
+                    <div className="absolute z-20 mt-2 w-full rounded-xl border border-border bg-background shadow-[var(--vp-shadow-card)] overflow-hidden">
+                      {isAddressLoading ? (
+                        <p className="px-3 py-2.5 text-xs text-muted-foreground">Recherche d'adresse...</p>
+                      ) : addressLookupFailed ? (
+                        <p className="px-3 py-2.5 text-xs text-muted-foreground">
+                          Suggestions temporairement indisponibles.
+                        </p>
+                      ) : addressSuggestions.length > 0 ? (
+                        <ul className="max-h-56 overflow-auto py-1">
+                          {addressSuggestions.map((suggestion) => (
+                            <li key={suggestion.id}>
+                              <button
+                                type="button"
+                                onPointerDown={(e) => e.preventDefault()}
+                                onClick={() => {
+                                  skipAddressLookupRef.current = true;
+                                  setFormData((prev) => ({ ...prev, address: suggestion.label }));
+                                  setAddressSuggestions([]);
+                                  setAddressLookupFailed(false);
+                                  setIsAddressDropdownOpen(false);
+                                }}
+                                className="w-full text-left px-3 py-2.5 text-sm text-foreground/85 hover:bg-muted/40 transition-colors"
+                              >
+                                {suggestion.label}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="px-3 py-2.5 text-xs text-muted-foreground">
+                          Aucune adresse trouvée.
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
@@ -390,11 +628,11 @@ const Contact = () => {
               className="mt-4 pt-10 border-t border-border/60"
             >
               <div className="flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
-                <a href="tel:4389952291" className="hover:text-foreground transition-colors">
-                  438-995-2291
+                <a href={`tel:${CONTACT_PHONE_TEL}`} className="hover:text-foreground transition-colors">
+                  {CONTACT_PHONE_DISPLAY}
                 </a>
-                <a href="mailto:info@ventipure.ca" className="hover:text-foreground transition-colors">
-                  info@ventipure.ca
+                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-foreground transition-colors">
+                  {CONTACT_EMAIL}
                 </a>
                 <span>Sainte-Julie, Québec</span>
               </div>

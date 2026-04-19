@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,7 +10,6 @@ import Contact from "./pages/Contact.tsx";
 import Services from "./pages/Services.tsx";
 import Equipement from "./pages/Equipement.tsx";
 import NosServicesEtSecteurs from "./pages/NosServicesEtSecteurs.tsx";
-import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +27,7 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/equipement" element={<Equipement />} />
           <Route path="/nos-services-et-secteurs" element={<NosServicesEtSecteurs />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
