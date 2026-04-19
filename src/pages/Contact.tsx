@@ -241,6 +241,7 @@ const Contact = () => {
           email: formData.email,
           address: formData.address,
           serviceWanted,
+          message: formData.message,
         }),
       });
 
@@ -253,6 +254,7 @@ const Contact = () => {
       toast({
         title: "Demande envoyée",
         description: "Nous vous répondrons rapidement.",
+        className: "border-sky-200 bg-sky-50 text-sky-900",
       });
 
       setFormData(EMPTY_CONTACT_FORM_DATA);

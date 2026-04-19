@@ -13,30 +13,52 @@ const readString = (value, maxLength = 1000) => {
   return value.trim().slice(0, maxLength);
 };
 
+const escapeHtml = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
 const buildMapsLink = (address) =>
   address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : "";
 
-const formatTelegramMessage = ({ fullName, phone, email, address, googleMapsLink, serviceWanted }) => {
-  const safeName = fullName || "Non fourni";
-  const safePhone = phone || "Non fourni";
-  const safeEmail = email || "Non fourni";
-  const safeAddress = address || "Non fournie";
-  const safeMapsLink = googleMapsLink || "Adresse non fournie";
-  const safeService = serviceWanted || "Non pr\u00e9cis\u00e9";
+const formatTelegramMessage = ({
+  fullName,
+  phone,
+  email,
+  address,
+  googleMapsLink,
+  serviceWanted,
+  message,
+}) => {
+  const safeName = escapeHtml(fullName || "Non fourni");
+  const safePhone = escapeHtml(phone || "Non fourni");
+  const safeEmail = escapeHtml(email || "Non fourni");
+  const safeAddress = escapeHtml(address || "Non fournie");
+  const safeService = escapeHtml(serviceWanted || "Non précisé");
+  const safeMessage = escapeHtml(message || "Aucun message");
+  const mapsLine = googleMapsLink
+    ? `<a href="${escapeHtml(googleMapsLink)}">Ouvrir dans Google Maps</a>`
+    : "Google Maps: Adresse non fournie";
 
   return [
-    "Nouvelle soumission Ventipure",
+    "<b>Nouvelle soumission Ventipure</b>",
     "",
-    "Client",
+    "<b>Client</b>",
     `Nom: ${safeName}`,
-    `T\u00e9l\u00e9phone: ${safePhone}`,
+    `Téléphone: ${safePhone}`,
     `Courriel: ${safeEmail}`,
     "",
-    "Localisation",
-    `\u{1F4CD} Adresse: ${safeAddress}`,
-    `Ouvrir dans Google Maps: ${safeMapsLink}`,
+    "<b>Localisation</b>",
+    `📍 Adresse: ${safeAddress}`,
+    mapsLine,
     "",
-    `Service souhait\u00e9: ${safeService}`,
+    `Service souhaité: ${safeService}`,
+    "",
+    "<b>Message</b>",
+    safeMessage,
   ].join("\n");
 };
 
@@ -71,6 +93,7 @@ export const handler = async (event) => {
   const email = readString(payload.email, 200);
   const address = readString(payload.address, 500);
   const serviceWanted = readString(payload.serviceWanted, 1000);
+  const message = readString(payload.message, 2000);
 
   if (!phone && !email) {
     return jsonResponse(400, {
@@ -87,6 +110,7 @@ export const handler = async (event) => {
     address,
     googleMapsLink,
     serviceWanted,
+    message,
   });
 
   try {
@@ -98,6 +122,7 @@ export const handler = async (event) => {
       body: JSON.stringify({
         chat_id: channelId,
         text,
+        parse_mode: "HTML",
         disable_web_page_preview: true,
       }),
     });
