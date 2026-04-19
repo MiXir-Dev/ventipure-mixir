@@ -6,8 +6,8 @@ import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Send, Check } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT } from "@/config/services";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT, COMBO_SERVICES } from "@/config/services";
 import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/config/contact";
 import { useQuote } from "@/hooks/useQuote";
 import {
@@ -215,6 +215,12 @@ const Contact = () => {
   };
 
   const quote = useQuote(selectedServices);
+  const prefersReducedMotion = useReducedMotion();
+  const selectedComboCount = COMBO_SERVICES.filter((id) => selectedServices.includes(id)).length;
+  const missingComboService =
+    selectedComboCount === 1
+      ? serviceOptions.find((service) => COMBO_SERVICES.includes(service.id) && !selectedServices.includes(service.id))
+      : null;
   const emailSuggestionDomains = useMemo(() => {
     const value = formData.email.trim().toLowerCase();
     const atIndex = value.indexOf("@");
@@ -553,6 +559,42 @@ const Contact = () => {
                     );
                   })}
                 </div>
+
+                <AnimatePresence initial={false}>
+                  {selectedComboCount === 1 && missingComboService && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
+                      className="mt-3"
+                    >
+                      <div className="relative overflow-hidden rounded-xl border border-primary/35 bg-primary/5 px-3 py-2 text-xs sm:text-sm">
+                        {!prefersReducedMotion && (
+                          <motion.span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,hsl(var(--primary)/0.22),transparent_70%)]"
+                            animate={{ opacity: [0.2, 0.55, 0.2], scale: [1, 1.04, 1] }}
+                            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                        )}
+                        <div className="relative z-10 flex flex-wrap items-center gap-2">
+                          <p className="text-foreground/85">
+                            Économisez <span className="font-semibold text-primary">{COMBO_DISCOUNT} $</span> en ajoutant{" "}
+                            <span className="font-semibold">{missingComboService.label}</span>.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => toggleService(missingComboService.id)}
+                            className="rounded-full border border-primary/30 bg-background/80 px-2.5 py-1 text-[11px] font-semibold text-primary hover:border-primary/60 hover:bg-background transition-colors"
+                          >
+                            Ajouter
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Live quote */}
