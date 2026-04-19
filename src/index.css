@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 18%;
+
+    --primary: 204 100% 33.5%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 209 100% 56%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 30% 96%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 207 60% 95%;
+    --accent-foreground: 204 100% 33.5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 204 100% 33.5%;
+
+    --radius: 0.625rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 220 20% 18%;
+    --sidebar-primary: 204 100% 33.5%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 207 60% 95%;
+    --sidebar-accent-foreground: 204 100% 33.5%;
+    --sidebar-border: 210 20% 90%;
+    --sidebar-ring: 204 100% 33.5%;
+
+    /* Custom VentiPure tokens */
+    --vp-blue-soft: 207 60% 97%;
+    --vp-charcoal: 220 20% 18%;
+    --vp-charcoal-light: 220 10% 40%;
+    --vp-gradient: linear-gradient(135deg, hsl(204 100% 33.5%), hsl(209 100% 56%));
+    --vp-shadow-soft: 0 4px 24px -4px hsl(204 100% 33.5% / 0.1);
+    --vp-shadow-card: 0 2px 16px -2px hsl(220 20% 18% / 0.06);
+  }
+
+  .dark {
+    --background: 220 20% 8%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 20% 11%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 20% 11%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 209 100% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 204 100% 33.5%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 15% 16%;
+    --muted-foreground: 210 10% 60%;
+
+    --accent: 220 15% 16%;
+    --accent-foreground: 209 100% 70%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 209 100% 56%;
+
+    --sidebar-background: 220 20% 8%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 209 100% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 16%;
+    --sidebar-accent-foreground: 209 100% 70%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 209 100% 56%;
+
+    --vp-blue-soft: 220 20% 12%;
+    --vp-charcoal: 210 20% 92%;
+    --vp-charcoal-light: 210 10% 60%;
+    --vp-gradient: linear-gradient(135deg, hsl(209 100% 56%), hsl(204 100% 45%));
+    --vp-shadow-soft: 0 4px 24px -4px hsl(209 100% 56% / 0.15);
+    --vp-shadow-card: 0 2px 16px -2px hsl(0 0% 0% / 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .vp-gradient-text {
+    background: var(--vp-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .vp-gradient-bg {
+    background: var(--vp-gradient);
+  }
+
+  .vp-section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .vp-container {
+    @apply mx-auto max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+}
