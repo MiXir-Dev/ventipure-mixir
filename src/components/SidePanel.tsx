@@ -64,7 +64,7 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
       {/* Panel */}
       <aside
         className={cn(
-          "fixed top-0 right-0 z-[70] h-full w-[340px] max-w-[90vw] bg-background border-l border-border/50 shadow-2xl transition-transform duration-300 ease-out flex flex-col",
+          "fixed top-0 right-0 z-[70] h-full w-full bg-background border-l border-border/50 shadow-2xl transition-transform duration-300 ease-out flex flex-col",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -116,9 +116,6 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
 
           {/* Preferences section */}
           <div className="px-8 pt-8 pb-6 space-y-8">
-            <p className="text-[11px] font-semibold text-muted-foreground/60 uppercase tracking-[0.15em]">
-              Préférences
-            </p>
 
             {/* Theme toggle */}
             <div>
@@ -139,23 +136,6 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
                     {opt.label}
                   </button>
                 ))}
-              </div>
-            </div>
-
-            {/* Newsletter */}
-            <div>
-              <p className="text-xs text-muted-foreground mb-3">Infolettre</p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="votre@courriel.com"
-                  className="flex-1 h-10 rounded-lg border border-input bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-ring"
-                />
-                <button className="h-10 w-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity">
-                  <Mail className="h-4 w-4" />
-                </button>
               </div>
             </div>
 
