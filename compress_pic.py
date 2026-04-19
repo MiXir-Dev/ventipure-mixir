@@ -18,6 +18,7 @@ Everything else is skipped with a reason.
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -137,7 +138,7 @@ def process_file(path: Path, dry_run: bool = False) -> Result:
 
     original_size = path.stat().st_size
 
-    with tempfile.NamedTemporaryFile(suffix=ext, delete=False) as tmp_file:
+    with tempfile.NamedTemporaryFile(suffix=ext, dir=path.parent, delete=False) as tmp_file:
         tmp_path = Path(tmp_file.name)
 
     try:
@@ -155,8 +156,10 @@ def process_file(path: Path, dry_run: bool = False) -> Result:
             return Result("unchanged", "already optimal or larger after optimization", 0)
 
         if not dry_run:
-            shutil.move(str(tmp_path), str(path))
-        return Result("optimized", result.reason, saved)
+            # Replace original atomically when the optimized file is smaller.
+            os.replace(tmp_path, path)
+            return Result("optimized", f"{result.reason}; replaced original", saved)
+        return Result("optimized", f"{result.reason}; would replace original", saved)
     finally:
         if tmp_path.exists():
             try:
