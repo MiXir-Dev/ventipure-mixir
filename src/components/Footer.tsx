@@ -41,9 +41,16 @@ export function Footer() {
           <div>
             <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60 mb-4">Contact</p>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary/60" />
-                <span>2151, rue Leonardo da Vinci<br />Sainte-Julie, Québec<br />J3E 1Z3</span>
+              <li>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=2151+rue+Leonardo+da+Vinci%2C+Sainte-Julie%2C+Qu%C3%A9bec+J3E+1Z3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <MapPin className="h-4 w-4 shrink-0 text-primary/60" />
+                  <span>2151, rue Leonardo da Vinci, Sainte-Julie, Québec J3E 1Z3</span>
+                </a>
               </li>
               <li>
                 <a href="tel:4389952291" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors">

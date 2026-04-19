@@ -5,7 +5,7 @@ import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
-import { Send, Check, Sparkles } from "lucide-react";
+import { Send, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT } from "@/config/services";
 import { useQuote } from "@/hooks/useQuote";
@@ -177,7 +177,7 @@ const Contact = () => {
                     (sélectionnez un ou plusieurs)
                   </span>
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {serviceOptions.map((opt) => {
                     const active = selectedServices.includes(opt.id);
                     return (
@@ -185,7 +185,7 @@ const Contact = () => {
                         key={opt.id}
                         type="button"
                         onClick={() => toggleService(opt.id)}
-                        className={`group inline-flex items-center gap-2 h-11 pl-4 pr-4 rounded-full text-sm font-medium border transition-all duration-200 ${
+                        className={`group flex w-full items-center gap-2 h-11 pl-4 pr-4 rounded-full text-sm font-medium border transition-all duration-200 ${
                           active
                             ? "bg-primary text-primary-foreground border-primary shadow-[var(--vp-shadow-soft)]"
                             : "bg-background text-foreground border-border hover:border-primary/50 hover:text-primary"
@@ -220,7 +220,7 @@ const Contact = () => {
                   >
                     <div className="rounded-2xl border border-border bg-muted/30 p-5 md:p-6">
                       <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-4">
-                        Estimation en temps réel
+                        Estimation
                       </p>
 
                       <ul className="space-y-2.5 mb-4">
@@ -244,8 +244,25 @@ const Contact = () => {
                           className="flex items-center justify-between text-sm pt-3 border-t border-border/60 mb-3"
                         >
                           <span className="inline-flex items-center gap-1.5 text-primary font-semibold">
-                            <Sparkles className="h-3.5 w-3.5" />
-                            Rabais combo favori
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              version="1.1"
+                              xmlnsXlink="http://www.w3.org/1999/xlink"
+                              viewBox="0 0 64 64"
+                              xmlSpace="preserve"
+                              className="h-4 w-4 shrink-0"
+                              aria-hidden="true"
+                            >
+                              <g>
+                                <path
+                                  d="M57.274 6.725c-1.356-1.356-3.366-1.556-5.228-1.09-1.862.465-3.742 1.575-5.378 3.212s-2.747 3.515-3.213 5.378c-.465 1.862-.265 3.872 1.091 5.228a1.5 1.5 0 1 0 2.122-2.121c-.401-.401-.605-1.17-.303-2.38.019-.073.057-.155.079-.23l1.345.072c.777.042 1.375.64 1.417 1.417l.841 15.422c.023.426-.136.84-.438 1.142L27.222 55.162a1.478 1.478 0 0 1-2.121 0L8.838 38.9a1.478 1.478 0 0 1 0-2.122L31.225 14.39a1.498 1.498 0 0 1 1.142-.438l7.945.436a1.5 1.5 0 1 0 .163-2.997l-7.944-.434a4.505 4.505 0 0 0-3.428 1.312L6.716 34.656c-1.745 1.745-1.745 4.62 0 6.364L22.98 57.284c1.744 1.744 4.619 1.744 6.364 0L51.73 34.896a4.505 4.505 0 0 0 1.312-3.427l-.841-15.423a4.49 4.49 0 0 0-1.316-2.932 4.49 4.49 0 0 0-2.841-1.302c.23-.286.47-.57.744-.844 1.293-1.292 2.775-2.122 3.984-2.424 1.21-.302 1.979-.098 2.38.303.351.351.548.956.39 1.946-.157.989-.706 2.245-1.637 3.433a1.5 1.5 0 1 0 2.36 1.852c1.198-1.529 1.98-3.185 2.24-4.814.26-1.63-.043-3.35-1.232-4.539z"
+                                  fill="currentColor"
+                                  stroke="currentColor"
+                                  strokeWidth={0.65}
+                                />
+                              </g>
+                            </svg>
+                            Rabais
                           </span>
                           <span className="font-semibold text-primary tabular-nums">
                             −{COMBO_DISCOUNT} $
@@ -270,7 +287,7 @@ const Contact = () => {
                           </div>
                         </div>
                       )}
-
+{/* 
                       {quote.hasCombo && (
                         <motion.p
                           initial={{ opacity: 0 }}
@@ -279,7 +296,7 @@ const Contact = () => {
                         >
                           Félicitations, vous économisez {COMBO_DISCOUNT} $ avec le combo favori.
                         </motion.p>
-                      )}
+                      )} */}
 
                       {quote.needsEstimate && (
                         <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
@@ -317,7 +334,7 @@ const Contact = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="mt-16 pt-10 border-t border-border/60"
+              className="mt-4 pt-10 border-t border-border/60"
             >
               <div className="flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
                 <a href="tel:4389952291" className="hover:text-foreground transition-colors">

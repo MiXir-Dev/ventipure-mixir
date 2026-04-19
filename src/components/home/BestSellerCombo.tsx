@@ -26,7 +26,6 @@ export function BestSellerCombo() {
         >
           <div
             className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{ background: "var(--vp-gradient)" }}
             aria-hidden
           />
 
