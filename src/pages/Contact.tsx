@@ -304,7 +304,7 @@ const Contact = () => {
                     placeholder="Jean Tremblay"
                   />
                 </div>
-                <div>
+                <div className="relative">
                   <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
                     Courriel
                   </label>
@@ -324,27 +324,30 @@ const Contact = () => {
                     autoComplete="email"
                   />
                   {isEmailFocused && emailSuggestionDomains.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {emailSuggestionDomains.map((domain) => (
-                        <button
-                          key={domain}
-                          type="button"
-                          onPointerDown={(e) => e.preventDefault()}
-                          onClick={() => {
-                            const [localPart] = formData.email.split("@");
-                            if (!localPart) return;
-                            const nextEmail = `${localPart}@${domain}`;
-                            setFormData((prev) => ({ ...prev, email: nextEmail }));
-                            if (contactError && (nextEmail.trim() || formData.phone.trim())) {
-                              setContactError(false);
-                            }
-                          }}
-                          className="inline-flex h-7 items-center rounded-full border border-border px-2.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
-                          aria-label={`Completer avec ${domain}`}
-                        >
-                          @{domain}
-                        </button>
-                      ))}
+                    <div className="absolute z-20 mt-2 w-full rounded-xl border border-border bg-background shadow-[var(--vp-shadow-card)] overflow-hidden">
+                      <ul className="py-1">
+                        {emailSuggestionDomains.map((domain) => (
+                          <li key={domain}>
+                            <button
+                              type="button"
+                              onPointerDown={(e) => e.preventDefault()}
+                              onClick={() => {
+                                const [localPart] = formData.email.split("@");
+                                if (!localPart) return;
+                                const nextEmail = `${localPart}@${domain}`;
+                                setFormData((prev) => ({ ...prev, email: nextEmail }));
+                                if (contactError && (nextEmail.trim() || formData.phone.trim())) {
+                                  setContactError(false);
+                                }
+                              }}
+                              className="w-full text-left px-3 py-2.5 text-sm text-foreground/85 hover:bg-muted/40 transition-colors"
+                              aria-label={`Completer avec ${domain}`}
+                            >
+                              @{domain}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
                 </div>
