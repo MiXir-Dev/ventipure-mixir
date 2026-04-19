@@ -29,7 +29,7 @@ export function useQuote(selectedIds: string[]): Quote {
     const numericItems = selected.filter((s) => s.price !== null);
     const subtotal = numericItems.reduce((sum, s) => sum + (s.price ?? 0), 0);
 
-    // Combo rule — only the furnace + dryer duo unlocks the discount.
+    // Combo rule: only the furnace + dryer duo unlocks the discount.
     const hasCombo = COMBO_SERVICES.every((id) => selectedIds.includes(id));
     const discount = hasCombo ? COMBO_DISCOUNT : 0;
 

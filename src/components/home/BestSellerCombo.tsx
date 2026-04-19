@@ -6,7 +6,7 @@ import { COMBO_DISCOUNT, getService } from "@/config/services";
 
 /**
  * Best-seller combo section.
- * Officially: Furnace ducts (349$) + Dryer vent (149$) — $20 off = 478$.
+ * Officially: Furnace ducts (349$) + Dryer vent (149$) - $20 off = 478$.
  */
 export function BestSellerCombo() {
   const furnace = getService("conduits")!;
