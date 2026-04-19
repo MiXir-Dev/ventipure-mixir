@@ -10,6 +10,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT } from "@/config/services";
 import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/config/contact";
 import { useQuote } from "@/hooks/useQuote";
+import {
+  EMPTY_CONTACT_FORM_DATA,
+  clearContactDraft,
+  loadContactDraft,
+  saveContactDraft,
+  type ContactFormData,
+} from "@/lib/contactDraftStorage";
 import { toast } from "@/components/ui/use-toast";
 
 const serviceOptions = SERVICES;
@@ -69,15 +76,19 @@ const Contact = () => {
     const single = searchParams.get("service");
     return single ? [single] : [];
   }, [searchParams]);
+  const hasServicePresetFromQuery = useMemo(
+    () => searchParams.has("combo") || searchParams.has("service"),
+    [searchParams],
+  );
+  const persistedDraft = useMemo(
+    () => loadContactDraft(serviceOptions.map((service) => service.id)),
+    [],
+  );
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    address: "",
-    phone: "",
-    message: "",
-  });
-  const [selectedServices, setSelectedServices] = useState<string[]>(initialServices);
+  const [formData, setFormData] = useState<ContactFormData>(persistedDraft.formData);
+  const [selectedServices, setSelectedServices] = useState<string[]>(
+    hasServicePresetFromQuery ? initialServices : persistedDraft.selectedServices,
+  );
   const [contactError, setContactError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
@@ -90,8 +101,17 @@ const Contact = () => {
   const skipAddressLookupRef = useRef(false);
 
   useEffect(() => {
-    setSelectedServices(initialServices);
-  }, [initialServices]);
+    if (hasServicePresetFromQuery) {
+      setSelectedServices(initialServices);
+    }
+  }, [hasServicePresetFromQuery, initialServices]);
+
+  useEffect(() => {
+    saveContactDraft({
+      formData,
+      selectedServices,
+    });
+  }, [formData, selectedServices]);
 
   useEffect(() => {
     const query = formData.address.trim();
@@ -235,14 +255,9 @@ const Contact = () => {
         description: "Nous vous répondrons rapidement.",
       });
 
-      setFormData({
-        name: "",
-        email: "",
-        address: "",
-        phone: "",
-        message: "",
-      });
+      setFormData(EMPTY_CONTACT_FORM_DATA);
       setSelectedServices([]);
+      clearContactDraft();
     } catch (error) {
       console.error("Contact submission failed", error);
       toast({
