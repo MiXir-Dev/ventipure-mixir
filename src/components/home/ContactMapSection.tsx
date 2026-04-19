@@ -87,14 +87,14 @@ export function ContactMapSection() {
           >
             <div className="rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-[3/4] shadow-[var(--vp-shadow-card)]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2810.6!2d-73.3387!3d45.5018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc904c7b7e4e1d7%3A0x0!2s2151+Rue+Leonardo-Da-Vinci%2C+Sainte-Julie%2C+QC+J3E+1Z3!5e0!3m2!1sfr!2sca!4v1700000000000!5m2!1sfr!2sca"
+                src="https://www.google.com/maps/d/u/0/embed?mid=18UmReLWAVE80L9LNGiQ0KKRFoOuEn6A&ehbc=2E312F&noprof=1"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Emplacement de VentiPure à Sainte-Julie, Québec"
+                title="Carte des zones desservies par VentiPure"
                 className="w-full h-full"
               />
             </div>

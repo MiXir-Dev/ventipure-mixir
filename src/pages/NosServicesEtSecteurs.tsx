@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
-import secteursMap from "@/assets/secteurs-map.jpg";
 
 const zones = [
   {
@@ -70,13 +69,13 @@ const NosServicesEtSecteurs = () => {
                 className="rounded-2xl overflow-hidden bg-muted/40 border border-border"
               >
                 <div className="aspect-[16/8] md:aspect-[16/6]">
-                  <img
-                    src={secteursMap}
-                    alt="Carte des secteurs desservis par VentiPure dans le Grand Montréal"
+                  <iframe
+                    src="https://www.google.com/maps/d/u/0/embed?mid=18UmReLWAVE80L9LNGiQ0KKRFoOuEn6A&ehbc=2E312F&noprof=1"
+                    title="Carte des secteurs desservis par VentiPure dans le Grand Montréal"
                     loading="lazy"
-                    width={1280}
-                    height={960}
-                    className="w-full h-full object-cover mix-blend-multiply"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    style={{ border: 0 }}
+                    className="w-full h-full"
                   />
                 </div>
               </motion.div>

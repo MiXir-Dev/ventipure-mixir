@@ -50,6 +50,9 @@
     --vp-gradient: linear-gradient(135deg, hsl(204 100% 33.5%), hsl(209 100% 56%));
     --vp-shadow-soft: 0 4px 24px -4px hsl(204 100% 33.5% / 0.1);
     --vp-shadow-card: 0 2px 16px -2px hsl(220 20% 18% / 0.06);
+
+    --selection-bg: 204 100% 88% / 0.78;
+    --selection-foreground: 204 100% 22%;
   }
 
   .dark {
@@ -96,6 +99,9 @@
     --vp-gradient: linear-gradient(135deg, hsl(209 100% 56%), hsl(204 100% 45%));
     --vp-shadow-soft: 0 4px 24px -4px hsl(209 100% 56% / 0.15);
     --vp-shadow-card: 0 2px 16px -2px hsl(0 0% 0% / 0.2);
+
+    --selection-bg: 204 100% 68% / 0.38;
+    --selection-foreground: 210 40% 98%;
   }
 }
 
@@ -111,6 +117,16 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  ::selection {
+    background: hsl(var(--selection-bg));
+    color: hsl(var(--selection-foreground));
+  }
+
+  ::-moz-selection {
+    background: hsl(var(--selection-bg));
+    color: hsl(var(--selection-foreground));
   }
 
   h1, h2, h3, h4, h5, h6 {
