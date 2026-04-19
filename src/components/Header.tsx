@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const navLinks = [
   { label: "Accueil", href: "/" },
@@ -34,8 +35,8 @@ export function Header({ onOpenPanel }: HeaderProps) {
       )}
     >
       <div className="flex items-center justify-between">
-        <Link to="/" className="text-lg font-bold tracking-tight text-foreground">
-          Venti<span className="text-primary">Pure</span>
+        <Link to="/" className="flex items-center" aria-label="Accueil VentiPure">
+          <BrandLogo className="h-11 max-w-[132px] sm:h-12 sm:max-w-[144px]" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

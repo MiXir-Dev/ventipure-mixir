@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, MapPin, Mail } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export function Footer() {
   return (
@@ -8,9 +9,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <p className="text-xl font-bold mb-4 text-foreground">
-              Venti<span className="text-primary">Pure</span>
-            </p>
+            <BrandLogo className="mb-4 h-24 max-w-[180px]" />
             <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
               Service professionnel de nettoyage de ventilation résidentielle au Québec.
             </p>

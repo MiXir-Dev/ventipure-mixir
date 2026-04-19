@@ -2,6 +2,7 @@ import { X, Sun, Moon, Monitor, Mail, Instagram, Facebook } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { BrandLogo } from "@/components/BrandLogo";
 
 interface SidePanelProps {
   open: boolean;
@@ -70,9 +71,7 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-8 pt-8 pb-6">
-          <span className="text-lg font-bold tracking-tight text-foreground">
-            Venti<span className="text-primary">Pure</span>
-          </span>
+          <BrandLogo className="h-12 max-w-[144px]" />
           <button
             onClick={onClose}
             className="p-2 -mr-2 rounded-full text-muted-foreground hover:text-foreground transition-colors"
