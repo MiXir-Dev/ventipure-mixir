@@ -569,29 +569,51 @@ const Contact = () => {
                       transition={{ duration: 0.2 }}
                       className="mt-3"
                     >
-                      <div className="relative overflow-hidden rounded-xl border border-primary/35 bg-primary/5 px-3 py-2 text-xs sm:text-sm">
+                      <motion.button
+                        type="button"
+                        onClick={() => toggleService(missingComboService.id)}
+                        aria-label={`Ajouter ${missingComboService.label} pour activer le rabais combo`}
+                        className="relative overflow-hidden rounded-xl border border-primary/55 bg-gradient-to-r from-primary/20 via-primary/14 to-primary/20 px-3 py-2.5 text-xs sm:text-sm"
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : {
+                                boxShadow: [
+                                  "0 0 0 1px hsl(var(--primary) / 0.2), 0 0 10px hsl(var(--primary) / 0.14)",
+                                  "0 0 0 1px hsl(var(--primary) / 0.48), 0 0 26px hsl(var(--primary) / 0.38)",
+                                  "0 0 0 1px hsl(var(--primary) / 0.2), 0 0 10px hsl(var(--primary) / 0.14)",
+                                ],
+                              }
+                        }
+                        transition={
+                          prefersReducedMotion
+                            ? undefined
+                            : { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                        }
+                      >
                         {!prefersReducedMotion && (
                           <motion.span
                             aria-hidden="true"
-                            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,hsl(var(--primary)/0.22),transparent_70%)]"
-                            animate={{ opacity: [0.2, 0.55, 0.2], scale: [1, 1.04, 1] }}
-                            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_50%,hsl(var(--primary)/0.45),transparent_68%)]"
+                            animate={{ opacity: [0.28, 0.75, 0.28], scale: [1, 1.06, 1] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                           />
                         )}
-                        <div className="relative z-10 flex flex-wrap items-center gap-2">
+                        <div className="relative z-10 flex w-full items-center justify-between gap-2 text-left">
                           <p className="text-foreground/85">
                             Économisez <span className="font-semibold text-primary">{COMBO_DISCOUNT} $</span> en ajoutant{" "}
                             <span className="font-semibold">{missingComboService.label}</span>.
                           </p>
-                          <button
-                            type="button"
-                            onClick={() => toggleService(missingComboService.id)}
-                            className="rounded-full border border-primary/30 bg-background/80 px-2.5 py-1 text-[11px] font-semibold text-primary hover:border-primary/60 hover:bg-background transition-colors"
-                          >
-                            Ajouter
-                          </button>
+                          <span className="inline-flex shrink-0 items-center">
+                            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-primary/35 bg-background/80 text-base font-semibold leading-none text-primary transition-colors sm:hidden">
+                              +
+                            </span>
+                            <span className="hidden rounded-full border border-primary/30 bg-background/80 px-2.5 py-1 text-[11px] font-semibold text-primary transition-colors sm:inline-flex">
+                              Ajouter
+                            </span>
+                          </span>
                         </div>
-                      </div>
+                      </motion.button>
                     </motion.div>
                   )}
                 </AnimatePresence>
