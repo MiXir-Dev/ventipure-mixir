@@ -1,0 +1,62 @@
+[
+  {
+    "path": "/",
+    "title": "VentiPure | Nettoyage de ventilation résidentielle et commerciale au Québec",
+    "description": "VentiPure offre le nettoyage professionnel des conduits de fournaise, échangeur d'air, conduit de sécheuse et climatiseur mural au Québec. Soumission gratuite.",
+    "robots": "index,follow",
+    "indexable": true,
+    "changefreq": "weekly",
+    "priority": 1.0,
+    "ogImage": "/nettoyage-ventillations/hero-main.jpg"
+  },
+  {
+    "path": "/services",
+    "title": "Services de nettoyage de ventilation au Québec | VentiPure",
+    "description": "Découvrez les services VentiPure: nettoyage des conduits de fournaise, échangeur d'air, conduit de sécheuse, climatiseur mural et conduits commerciaux.",
+    "robots": "index,follow",
+    "indexable": true,
+    "changefreq": "weekly",
+    "priority": 0.9,
+    "ogImage": "/nettoyage-ventillations/service-conduits.jpg"
+  },
+  {
+    "path": "/tarifs",
+    "title": "Tarifs de nettoyage de ventilation au Québec | VentiPure",
+    "description": "Consultez les tarifs résidentiels et commerciaux de VentiPure pour le nettoyage de ventilation au Québec, avec soumission gratuite.",
+    "robots": "index,follow",
+    "indexable": true,
+    "changefreq": "weekly",
+    "priority": 0.9,
+    "ogImage": "/nettoyage-ventillations/tarif-conduits.jpg"
+  },
+  {
+    "path": "/equipement",
+    "title": "Équipement professionnel de nettoyage de conduits | VentiPure",
+    "description": "VentiPure utilise un équipement professionnel combinant aspiration HEPA et soufflage pneumatique pour un nettoyage de ventilation rigoureux.",
+    "robots": "index,follow",
+    "indexable": true,
+    "changefreq": "monthly",
+    "priority": 0.8,
+    "ogImage": "/nettoyage-ventillations/equip-nexair.jpg"
+  },
+  {
+    "path": "/nos-services-et-secteurs",
+    "title": "Secteurs desservis: Montréal, Laval, Longueuil, Rive-Sud | VentiPure",
+    "description": "VentiPure dessert Montréal, Laval, Longueuil, Repentigny et la Rive-Sud pour le nettoyage de ventilation résidentiel et commercial.",
+    "robots": "index,follow",
+    "indexable": true,
+    "changefreq": "weekly",
+    "priority": 0.8,
+    "ogImage": "/nettoyage-ventillations/secteurs-map.jpg"
+  },
+  {
+    "path": "/contact",
+    "title": "Demander une soumission de nettoyage de ventilation | VentiPure",
+    "description": "Demandez votre soumission pour un nettoyage de conduits de ventilation avec VentiPure. Service résidentiel et commercial au Québec.",
+    "robots": "index,follow",
+    "indexable": true,
+    "changefreq": "weekly",
+    "priority": 0.9,
+    "ogImage": "/nettoyage-ventillations/hero-secondary.jpg"
+  }
+]
