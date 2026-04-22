@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useMemo, useState } from "react";
 import { Header } from "@/components/Header";
 import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
@@ -8,17 +8,25 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ROUTE_PATHS, buildContactServicePath } from "@/consts/navigation";
-import { SERVICE_MARKETING_ENTRIES } from "@/consts/services";
+import { SERVICE_MARKETING_ENTRIES, type ServiceMarketingId } from "@/consts/services";
 
 const Services = () => {
   const [panelOpen, setPanelOpen] = useState(false);
+  const [selectedServiceFilters, setSelectedServiceFilters] = useState<ServiceMarketingId[]>([]);
 
-  const scrollToSection = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, []);
+  const toggleServiceFilter = (id: ServiceMarketingId) => {
+    setSelectedServiceFilters((prev) =>
+      prev.includes(id) ? prev.filter((filterId) => filterId !== id) : [...prev, id],
+    );
+  };
+
+  const filteredServices = useMemo(
+    () =>
+      selectedServiceFilters.length === 0
+        ? SERVICE_MARKETING_ENTRIES
+        : SERVICE_MARKETING_ENTRIES.filter((service) => selectedServiceFilters.includes(service.id)),
+    [selectedServiceFilters],
+  );
 
   return (
     <PageTransition>
@@ -94,8 +102,14 @@ const Services = () => {
                   {SERVICE_MARKETING_ENTRIES.map((s) => (
                     <button
                       key={s.id}
-                      onClick={() => scrollToSection(s.id)}
-                      className="px-4 py-2.5 rounded-full border border-border text-sm font-medium text-foreground/80 hover:border-primary hover:text-primary transition-colors duration-200"
+                      type="button"
+                      aria-pressed={selectedServiceFilters.includes(s.id)}
+                      onClick={() => toggleServiceFilter(s.id)}
+                      className={`px-4 py-2.5 rounded-full border text-sm font-medium ${
+                        selectedServiceFilters.includes(s.id)
+                          ? "border-primary text-primary bg-primary/5"
+                          : "border-border hover:border-primary hover:text-primary"
+                      }`}
                     >
                       {s.servicesPage.title
                         .replace("Nettoyage des ", "")
@@ -110,7 +124,7 @@ const Services = () => {
           </section>
 
           {/* Service sections */}
-          {SERVICE_MARKETING_ENTRIES.map((s, i) => {
+          {filteredServices.map((s, i) => {
             const isEven = i % 2 === 0;
             return (
               <section
