@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
 import { ROUTE_PATHS } from "@/consts/navigation";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { CONTACT_EMAIL, CONTACT_EMAIL_URL } from "@/consts/contact";
 
 const PolitiqueDeConfidentialite = () => {
   return (
-    <main className="min-h-screen bg-background pt-28 pb-20">
+    <main className="min-h-screen bg-background pt-16 pb-16">
       <div className="vp-container max-w-3xl">
+        <Breadcrumb
+          className="mb-6"
+          items={[
+            { label: "Accueil", to: ROUTE_PATHS.HOME },
+            { label: "Politique de confidentialité" },
+          ]}
+        />
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
           Politique de confidentialité
         </p>
@@ -13,7 +22,7 @@ const PolitiqueDeConfidentialite = () => {
           Politique de confidentialité
         </h1>
 
-        <p className="text-muted-foreground text-[15px] leading-relaxed mb-10">
+        <p className="text-muted-foreground text-[15px] leading-relaxed mb-4">
           Chez VentiPure, nous accordons une grande importance à la protection de
           vos renseignements personnels. Cette page explique de façon simple
           quelles informations peuvent être recueillies sur notre site, pourquoi
@@ -73,17 +82,6 @@ const PolitiqueDeConfidentialite = () => {
 
           <section>
             <h2 className="text-xl font-bold text-foreground mb-3">
-              5. Conservation et sécurité
-            </h2>
-            <p className="text-muted-foreground text-[15px] leading-relaxed">
-              Nous prenons des mesures raisonnables pour protéger les informations
-              que vous nous transmettez. Nous conservons uniquement les données
-              nécessaires au suivi de votre demande et à nos échanges avec vous.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">
               6. Vos questions
             </h2>
             <p className="text-muted-foreground text-[15px] leading-relaxed">
@@ -91,10 +89,10 @@ const PolitiqueDeConfidentialite = () => {
               le traitement de vos informations, vous pouvez communiquer avec
               nous à l’adresse suivante :{" "}
               <a
-                href="mailto:info@ventipure.ca"
+                href={CONTACT_EMAIL_URL}
                 className="text-primary underline hover:text-primary/80"
               >
-                info@ventipure.ca
+                {CONTACT_EMAIL}
               </a>
               .
             </p>

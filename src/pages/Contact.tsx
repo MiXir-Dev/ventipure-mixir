@@ -12,6 +12,8 @@ import { ContactFormFieldsBlock } from "@/components/contact/ContactFormFieldsBl
 import { ContactServicesQuoteBlock } from "@/components/contact/ContactServicesQuoteBlock";
 import { ContactBottomDetails } from "@/components/contact/ContactBottomDetails";
 import { useContactForm } from "@/components/contact/useContactForm";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { ROUTE_PATHS } from "@/consts/navigation";
 
 const Contact = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -48,6 +50,13 @@ const Contact = () => {
 
         <main className="pt-32 pb-20 md:pt-40 md:pb-28">
           <div className="vp-container max-w-2xl">
+            <Breadcrumb
+              className="mb-6"
+              items={[
+                { label: "Accueil", to: ROUTE_PATHS.HOME },
+                { label: "Contact" },
+              ]}
+            />
             <ContactHeroSection />
 
             <motion.form

@@ -32,9 +32,6 @@ export function EquipmentShowcase() {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mb-14 md:mb-20"
         >
-          <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">
-            Équipement de pointe
-          </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight mb-5">
             Du matériel professionnel,<br />pour un travail rigoureux
           </h2>

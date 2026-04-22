@@ -129,17 +129,20 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
               <p className="text-xs text-muted-foreground mb-3">Suivez-nous</p>
               <div className="flex gap-2">
                 {[
-                  { icon: Facebook, label: "Facebook" },
-                  { icon: Instagram, label: "Instagram" },
+                  { icon: Facebook, label: "Facebook", link:"https://www.facebook.com/share/1KGX5atuuJ/?mibextid=wwXIfr" },
+                  { icon: Instagram, label: "Instagram", link:"https://www.facebook.com/share/1KGX5atuuJ/?mibextid=wwXIfr" },
                 ].map((s) => (
-                  <a
+                  <Link
                     key={s.label}
-                    href="#"
+                    // TODO: replace with real social media URL when available.
+                    target="_blank"
+                    to={`${s.link}`}
                     className="p-2.5 rounded-lg border border-border/50 text-muted-foreground hover:text-foreground hover:border-border transition-colors"
-                    aria-label={s.label}
+                    aria-label={`${s.label} (bientot disponible)`}
+                    role="img"
                   >
                     <s.icon className="h-4 w-4" />
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -159,7 +162,7 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
                 onClick={onClose}
                 className="text-xs font-medium text-primary hover:text-primary/80 transition-colors"
               >
-                Nous contacter →
+                Demander une soumission gratuite →
               </Link>
             </div>
           </div>

@@ -21,7 +21,7 @@ export function FinalCTA() {
           </p>
           <Link to={ROUTE_PATHS.CONTACT}>
             <Button variant="default" size="lg">
-              Nous contacter
+              Demander une soumission gratuite
             </Button>
           </Link>
         </motion.div>

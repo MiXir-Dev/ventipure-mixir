@@ -25,9 +25,6 @@ export function ContactMapSection() {
             transition={{ duration: 0.5 }}
             className="lg:py-4"
           >
-            <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">
-              Nous joindre
-            </p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight mb-10">
               Contactez VentiPure
             </h2>

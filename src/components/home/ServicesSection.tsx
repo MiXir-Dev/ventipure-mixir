@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ROUTE_PATHS } from "@/consts/navigation";
-import { SERVICE_MARKETING_ENTRIES } from "@/consts/services";
+import { SERVICE_MARKETING_ENTRIES, SERVICE_ROUTE_BY_ID } from "@/consts/services";
 
 const getHomeCardPrice = (priceNote: string, price: string) =>
   priceNote ? `${priceNote} ${price}` : price;
@@ -19,7 +19,6 @@ export function ServicesSection() {
           className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16"
         >
           <div>
-            <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">Services</p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
               Nettoyage de ventilation résidentielle et commerciale
             </h2>
@@ -28,7 +27,7 @@ export function ServicesSection() {
             to={ROUTE_PATHS.CONTACT}
             className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
           >
-            Demander un service →
+            Demander une soumission gratuite →
           </Link>
         </motion.div>
 
@@ -46,9 +45,20 @@ export function ServicesSection() {
                 {getHomeCardPrice(service.tarifsPage.priceNote, service.tarifsPage.price)}
               </p>
               <h3 className="text-lg font-bold text-foreground mb-2 tracking-tight">
-                {service.tarifsPage.title}
+                <Link
+                  to={SERVICE_ROUTE_BY_ID[service.id]}
+                  className="hover:text-primary transition-colors"
+                >
+                  {service.servicesPage.title}
+                </Link>
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{service.homeDescription}</p>
+              <Link
+                to={SERVICE_ROUTE_BY_ID[service.id]}
+                className="mt-4 inline-flex text-sm text-primary hover:text-primary/80 transition-colors"
+              >
+                En savoir plus sur {service.tarifsPage.title.toLowerCase()}
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -61,7 +71,7 @@ export function ServicesSection() {
           className="mt-12 flex justify-center"
         >
           <Link to={ROUTE_PATHS.TARIFS}>
-            <Button variant="outline" size="lg">Voir tous les tarifs</Button>
+            <Button variant="outline" size="lg">Voir les tarifs de nettoyage</Button>
           </Link>
         </motion.div>
       </div>

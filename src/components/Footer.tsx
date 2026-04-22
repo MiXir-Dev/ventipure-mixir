@@ -10,6 +10,7 @@ import {
   CONTACT_PHONE_DISPLAY,
   CONTACT_PHONE_URL,
 } from "@/consts/contact";
+import { ROUTE_PATHS } from "@/consts/navigation";
 
 export function Footer() {
   return (
@@ -75,12 +76,18 @@ export function Footer() {
             © {new Date().getFullYear()} VentiPure. Tous droits réservés.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+            <Link
+              to={ROUTE_PATHS.POLITIQUE_CONFIDENTIALITE}
+              className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
+            >
               Politique de confidentialité
-            </a>
-            <a href="#" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+            </Link>
+            <Link
+              to={ROUTE_PATHS.MODALITES_UTILISATION}
+              className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
+            >
               Conditions d'utilisation
-            </a>
+            </Link>
           </div>
         </div>
       </div>

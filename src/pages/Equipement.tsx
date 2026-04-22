@@ -9,6 +9,7 @@ import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTE_PATHS } from "@/consts/navigation";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const equipNexair = "/nettoyage-ventillations/equip-nexair.jpg";
 const equipOmega = "/nettoyage-ventillations/equip-omega.jpg";
@@ -25,24 +26,28 @@ const Equipement = () => {
 
         <main>
           {/* Hero */}
-          <section className="pt-32 pb-16 md:pt-44 md:pb-24">
+          <section className="pt-32 pb-20 md:pt-40 md:pb-28">
             <div className="vp-container max-w-3xl">
+              <Breadcrumb
+                className="mb-6"
+                items={[
+                  { label: "Accueil", to: ROUTE_PATHS.HOME },
+                  { label: "Équipement" },
+                ]}
+              />
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-4">
-                  Équipement
-                </p>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight mb-5 leading-[1.1]">
                   Équipement et méthode de travail
                 </h1>
-                <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mb-8">
+                <p className="text-muted-foreground text-[15px] leading-relaxed mb-8">
                   VentiPure travaille avec un matériel professionnel sélectionné pour la puissance, la propreté et la fiabilité, autant en résidentiel qu'en commercial.
                 </p>
                 <SeoLinksParagraph
-                  className="max-w-xl mb-8"
+                  className="mb-8"
                 >
                   Découvrez aussi nos <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link>, nos{" "}
                   <Link to={ROUTE_PATHS.TARIFS}>prix pour le nettoyage d'échangeur d'air et de sécheuse</Link> et nos{" "}
@@ -50,7 +55,7 @@ const Equipement = () => {
                 </SeoLinksParagraph>
                 <div className="flex flex-wrap gap-3">
                   <Link to={ROUTE_PATHS.CONTACT}>
-                    <Button variant="default" size="lg">Nous contacter</Button>
+                    <Button variant="default" size="lg">Demander une soumission gratuite</Button>
                   </Link>
                   <Link to={ROUTE_PATHS.SERVICES}>
                     <Button variant="outline" size="lg">Voir les services</Button>
@@ -222,7 +227,7 @@ const Equipement = () => {
             title="Besoin d'un service de ventilation?"
             description="Parlez-nous de votre besoin et obtenez une soumission adaptée à votre résidence ou à votre commerce."
             buttonTo={ROUTE_PATHS.CONTACT}
-            buttonLabel="Nous contacter"
+            buttonLabel="Demander une soumission gratuite"
           />
         </main>
 
