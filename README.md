@@ -44,13 +44,6 @@ npm run lint
 npm run test
 ```
 
-## Environment Variables
-
-For contact form delivery through Telegram (Netlify function):
-
-- `TELEGRAM_CHANNEL_ID`
-- `TELEGRAM_BOT_KEY`
-
 ## Deployment
 
 This project is configured for Netlify:
