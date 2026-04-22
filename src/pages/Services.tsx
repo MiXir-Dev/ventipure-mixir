@@ -178,35 +178,6 @@ const Services = () => {
           })}
 
           {/* Final CTA */}
-          <section className="pb-16 md:pb-24">
-            <div className="vp-container max-w-4xl">
-              <div className="rounded-2xl border border-border bg-muted/20 p-6 md:p-8">
-                <h2 className="text-xl md:text-2xl font-bold text-foreground tracking-tight mb-3">
-                  Liens utiles pour votre projet de nettoyage de conduits
-                </h2>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Besoin d'un aperçu complet? Comparez les{" "}
-                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
-                    tarifs du nettoyage d'échangeur d'air et de conduit de sécheuse
-                  </Link>
-                  , vérifiez nos{" "}
-                  <Link
-                    to={ROUTE_PATHS.SECTEURS}
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    secteurs de service en ventilation dans le Grand Montréal
-                  </Link>
-                  , puis demandez une{" "}
-                  <Link to={ROUTE_PATHS.CONTACT} className="text-primary hover:text-primary/80 transition-colors">
-                    soumission pour le nettoyage de conduits
-                  </Link>
-                  .
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Final CTA */}
           <section className="pb-20 md:pb-32">
             <div className="vp-container max-w-2xl text-center">
               <motion.div
