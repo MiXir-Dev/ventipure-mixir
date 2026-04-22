@@ -2,6 +2,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { CONTACT_AREA_SERVED_LINE_1, CONTACT_AREA_SERVED_LINE_2 } from "@/consts/zones";
+import {
+  CONTACT_ADDRESS_LINE_1,
+  CONTACT_ADDRESS_LINE_2,
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_URL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_URL,
+  SERVICE_AREAS_MAP_EMBED_URL,
+} from "@/consts/contact";
 
 export function ContactMapSection() {
   return (
@@ -29,10 +38,10 @@ export function ContactMapSection() {
                   Téléphone
                 </p>
                 <a
-                  href="tel:4389952291"
+                  href={CONTACT_PHONE_URL}
                   className="text-lg font-semibold text-foreground hover:text-primary transition-colors"
                 >
-                  438-995-2291
+                  {CONTACT_PHONE_DISPLAY}
                 </a>
               </div>
 
@@ -41,10 +50,10 @@ export function ContactMapSection() {
                   Courriel
                 </p>
                 <a
-                  href="mailto:info@ventipure.ca"
+                  href={CONTACT_EMAIL_URL}
                   className="text-lg font-semibold text-foreground hover:text-primary transition-colors"
                 >
-                  info@ventipure.ca
+                  {CONTACT_EMAIL}
                 </a>
               </div>
 
@@ -53,8 +62,8 @@ export function ContactMapSection() {
                   Adresse
                 </p>
                 <p className="text-[15px] text-foreground leading-relaxed">
-                  2151, rue Leonardo da Vinci<br />
-                  Sainte-Julie, Québec J3E 1Z3
+                  {CONTACT_ADDRESS_LINE_1}<br />
+                  {CONTACT_ADDRESS_LINE_2}
                 </p>
               </div>
 
@@ -97,7 +106,7 @@ export function ContactMapSection() {
           >
             <div className="rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-[3/4] shadow-[var(--vp-shadow-card)]">
               <iframe
-                src="https://www.google.com/maps/d/u/0/embed?mid=18UmReLWAVE80L9LNGiQ0KKRFoOuEn6A&ehbc=2E312F&noprof=1"
+                src={SERVICE_AREAS_MAP_EMBED_URL}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

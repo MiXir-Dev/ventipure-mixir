@@ -2,6 +2,14 @@ import { Link } from "react-router-dom";
 import { Phone, MapPin, Mail } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { FOOTER_NAV_LINKS } from "@/consts/navigation";
+import {
+  CONTACT_ADDRESS_FULL,
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_URL,
+  CONTACT_MAPS_URL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_URL,
+} from "@/consts/contact";
 
 export function Footer() {
   return (
@@ -36,25 +44,25 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=2151+rue+Leonardo+da+Vinci%2C+Sainte-Julie%2C+Qu%C3%A9bec+J3E+1Z3"
+                  href={CONTACT_MAPS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <MapPin className="h-4 w-4 shrink-0 text-primary/60" />
-                  <span>2151, rue Leonardo da Vinci, Sainte-Julie, Québec J3E 1Z3</span>
+                  <span>{CONTACT_ADDRESS_FULL}</span>
                 </a>
               </li>
               <li>
-                <a href="tel:4389952291" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <a href={CONTACT_PHONE_URL} className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Phone className="h-4 w-4 shrink-0 text-primary/60" />
-                  438-995-2291
+                  {CONTACT_PHONE_DISPLAY}
                 </a>
               </li>
               <li>
-                <a href="mailto:info@ventipure.ca" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <a href={CONTACT_EMAIL_URL} className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Mail className="h-4 w-4 shrink-0 text-primary/60" />
-                  info@ventipure.ca
+                  {CONTACT_EMAIL}
                 </a>
               </li>
             </ul>

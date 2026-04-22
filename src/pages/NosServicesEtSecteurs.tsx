@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { SERVICE_ZONES } from "@/consts/zones";
+import { SERVICE_AREAS_MAP_EMBED_URL } from "@/consts/contact";
 
 const NosServicesEtSecteurs = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -64,7 +65,7 @@ const NosServicesEtSecteurs = () => {
               >
                 <div className="aspect-[16/8] md:aspect-[16/6]">
                   <iframe
-                    src="https://www.google.com/maps/d/u/0/embed?mid=18UmReLWAVE80L9LNGiQ0KKRFoOuEn6A&ehbc=2E312F&noprof=1"
+                    src={SERVICE_AREAS_MAP_EMBED_URL}
                     title="Carte des secteurs desservis par VentiPure dans le Grand Montréal"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"

@@ -1,4 +1,12 @@
-import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY } from "@/consts/contact";
+import {
+  CONTACT_ADDRESS_COUNTRY,
+  CONTACT_ADDRESS_LOCALITY,
+  CONTACT_ADDRESS_POSTAL_CODE,
+  CONTACT_ADDRESS_REGION,
+  CONTACT_ADDRESS_STREET,
+  CONTACT_EMAIL,
+  CONTACT_PHONE_E164,
+} from "@/consts/contact";
 import { FAQ_ITEMS } from "@/consts/faqs";
 import { ROUTE_PATHS, buildContactServicePath } from "@/consts/navigation";
 import { SEO_SITE_URL } from "@/consts/seo";
@@ -7,11 +15,11 @@ import { SERVICES } from "@/consts/services";
 
 const businessAddress = {
   "@type": "PostalAddress",
-  streetAddress: "2151 rue Leonardo da Vinci",
-  addressLocality: "Sainte-Julie",
-  addressRegion: "QC",
-  postalCode: "J3E 1Z3",
-  addressCountry: "CA",
+  streetAddress: CONTACT_ADDRESS_STREET,
+  addressLocality: CONTACT_ADDRESS_LOCALITY,
+  addressRegion: CONTACT_ADDRESS_REGION,
+  postalCode: CONTACT_ADDRESS_POSTAL_CODE,
+  addressCountry: CONTACT_ADDRESS_COUNTRY,
 };
 
 const areaServed = STRUCTURED_DATA_AREA_SERVED.map((name) => ({
@@ -37,7 +45,7 @@ const localBusinessSchema = () => ({
   "@type": "ProfessionalService",
   name: "VentiPure",
   url: SEO_SITE_URL,
-  telephone: `+1${CONTACT_PHONE_DISPLAY.replaceAll("-", "")}`,
+  telephone: CONTACT_PHONE_E164,
   email: CONTACT_EMAIL,
   address: businessAddress,
   areaServed,

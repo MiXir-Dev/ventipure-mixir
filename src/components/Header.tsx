@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HEADER_NAV_LINKS, ROUTE_PATHS } from "@/consts/navigation";
+import { CONTACT_PHONE_URL } from "@/consts/contact";
 
 interface HeaderProps {
   onOpenPanel: () => void;
@@ -58,7 +59,7 @@ export function Header({ onOpenPanel }: HeaderProps) {
 
           {/* Mobile phone button */}
           <a
-            href="tel:4389952291"
+            href={CONTACT_PHONE_URL}
             className="md:hidden p-2.5 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Appeler VentiPure"
           >

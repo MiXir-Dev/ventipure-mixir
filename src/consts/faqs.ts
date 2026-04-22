@@ -1,3 +1,5 @@
+import { CONTACT_PHONE_DISPLAY } from "@/consts/contact";
+
 export type FaqItem = {
   q: string;
   a: string;
@@ -22,6 +24,6 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Comment demander une soumission?",
-    a: "Contactez-nous par téléphone au 438-995-2291 ou par le formulaire de contact du site. Nous vous répondrons rapidement pour valider vos besoins et planifier l'intervention.",
+    a: `Contactez-nous par téléphone au ${CONTACT_PHONE_DISPLAY} ou par le formulaire de contact du site. Nous vous répondrons rapidement pour valider vos besoins et planifier l'intervention.`,
   },
 ];

@@ -8,7 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Send, Check, Plus, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT, COMBO_SERVICES } from "@/consts/services";
-import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/consts/contact";
+import {
+  CONTACT_ADDRESS_CITY_REGION,
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_URL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_URL,
+} from "@/consts/contact";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { CONTACT_AREA_SERVED_SUMMARY } from "@/consts/zones";
 import { useQuote } from "@/hooks/useQuote";
@@ -752,13 +758,13 @@ const Contact = () => {
               className="mt-4 pt-10 border-t border-border/60"
             >
               <div className="flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
-                <a href={`tel:${CONTACT_PHONE_TEL}`} className="hover:text-foreground transition-colors">
+                <a href={CONTACT_PHONE_URL} className="hover:text-foreground transition-colors">
                   {CONTACT_PHONE_DISPLAY}
                 </a>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-foreground transition-colors">
+                <a href={CONTACT_EMAIL_URL} className="hover:text-foreground transition-colors">
                   {CONTACT_EMAIL}
                 </a>
-                <span>Sainte-Julie, Québec</span>
+                <span>{CONTACT_ADDRESS_CITY_REGION}</span>
               </div>
             </motion.div>
           </div>
