@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "npm run seo:generate",
     "build:dev": "vite build --mode development",
+    "seo:generate": "node scripts/generate-seo-assets.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
