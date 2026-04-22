@@ -1,3 +1,5 @@
+import { ROUTE_PATHS } from "@/consts/navigation";
+
 export type ServiceId =
   | "conduits"
   | "secheuse"
@@ -70,6 +72,14 @@ export const getService = (id: string): ServiceItem | undefined =>
   SERVICES.find((s) => s.id === id);
 
 export type ServiceMarketingId = Exclude<ServiceId, "autre">;
+
+export const SERVICE_ROUTE_BY_ID: Record<ServiceMarketingId, string> = {
+  conduits: ROUTE_PATHS.SERVICES_CONDUITS,
+  secheuse: ROUTE_PATHS.SERVICES_SECHEUSE,
+  echangeur: ROUTE_PATHS.SERVICES_ECHANGEUR,
+  climatiseur: ROUTE_PATHS.SERVICES_CLIMATISEUR,
+  commercial: ROUTE_PATHS.SERVICES_COMMERCIAUX,
+};
 
 export enum SERVICE_MEDIA_ASSETS {
   SERVICE_CONDUITS = "/nettoyage-ventillations/service-conduits.jpg",

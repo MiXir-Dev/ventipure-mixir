@@ -3,12 +3,10 @@ export type SubmitContactEvent = {
   body?: string;
 };
 
-export type SubmitContactResponse = {
+export type SubmitContactResult = {
   statusCode: number;
   headers?: Record<string, string>;
   body?: string;
 };
 
-export declare function handler(
-  event: SubmitContactEvent,
-): Promise<SubmitContactResponse>;
+export function handler(event: SubmitContactEvent): Promise<SubmitContactResult>;

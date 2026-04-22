@@ -1,10 +1,21 @@
 export enum ROUTE_PATHS {
   HOME = "/",
   SERVICES = "/services",
+  SERVICES_CONDUITS = "/services/nettoyage-conduits-fournaise",
+  SERVICES_SECHEUSE = "/services/nettoyage-conduit-secheuse",
+  SERVICES_ECHANGEUR = "/services/nettoyage-echangeur-air",
+  SERVICES_CLIMATISEUR = "/services/nettoyage-climatiseur-mural",
+  SERVICES_COMMERCIAUX = "/services/nettoyage-conduits-commerciaux",
   TARIFS = "/tarifs",
   CONTACT = "/contact",
   EQUIPEMENT = "/equipement",
   SECTEURS = "/nos-services-et-secteurs",
+  MONTREAL = "/montreal",
+  LAVAL = "/laval",
+  LONGUEUIL = "/longueuil",
+  REPENTIGNY = "/repentigny",
+  POLITIQUE_CONFIDENTIALITE = "/politique-de-confidentialite",
+  MODALITES_UTILISATION = "/modalites-dutilisation",
 }
 
 export enum PAGE_LABELS {
@@ -28,9 +39,9 @@ export const HEADER_NAV_LINKS: NavigationLink[] = [
   { label: PAGE_LABELS.HOME, href: ROUTE_PATHS.HOME },
   { label: PAGE_LABELS.SERVICES, href: ROUTE_PATHS.SERVICES },
   { label: PAGE_LABELS.TARIFS, href: ROUTE_PATHS.TARIFS },
+  { label: PAGE_LABELS.EQUIPEMENT, href: ROUTE_PATHS.EQUIPEMENT },
   { label: PAGE_LABELS.SECTEURS, href: ROUTE_PATHS.SECTEURS },
   { label: PAGE_LABELS.CONTACT, href: ROUTE_PATHS.CONTACT },
-  // { label: PAGE_LABELS.EQUIPEMENT, href: ROUTE_PATHS.EQUIPEMENT },
 ];
 
 export const SIDE_PANEL_HEADER_LINKS: AppRoutePath[] = [
@@ -56,8 +67,6 @@ export const FOOTER_NAV_LINKS: NavigationLink[] = [
   { label: PAGE_LABELS.NOS_SECTEURS, href: ROUTE_PATHS.SECTEURS },
   { label: PAGE_LABELS.CONTACT, href: ROUTE_PATHS.CONTACT },
 ];
-
-
 
 export const buildContactServicePath = (serviceId: string) =>
   `${ROUTE_PATHS.CONTACT}?service=${encodeURIComponent(serviceId)}`;

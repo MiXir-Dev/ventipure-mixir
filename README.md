@@ -1,10 +1,39 @@
 # VentiPure Website
 
-Public website for **VentiPure** (Quebec ventilation cleaning), built to present services and convert visitors into quote requests.
+Public website for **VentiPure**, a Quebec ventilation-cleaning company focused on residential and light commercial lead generation.
 
 - Live site: [ventipure.ca](https://ventipure.ca/)
 - Primary language: French
 - Main audience: residential clients + light commercial clients in Greater Montreal
+
+## Company Public Information
+
+- Business name: **VentiPure**
+- Website: [ventipure.ca](https://ventipure.ca/)
+- Phone: **438-995-2291**
+- Email: **info@ventipure.ca**
+- Address: **2151, rue Leonardo da Vinci, Sainte-Julie, Québec J3E 1Z3**
+- Main service territory: Greater Montreal and surrounding areas
+
+### Core Services
+
+- Nettoyage des conduits de fournaise (from **349 $**)
+- Nettoyage du conduit de sécheuse (**149 $**)
+- Nettoyage de l'échangeur d'air (**249 $**)
+- Nettoyage de climatiseur mural (**249 $**)
+- Nettoyage de conduits commerciaux (on estimate)
+
+### Featured Offer
+
+- Best-seller combo: **fournaise + sécheuse**
+- Public discount shown on site: **20 $** off
+
+### Service Areas Highlighted on the Site
+
+- Montréal
+- Longueuil et alentours (ex: Brossard, Saint-Hubert, Boucherville)
+- Laval et alentours (ex: Chomedey, Sainte-Rose, Vimont)
+- Repentigny et alentours (ex: L'Assomption, Le Gardeur, Terrebonne)
 
 ## What This Website Includes
 
