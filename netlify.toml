@@ -15,6 +15,13 @@
   status = 200
 
 [[redirects]]
+  from = "/404"
+  to = "/404/index.html"
+  status = 200
+  force = false
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false

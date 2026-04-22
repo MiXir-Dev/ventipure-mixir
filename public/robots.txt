@@ -1,16 +1,15 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
 
+# Block crawl of build artifacts and non-content paths
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap location
 Sitemap: https://ventipure.ca/sitemap.xml
+
+# Crawl-delay for non-Google bots (optional, conservative)
+User-agent: AhrefsBot
+Crawl-delay: 10
+User-agent: SemrushBot
+Crawl-delay: 10
