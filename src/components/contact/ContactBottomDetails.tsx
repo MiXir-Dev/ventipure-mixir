@@ -5,6 +5,7 @@ import {
   CONTACT_EMAIL_URL,
   CONTACT_PHONE_DISPLAY,
   CONTACT_PHONE_URL,
+  SERVICE_AREAS_MAP_EMBED_URL,
 } from "@/consts/contact";
 
 export function ContactBottomDetails() {
@@ -23,6 +24,17 @@ export function ContactBottomDetails() {
           {CONTACT_EMAIL}
         </a>
         <span>{CONTACT_ADDRESS_CITY_REGION}</span>
+      </div>
+      <div className="mt-8 w-full overflow-hidden rounded-2xl border border-border bg-muted/20 aspect-[16/11] sm:aspect-[16/9] lg:aspect-[16/7]">
+        <iframe
+          src={SERVICE_AREAS_MAP_EMBED_URL}
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Carte des zones desservies par VentiPure"
+          className="block h-full w-full"
+        />
       </div>
     </motion.div>
   );
