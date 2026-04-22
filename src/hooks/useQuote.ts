@@ -4,7 +4,7 @@ import {
   COMBO_DISCOUNT,
   COMBO_SERVICES,
   type ServiceItem,
-} from "@/config/services";
+} from "@/consts/services";
 
 export type Quote = {
   selected: ServiceItem[];

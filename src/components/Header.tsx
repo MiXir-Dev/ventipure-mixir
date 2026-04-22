@@ -4,12 +4,7 @@ import { Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/BrandLogo";
-
-const navLinks = [
-  { label: "Accueil", href: "/" },
-  { label: "Tarifs", href: "/tarifs" },
-  { label: "Contact", href: "/contact" },
-];
+import { HEADER_NAV_LINKS, ROUTE_PATHS } from "@/consts/navigation";
 
 interface HeaderProps {
   onOpenPanel: () => void;
@@ -35,12 +30,12 @@ export function Header({ onOpenPanel }: HeaderProps) {
       )}
     >
       <div className="flex items-center justify-between">
-        <Link to="/" className="flex items-center" aria-label="Accueil VentiPure">
+        <Link to={ROUTE_PATHS.HOME} className="flex items-center" aria-label="Accueil VentiPure">
           <BrandLogo className="h-11 max-w-[132px] sm:h-12 sm:max-w-[144px]" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
+          {HEADER_NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               to={link.href}
@@ -57,7 +52,7 @@ export function Header({ onOpenPanel }: HeaderProps) {
         </nav>
 
         <div className="flex items-center gap-1">
-          <Link to="/contact" className="hidden md:inline-flex">
+          <Link to={ROUTE_PATHS.CONTACT} className="hidden md:inline-flex">
             <Button variant="default" size="sm">Soumission gratuite</Button>
           </Link>
 

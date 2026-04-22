@@ -1,34 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ROUTE_PATHS } from "@/consts/navigation";
+import { SERVICE_MARKETING_ENTRIES } from "@/consts/services";
 
-const services = [
-  {
-    title: "Conduits de fournaise",
-    price: "à partir de 349 $",
-    description: "Nettoyage complet du réseau de conduits pour une meilleure circulation d'air chaud et un système plus performant.",
-  },
-  {
-    title: "Échangeur d'air",
-    price: "249 $",
-    description: "Entretien de l'échangeur pour un renouvellement d'air efficace et un environnement intérieur plus sain.",
-  },
-  {
-    title: "Conduit de sécheuse",
-    price: "149 $",
-    description: "Retrait de la charpie accumulée dans le conduit pour un séchage plus rapide et une utilisation plus sécuritaire.",
-  },
-  {
-    title: "Climatiseur mural",
-    price: "249 $",
-    description: "Nettoyage en profondeur de l'unité murale pour un meilleur rendement pendant les mois chauds.",
-  },
-  {
-    title: "Conduits commerciaux",
-    price: "Sur demande",
-    description: "Solutions d'entretien sur mesure pour bureaux, commerces et immeubles à revenus, après estimation gratuite.",
-  },
-];
+const getHomeCardPrice = (priceNote: string, price: string) =>
+  priceNote ? `${priceNote} ${price}` : price;
 
 export function ServicesSection() {
   return (
@@ -48,7 +25,7 @@ export function ServicesSection() {
             </h2>
           </div>
           <Link
-            to="/contact"
+            to={ROUTE_PATHS.CONTACT}
             className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
           >
             Demander un service →
@@ -56,18 +33,22 @@ export function ServicesSection() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border/60 rounded-2xl overflow-hidden">
-          {services.map((service, i) => (
+          {SERVICE_MARKETING_ENTRIES.map((service, i) => (
             <motion.div
-              key={i}
+              key={service.id}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06, duration: 0.4 }}
               className="bg-background p-8 sm:p-10 group"
             >
-              <p className="text-xs font-bold text-primary tracking-wide mb-4">{service.price}</p>
-              <h3 className="text-lg font-bold text-foreground mb-2 tracking-tight">{service.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+              <p className="text-xs font-bold text-primary tracking-wide mb-4">
+                {getHomeCardPrice(service.tarifsPage.priceNote, service.tarifsPage.price)}
+              </p>
+              <h3 className="text-lg font-bold text-foreground mb-2 tracking-tight">
+                {service.tarifsPage.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{service.homeDescription}</p>
             </motion.div>
           ))}
         </div>
@@ -79,7 +60,7 @@ export function ServicesSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-12 flex justify-center"
         >
-          <Link to="/tarifs">
+          <Link to={ROUTE_PATHS.TARIFS}>
             <Button variant="outline" size="lg">Voir tous les tarifs</Button>
           </Link>
         </motion.div>

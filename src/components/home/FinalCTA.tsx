@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ROUTE_PATHS } from "@/consts/navigation";
 
 export function FinalCTA() {
   return (
@@ -18,7 +19,7 @@ export function FinalCTA() {
           <p className="text-muted-foreground mb-10">
             Obtenez votre soumission gratuite pour le nettoyage de vos conduits de ventilation.
           </p>
-          <Link to="/contact">
+          <Link to={ROUTE_PATHS.CONTACT}>
             <Button variant="default" size="lg">
               Nous contacter
             </Button>

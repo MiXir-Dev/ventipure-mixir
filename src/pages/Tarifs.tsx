@@ -7,60 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-const tarifConduits = "/nettoyage-ventillations/tarif-conduits.jpg";
-const tarifEchangeur = "/nettoyage-ventillations/tarif-echangeur.jpg";
-const tarifSecheuse = "/nettoyage-ventillations/tarif-secheuse.jpg";
-const tarifClimatiseur = "/nettoyage-ventillations/tarif-climatiseur.jpg";
-const serviceEditorial = "/nettoyage-ventillations/service-editorial.jpg";
-
-const services = [
-  {
-    title: "Conduits de fournaise",
-    price: "349 $",
-    priceNote: "à partir de",
-    contactValue: "conduits",
-    includes: "Jusqu'à 15 sorties incluses. Frais variables selon la distance et les sorties supplémentaires.",
-    image: tarifConduits,
-    alt: "Nettoyage de conduits de fournaise résidentielle au Québec",
-  },
-  {
-    title: "Échangeur d'air",
-    price: "249 $",
-    priceNote: "",
-    contactValue: "echangeur",
-    includes: "Nettoyage complet du noyau, des filtres et des conduits accessibles.",
-    image: tarifEchangeur,
-    alt: "Nettoyage d'échangeur d'air résidentiel",
-  },
-  {
-    title: "Conduit de sécheuse",
-    price: "149 $",
-    priceNote: "",
-    contactValue: "secheuse",
-    includes: "Retrait de la charpie et nettoyage du conduit jusqu'à la sortie extérieure.",
-    image: tarifSecheuse,
-    alt: "Nettoyage de conduit de sécheuse résidentielle",
-  },
-  {
-    title: "Climatiseur mural",
-    price: "249 $",
-    priceNote: "",
-    contactValue: "climatiseur",
-    includes: "Nettoyage de l'unité murale, des filtres, de l'évaporateur et du bac de récupération.",
-    image: tarifClimatiseur,
-    alt: "Nettoyage de climatiseur mural résidentiel",
-  },
-  {
-    title: "Conduits commerciaux",
-    price: "Sur demande",
-    priceNote: "",
-    contactValue: "commercial",
-    includes: "Solutions d'entretien sur mesure pour bureaux, commerces et immeubles à revenus, après estimation gratuite.",
-    image: serviceEditorial,
-    alt: "Nettoyage de conduits de ventilation pour bureaux et commerces au Québec",
-  },
-];
+import { ROUTE_PATHS, buildContactServicePath } from "@/consts/navigation";
+import { SERVICE_MARKETING_ENTRIES } from "@/consts/services";
 
 const Tarifs = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -86,10 +34,24 @@ const Tarifs = () => {
               <p className="text-muted-foreground text-[15px]">
                 Prix affichés, sans surprise. Service professionnel de nettoyage de ventilation pour résidences, bureaux et commerces au Québec.
               </p>
+              <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+                Pour comparer les interventions en détail, visitez la page{" "}
+                <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
+                  nettoyage de conduits de ventilation résidentiels et commerciaux
+                </Link>{" "}
+                puis confirmez votre zone sur{" "}
+                <Link
+                  to={ROUTE_PATHS.SECTEURS}
+                  className="text-primary hover:text-primary/80 transition-colors"
+                >
+                  nos secteurs desservis à Montréal, Laval, Longueuil et la Rive-Sud
+                </Link>
+                .
+              </p>
             </motion.div>
 
             <div className="grid sm:grid-cols-2 gap-5 md:gap-6 mb-20">
-              {services.map((s, i) => (
+              {SERVICE_MARKETING_ENTRIES.map((s, i) => (
                 <motion.article
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
@@ -98,13 +60,13 @@ const Tarifs = () => {
                   className="h-full"
                 >
                   <Link
-                    to={`/contact?service=${s.contactValue}`}
+                    to={buildContactServicePath(s.id)}
                     className="group block h-full rounded-2xl border border-border bg-card overflow-hidden hover:shadow-[var(--vp-shadow-card)] transition-shadow duration-300"
                   >
                     <div className="aspect-[16/10] overflow-hidden bg-muted">
                       <img
-                        src={s.image}
-                        alt={s.alt}
+                        src={s.tarifsPage.image}
+                        alt={s.tarifsPage.alt}
                         loading="lazy"
                         width={800}
                         height={600}
@@ -113,20 +75,20 @@ const Tarifs = () => {
                     </div>
                     <div className="p-6 md:p-7 flex h-full flex-col">
                       <h2 className="text-lg font-bold text-foreground tracking-tight mb-3">
-                        {s.title}
+                        {s.tarifsPage.title}
                       </h2>
                       <div className="flex items-baseline gap-2 mb-4">
-                        {s.priceNote && (
+                        {s.tarifsPage.priceNote && (
                           <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                            {s.priceNote}
+                            {s.tarifsPage.priceNote}
                           </span>
                         )}
                         <span className="text-2xl md:text-3xl font-extrabold text-primary tabular-nums">
-                          {s.price}
+                          {s.tarifsPage.price}
                         </span>
                       </div>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        {s.includes}
+                        {s.tarifsPage.includes}
                       </p>
                       <div className="mt-auto pt-5">
                         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary group-hover:text-primary/80 transition-colors">
@@ -149,7 +111,14 @@ const Tarifs = () => {
               <p className="text-sm text-muted-foreground mb-6">
                 Soumission gratuite pour tous nos services de nettoyage résidentiel et commercial.
               </p>
-              <Link to="/contact">
+              <p className="text-sm text-muted-foreground mb-6">
+                Consultez aussi notre{" "}
+                <Link to={ROUTE_PATHS.EQUIPEMENT} className="text-primary hover:text-primary/80 transition-colors">
+                  méthode et équipement de nettoyage de conduits
+                </Link>{" "}
+                pour comprendre comment nous réalisons chaque intervention.
+              </p>
+              <Link to={ROUTE_PATHS.CONTACT}>
                 <Button variant="default" size="lg">
                   Demander une soumission
                 </Button>

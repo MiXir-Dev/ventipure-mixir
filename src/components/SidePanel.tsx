@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/BrandLogo";
+import {
+  ROUTE_PATHS,
+  SIDE_PANEL_HEADER_LINKS,
+  SIDE_PANEL_NAV_LINKS,
+} from "@/consts/navigation";
 
 interface SidePanelProps {
   open: boolean;
@@ -10,17 +15,6 @@ interface SidePanelProps {
 }
 
 type ThemeMode = "light" | "dark" | "system";
-
-const headerLinks = ["/", "/tarifs", "/contact"];
-
-const navLinks = [
-  { label: "Accueil", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Tarifs", href: "/tarifs" },
-  { label: "Équipement", href: "/equipement" },
-  { label: "Contact", href: "/contact" },
-  { label: "Nos secteurs", href: "/nos-services-et-secteurs" },
-];
 
 export function SidePanel({ open, onClose }: SidePanelProps) {
   const [theme, setTheme] = useState<ThemeMode>("light");
@@ -84,11 +78,9 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
           {/* Navigation */}
           <nav className="px-8 pb-8">
             <ul className="space-y-1">
-              {navLinks
+              {SIDE_PANEL_NAV_LINKS
                 .filter((link) => {
-                  if (typeof window !== "undefined" && window.innerWidth >= 768) {
-                    return !headerLinks.includes(link.href);
-                  }
+                  if (typeof window !== "undefined" && window.innerWidth >= 768) return !SIDE_PANEL_HEADER_LINKS.includes(link.href);
                   return true;
                 })
                 .map((link) => (
@@ -169,7 +161,7 @@ export function SidePanel({ open, onClose }: SidePanelProps) {
                 Demandez votre estimation sans engagement.
               </p>
               <Link
-                to="/contact"
+                to={ROUTE_PATHS.CONTACT}
                 onClick={onClose}
                 className="text-xs font-medium text-primary hover:text-primary/80 transition-colors"
               >

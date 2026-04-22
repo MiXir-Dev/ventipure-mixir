@@ -7,90 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-const serviceConduits = "/nettoyage-ventillations/service-conduits.jpg";
-const serviceEchangeur = "/nettoyage-ventillations/service-echangeur.jpg";
-const serviceSecheuse = "/nettoyage-ventillations/service-secheuse.jpg";
-const serviceClimatiseur = "/nettoyage-ventillations/service-climatiseur.jpg";
-const serviceEditorial = "/nettoyage-ventillations/service-editorial.jpg"; // used as fallback for commercial card
-
-const services = [
-  {
-    id: "conduits",
-    title: "Nettoyage des conduits de fournaise",
-    price: "À partir de 349 $",
-    contactValue: "conduits",
-    description:
-      "Ce service cible les conduits de ventilation reliés à votre fournaise résidentielle. Le nettoyage professionnel permet de réduire l'accumulation de poussière et de favoriser une meilleure circulation de l'air dans toute la maison.",
-    benefits: [
-      "Jusqu'à 15 sorties incluses",
-      "Amélioration de la circulation de l'air",
-      "Entretien du système résidentiel",
-    ],
-    image: serviceConduits,
-    alt: "Technicien nettoyant les conduits de fournaise dans une maison résidentielle au Québec",
-  },
-  {
-    id: "echangeur",
-    title: "Nettoyage de l'échangeur d'air",
-    price: "249 $",
-    contactValue: "echangeur",
-    description:
-      "Le nettoyage de l'échangeur d'air contribue à un meilleur renouvellement de l'air intérieur et au bon fonctionnement de l'appareil. Ce service comprend le noyau, les filtres et les conduits accessibles.",
-    benefits: [
-      "Air intérieur plus sain",
-      "Meilleur fonctionnement de l'appareil",
-      "Entretien préventif utile",
-    ],
-    image: serviceEchangeur,
-    alt: "Nettoyage professionnel d'un échangeur d'air résidentiel",
-  },
-  {
-    id: "secheuse",
-    title: "Nettoyage du conduit de sécheuse",
-    price: "149 $",
-    contactValue: "secheuse",
-    description:
-      "Le retrait de la charpie et des résidus accumulés dans le conduit de sécheuse aide à maintenir une meilleure performance de l'appareil et contribue à une utilisation résidentielle plus sécuritaire.",
-    benefits: [
-      "Réduction du temps de séchage",
-      "Moins d'accumulation de charpie",
-      "Entretien important pour la sécurité",
-    ],
-    image: serviceSecheuse,
-    alt: "Nettoyage du conduit de sécheuse dans une résidence québécoise",
-  },
-  {
-    id: "climatiseur",
-    title: "Nettoyage d'air climatisé mural",
-    price: "249 $",
-    contactValue: "climatiseur",
-    description:
-      "Le nettoyage de l'unité murale comprend les filtres, l'évaporateur et le bac de récupération. Ce service aide à réduire les odeurs, à améliorer la propreté de l'air et à maintenir une meilleure performance de refroidissement.",
-    benefits: [
-      "Air plus propre",
-      "Réduction des odeurs",
-      "Meilleure performance de l'unité",
-    ],
-    image: serviceClimatiseur,
-    alt: "Nettoyage d'un climatiseur mural résidentiel",
-  },
-  {
-    id: "commercial",
-    title: "Nettoyage de conduits commerciaux",
-    price: "Sur estimation",
-    contactValue: "commercial",
-    description:
-      "Solutions d'entretien sur mesure pour bureaux, commerces et bâtiments industriels. Nous évaluons votre réseau de ventilation et préparons une estimation adaptée à vos espaces et à votre horaire d'opération.",
-    benefits: [
-      "Expertise pour bureaux, commerces et bâtiments industriels",
-      "Estimation gratuite sur place ou à distance",
-      "Interventions planifiées selon vos heures d'ouverture",
-    ],
-    image: serviceEditorial,
-    alt: "Nettoyage de conduits de ventilation commerciaux pour bureaux et commerces au Québec",
-  },
-];
+import { ROUTE_PATHS, buildContactServicePath } from "@/consts/navigation";
+import { SERVICE_MARKETING_ENTRIES } from "@/consts/services";
 
 const Services = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -127,13 +45,31 @@ const Services = () => {
                   Des interventions professionnelles pour aider à maintenir un air
                   intérieur plus sain et des systèmes mieux entretenus.
                 </p>
+                <p className="text-sm text-muted-foreground max-w-xl mb-8 leading-relaxed">
+                  Consultez aussi nos{" "}
+                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
+                    prix du nettoyage de ventilation
+                  </Link>
+                  , notre{" "}
+                  <Link to={ROUTE_PATHS.EQUIPEMENT} className="text-primary hover:text-primary/80 transition-colors">
+                    équipement professionnel de nettoyage de conduits
+                  </Link>{" "}
+                  et nos{" "}
+                  <Link
+                    to={ROUTE_PATHS.SECTEURS}
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    secteurs desservis à Montréal, Laval et Longueuil
+                  </Link>
+                  .
+                </p>
                 <div className="flex flex-wrap gap-3">
-                  <Link to="/contact">
+                  <Link to={ROUTE_PATHS.CONTACT}>
                     <Button variant="default" size="lg">
                       Demander une soumission
                     </Button>
                   </Link>
-                  <Link to="/tarifs">
+                  <Link to={ROUTE_PATHS.TARIFS}>
                     <Button variant="outline" size="lg">
                       Voir les tarifs
                     </Button>
@@ -155,13 +91,17 @@ const Services = () => {
                   Services les plus demandés
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {services.map((s) => (
+                  {SERVICE_MARKETING_ENTRIES.map((s) => (
                     <button
                       key={s.id}
                       onClick={() => scrollToSection(s.id)}
                       className="px-4 py-2.5 rounded-full border border-border text-sm font-medium text-foreground/80 hover:border-primary hover:text-primary transition-colors duration-200"
                     >
-                      {s.title.replace("Nettoyage des ", "").replace("Nettoyage de l'", "").replace("Nettoyage du ", "").replace("Nettoyage d'", "")}
+                      {s.servicesPage.title
+                        .replace("Nettoyage des ", "")
+                        .replace("Nettoyage de l'", "")
+                        .replace("Nettoyage du ", "")
+                        .replace("Nettoyage d'", "")}
                     </button>
                   ))}
                 </div>
@@ -170,7 +110,7 @@ const Services = () => {
           </section>
 
           {/* Service sections */}
-          {services.map((s, i) => {
+          {SERVICE_MARKETING_ENTRIES.map((s, i) => {
             const isEven = i % 2 === 0;
             return (
               <section
@@ -192,8 +132,8 @@ const Services = () => {
                     <div className={`${isEven ? "" : "md:[direction:ltr]"}`}>
                       <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-muted">
                         <img
-                          src={s.image}
-                          alt={s.alt}
+                          src={s.servicesPage.image}
+                          alt={s.servicesPage.alt}
                           loading="lazy"
                           width={1280}
                           height={960}
@@ -205,16 +145,16 @@ const Services = () => {
                     {/* Content */}
                     <div className={`${isEven ? "" : "md:[direction:ltr]"}`}>
                       <span className="inline-block text-xs font-semibold text-primary uppercase tracking-[0.15em] mb-3">
-                        {s.price}
+                        {s.servicesPage.price}
                       </span>
                       <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4 leading-tight">
-                        {s.title}
+                        {s.servicesPage.title}
                       </h2>
                       <p className="text-muted-foreground text-[15px] leading-relaxed mb-6">
-                        {s.description}
+                        {s.servicesPage.description}
                       </p>
                       <ul className="space-y-2.5 mb-8">
-                        {s.benefits.map((b, j) => (
+                        {s.servicesPage.benefits.map((b, j) => (
                           <li
                             key={j}
                             className="flex items-start gap-2.5 text-sm text-foreground/80"
@@ -224,7 +164,7 @@ const Services = () => {
                           </li>
                         ))}
                       </ul>
-                      <Link to={`/contact?service=${s.contactValue}`}>
+                      <Link to={buildContactServicePath(s.id)}>
                         <Button variant="outline" size="default">
                           Demander ce service
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -236,6 +176,35 @@ const Services = () => {
               </section>
             );
           })}
+
+          {/* Final CTA */}
+          <section className="pb-16 md:pb-24">
+            <div className="vp-container max-w-4xl">
+              <div className="rounded-2xl border border-border bg-muted/20 p-6 md:p-8">
+                <h2 className="text-xl md:text-2xl font-bold text-foreground tracking-tight mb-3">
+                  Liens utiles pour votre projet de nettoyage de conduits
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Besoin d'un aperçu complet? Comparez les{" "}
+                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
+                    tarifs du nettoyage d'échangeur d'air et de conduit de sécheuse
+                  </Link>
+                  , vérifiez nos{" "}
+                  <Link
+                    to={ROUTE_PATHS.SECTEURS}
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    secteurs de service en ventilation dans le Grand Montréal
+                  </Link>
+                  , puis demandez une{" "}
+                  <Link to={ROUTE_PATHS.CONTACT} className="text-primary hover:text-primary/80 transition-colors">
+                    soumission pour le nettoyage de conduits
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          </section>
 
           {/* Final CTA */}
           <section className="pb-20 md:pb-32">
@@ -252,7 +221,7 @@ const Services = () => {
                 <p className="text-muted-foreground text-[15px] mb-8">
                   Parlez-nous de votre besoin et obtenez une soumission adaptée.
                 </p>
-                <Link to="/contact">
+                <Link to={ROUTE_PATHS.CONTACT}>
                   <Button variant="default" size="lg">
                     Nous contacter
                   </Button>

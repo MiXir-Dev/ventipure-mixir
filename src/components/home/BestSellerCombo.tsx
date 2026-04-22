@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { COMBO_DISCOUNT, getService } from "@/config/services";
+import { COMBO_DISCOUNT, getService } from "@/consts/services";
+import { buildContactComboPath } from "@/consts/navigation";
 
 /**
  * Best-seller combo section.
@@ -61,7 +62,7 @@ export function BestSellerCombo() {
                 Rabais de {COMBO_DISCOUNT} $ inclus
               </p>
 
-              <Link to="/contact?combo=best-seller" className="self-start">
+              <Link to={buildContactComboPath("best-seller")} className="self-start">
                 <Button variant="default" size="lg" className="group">
                   Réserver ce combo
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

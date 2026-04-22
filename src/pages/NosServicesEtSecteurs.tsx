@@ -7,25 +7,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
-
-const zones = [
-  {
-    region: "Montréal",
-    areas: ["Plateau-Mont-Royal", "Rosemont", "Ahuntsic", "Saint-Léonard", "Ville-Marie"],
-  },
-  {
-    region: "Longueuil et alentours",
-    areas: ["Brossard", "Saint-Hubert", "Boucherville", "Saint-Lambert", "Greenfield Park"],
-  },
-  {
-    region: "Laval et alentours",
-    areas: ["Chomedey", "Sainte-Rose", "Vimont", "Pont-Viau", "Duvernay"],
-  },
-  {
-    region: "Repentigny et alentours",
-    areas: ["L'Assomption", "Le Gardeur", "Charlemagne", "Mascouche", "Terrebonne"],
-  },
-];
+import { ROUTE_PATHS } from "@/consts/navigation";
+import { SERVICE_ZONES } from "@/consts/zones";
 
 const NosServicesEtSecteurs = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -53,6 +36,17 @@ const NosServicesEtSecteurs = () => {
                 </h1>
                 <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl">
                   VentiPure intervient dans les principales régions du Grand Montréal et de la Rive-Nord. Nous desservons résidences, bureaux et commerces dans les villes et quartiers ci-dessous.
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mt-5">
+                  Avant de réserver, consultez nos{" "}
+                  <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
+                    services de nettoyage de ventilation
+                  </Link>{" "}
+                  et les{" "}
+                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
+                    tarifs de nettoyage de conduits résidentiels et commerciaux
+                  </Link>
+                  .
                 </p>
               </motion.div>
             </div>
@@ -86,7 +80,7 @@ const NosServicesEtSecteurs = () => {
           <section className="pb-20 md:pb-28">
             <div className="vp-container">
               <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
-                {zones.map((z, i) => (
+                {SERVICE_ZONES.map((z, i) => (
                   <motion.article
                     key={z.region}
                     initial={{ opacity: 0, y: 16 }}
@@ -132,7 +126,14 @@ const NosServicesEtSecteurs = () => {
                 <p className="text-muted-foreground text-[15px] mb-8">
                   Contactez-nous, nous évaluons chaque demande au cas par cas dans le Grand Montréal.
                 </p>
-                <Link to="/contact">
+                <p className="text-sm text-muted-foreground mb-8">
+                  Faites votre{" "}
+                  <Link to={ROUTE_PATHS.CONTACT} className="text-primary hover:text-primary/80 transition-colors">
+                    demande de soumission pour le nettoyage de conduits à Montréal, Laval, Longueuil, Rive-Sud ou Repentigny
+                  </Link>
+                  .
+                </p>
+                <Link to={ROUTE_PATHS.CONTACT}>
                   <Button variant="default" size="lg">Demander une soumission</Button>
                 </Link>
               </motion.div>

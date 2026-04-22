@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { ROUTE_PATHS } from "@/consts/navigation";
 const heroMain = "/nettoyage-ventillations/hero-main.jpg";
 const heroSecondary = "/nettoyage-ventillations/hero-secondary.jpg";
 
@@ -26,10 +27,10 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Link to="/contact">
+              <Link to={ROUTE_PATHS.CONTACT}>
                 <Button variant="default" size="lg">Demander une soumission</Button>
               </Link>
-              <Link to="/tarifs">
+              <Link to={ROUTE_PATHS.TARIFS}>
                 <Button variant="outline" size="lg">Voir les tarifs</Button>
               </Link>
             </div>

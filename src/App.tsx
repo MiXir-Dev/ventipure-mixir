@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { SeoManager } from "@/components/SeoManager";
+import { ROUTE_PATHS } from "@/consts/navigation.ts";
 import Index from "./pages/Index.tsx";
 import Tarifs from "./pages/Tarifs.tsx";
 import Contact from "./pages/Contact.tsx";
@@ -20,14 +22,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <SeoManager />
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/tarifs" element={<Tarifs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/equipement" element={<Equipement />} />
-          <Route path="/nos-services-et-secteurs" element={<NosServicesEtSecteurs />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path={ROUTE_PATHS.HOME} element={<Index />} />
+          <Route path={ROUTE_PATHS.TARIFS} element={<Tarifs />} />
+          <Route path={ROUTE_PATHS.CONTACT} element={<Contact />} />
+          <Route path={ROUTE_PATHS.SERVICES} element={<Services />} />
+          <Route path={ROUTE_PATHS.EQUIPEMENT} element={<Equipement />} />
+          <Route path={ROUTE_PATHS.SECTEURS} element={<NosServicesEtSecteurs />} />
+          <Route path="*" element={<Navigate to={ROUTE_PATHS.HOME} replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

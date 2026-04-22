@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, MapPin, Mail } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
+import { FOOTER_NAV_LINKS } from "@/consts/navigation";
 
 export function Footer() {
   return (
@@ -19,14 +20,7 @@ export function Footer() {
           <div>
             <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60 mb-4">Navigation</p>
             <ul className="space-y-2.5">
-              {[
-                { label: "Accueil", href: "/" },
-                { label: "Services", href: "/services" },
-                { label: "Tarifs", href: "/tarifs" },
-                { label: "Équipement", href: "/equipement" },
-                { label: "Nos secteurs", href: "/nos-services-et-secteurs" },
-                { label: "Contact", href: "/contact" },
-              ].map((link) => (
+              {FOOTER_NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {link.label}

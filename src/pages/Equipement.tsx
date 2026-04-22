@@ -6,6 +6,7 @@ import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ROUTE_PATHS } from "@/consts/navigation";
 
 const equipNexair = "/nettoyage-ventillations/equip-nexair.jpg";
 const equipOmega = "/nettoyage-ventillations/equip-omega.jpg";
@@ -38,11 +39,29 @@ const Equipement = () => {
                 <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mb-8">
                   VentiPure travaille avec un matériel professionnel sélectionné pour la puissance, la propreté et la fiabilité, autant en résidentiel qu'en commercial.
                 </p>
+                <p className="text-sm text-muted-foreground max-w-xl mb-8 leading-relaxed">
+                  Découvrez aussi nos{" "}
+                  <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
+                    services de nettoyage de conduits de ventilation
+                  </Link>
+                  , nos{" "}
+                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
+                    prix pour le nettoyage d'échangeur d'air et de sécheuse
+                  </Link>{" "}
+                  et nos{" "}
+                  <Link
+                    to={ROUTE_PATHS.SECTEURS}
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    zones desservies dans le Grand Montréal
+                  </Link>
+                  .
+                </p>
                 <div className="flex flex-wrap gap-3">
-                  <Link to="/contact">
+                  <Link to={ROUTE_PATHS.CONTACT}>
                     <Button variant="default" size="lg">Nous contacter</Button>
                   </Link>
-                  <Link to="/services">
+                  <Link to={ROUTE_PATHS.SERVICES}>
                     <Button variant="outline" size="lg">Voir les services</Button>
                   </Link>
                 </div>
@@ -165,45 +184,8 @@ const Equipement = () => {
             </div>
           </section>
 
-          {/* Editorial */}
-          <section className="pb-20 md:pb-28 bg-muted/20 py-20 md:py-28">
-            <div className="vp-container">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6 }}
-                className="grid md:grid-cols-5 gap-8 md:gap-14 items-center"
-              >
-                <div className="md:col-span-3">
-                  <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-muted">
-                    <img
-                      src={equipEditorial}
-                      alt="Technicien VentiPure en intervention dans une résidence"
-                      loading="lazy"
-                      width={1280}
-                      height={720}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-2">
-                  <p className="text-xs font-semibold text-primary uppercase tracking-[0.15em] mb-3">
-                    Une méthode complète
-                  </p>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4 leading-tight">
-                    Aspiration et soufflage, toujours combinés
-                  </h2>
-                  <p className="text-muted-foreground text-[15px] leading-relaxed">
-                    Le NexAir met le réseau sous pression négative pendant que le compresseur Omega souffle et brasse les conduits. C'est cette combinaison qui permet un nettoyage en profondeur, propre, et adapté autant aux résidences qu'aux espaces commerciaux.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </section>
-
           {/* Why it matters */}
-          <section className="py-20 md:py-28">
+          <section className="py-10 md:py-28">
             <div className="vp-container max-w-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
@@ -260,7 +242,7 @@ const Equipement = () => {
                 <p className="text-muted-foreground text-[15px] mb-8">
                   Parlez-nous de votre besoin et obtenez une soumission adaptée à votre résidence ou à votre commerce.
                 </p>
-                <Link to="/contact">
+                <Link to={ROUTE_PATHS.CONTACT}>
                   <Button variant="default" size="lg">Nous contacter</Button>
                 </Link>
               </motion.div>

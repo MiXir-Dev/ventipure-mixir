@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ROUTE_PATHS } from "@/consts/navigation";
+import { CONTACT_AREA_SERVED_LINE_1, CONTACT_AREA_SERVED_LINE_2 } from "@/consts/zones";
 
 export function ContactMapSection() {
   return (
@@ -61,19 +63,27 @@ export function ContactMapSection() {
                   Secteurs desservis
                 </p>
                 <p className="text-[15px] text-foreground leading-relaxed">
-                  Montréal, Laval, Longueuil, Sainte-Julie,<br />
-                  Rive-Sud et les environs
+                  {CONTACT_AREA_SERVED_LINE_1},<br />
+                  {CONTACT_AREA_SERVED_LINE_2}
                 </p>
               </div>
             </div>
 
             <div className="mt-10">
-              <Link
-                to="/contact"
-                className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-              >
-                Demander une soumission gratuite →
-              </Link>
+              <div className="flex flex-col gap-3">
+                <Link
+                  to={ROUTE_PATHS.CONTACT}
+                  className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                >
+                  Demander une soumission gratuite →
+                </Link>
+                <Link
+                  to={ROUTE_PATHS.SECTEURS}
+                  className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                >
+                  Voir les secteurs de nettoyage de conduits à Montréal et alentours →
+                </Link>
+              </div>
             </div>
           </motion.div>
 

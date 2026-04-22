@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react"; // useMemo kept for initialServices
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
@@ -7,8 +7,10 @@ import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Send, Check, Plus, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT, COMBO_SERVICES } from "@/config/services";
-import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/config/contact";
+import { SERVICES, COMBO_PRESETS, COMBO_DISCOUNT, COMBO_SERVICES } from "@/consts/services";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_TEL } from "@/consts/contact";
+import { ROUTE_PATHS } from "@/consts/navigation";
+import { CONTACT_AREA_SERVED_SUMMARY } from "@/consts/zones";
 import { useQuote } from "@/hooks/useQuote";
 import {
   EMPTY_CONTACT_FORM_DATA,
@@ -216,7 +218,6 @@ const Contact = () => {
   };
 
   const quote = useQuote(selectedServices);
-  const prefersReducedMotion = useReducedMotion();
   const selectedComboCount = COMBO_SERVICES.filter((id) => selectedServices.includes(id)).length;
   const missingComboService =
     selectedComboCount === 1
@@ -339,7 +340,18 @@ const Contact = () => {
                 Demandez votre soumission
               </h1>
               <p className="text-muted-foreground text-[15px] max-w-md">
-                Remplissez le formulaire et nous vous répondons rapidement. Service résidentiel et commercial à Montréal, Laval, Longueuil, Sainte-Julie et la Rive-Sud.
+                Remplissez le formulaire et nous vous répondons rapidement. Service résidentiel et commercial à {CONTACT_AREA_SERVED_SUMMARY}.
+              </p>
+              <p className="text-sm text-muted-foreground max-w-xl mt-4 leading-relaxed">
+                Vous pouvez aussi consulter nos{" "}
+                <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
+                  services de nettoyage de conduits de ventilation
+                </Link>{" "}
+                et nos{" "}
+                <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
+                  prix de nettoyage d'échangeur d'air, sécheuse et fournaise
+                </Link>{" "}
+                avant de soumettre votre demande.
               </p>
             </motion.div>
 
