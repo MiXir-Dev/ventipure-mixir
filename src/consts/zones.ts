@@ -5,6 +5,15 @@ export enum ZONE_REGION_LABELS {
   REPENTIGNY_ET_ALENTOURS = "Repentigny et alentours",
 }
 
+export enum AREA_SERVED_LABELS {
+  MONTREAL = "Montréal",
+  LAVAL = "Laval",
+  LONGUEUIL = "Longueuil",
+  SAINTE_JULIE = "Sainte-Julie",
+  RIVE_SUD = "Rive-Sud",
+  REPENTIGNY = "Repentigny",
+}
+
 export enum ZONE_AREA_LABELS {
   PLATEAU_MONT_ROYAL = "Plateau-Mont-Royal",
   ROSEMONT = "Rosemont",
@@ -26,15 +35,6 @@ export enum ZONE_AREA_LABELS {
   CHARLEMAGNE = "Charlemagne",
   MASCOUCHE = "Mascouche",
   TERREBONNE = "Terrebonne",
-}
-
-export enum AREA_SERVED_LABELS {
-  MONTREAL = "Montréal",
-  LAVAL = "Laval",
-  LONGUEUIL = "Longueuil",
-  SAINTE_JULIE = "Sainte-Julie",
-  RIVE_SUD = "Rive-Sud",
-  REPENTIGNY = "Repentigny",
 }
 
 export type ServiceZone = {

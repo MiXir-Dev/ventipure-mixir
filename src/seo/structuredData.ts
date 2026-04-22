@@ -223,13 +223,8 @@ const locationLandingSchemas = (path: string) => {
 export const getStructuredDataForPath = (pathname: string) => {
   const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 
-  if (SERVICE_LANDING_BY_PATH[normalizedPath]) {
-    return serviceLandingSchemas(normalizedPath, SERVICE_LANDING_BY_PATH[normalizedPath]);
-  }
-
-  if (LOCATION_LANDING_BY_PATH[normalizedPath]) {
-    return locationLandingSchemas(normalizedPath);
-  }
+  if (SERVICE_LANDING_BY_PATH[normalizedPath]) return serviceLandingSchemas(normalizedPath, SERVICE_LANDING_BY_PATH[normalizedPath]);
+  if (LOCATION_LANDING_BY_PATH[normalizedPath]) return locationLandingSchemas(normalizedPath);
 
   switch (normalizedPath) {
     case ROUTE_PATHS.HOME:
