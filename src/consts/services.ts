@@ -85,6 +85,7 @@ export enum SERVICE_MEDIA_ASSETS {
 
 export type ServiceMarketingEntry = {
   id: ServiceMarketingId;
+  homeDescription: string;
   servicesPage: {
     title: string;
     price: string;
@@ -106,6 +107,8 @@ export type ServiceMarketingEntry = {
 export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
   {
     id: "conduits",
+    homeDescription:
+      "Nettoyage complet du réseau de conduits pour une meilleure circulation d'air chaud et un système plus performant.",
     servicesPage: {
       title: "Nettoyage des conduits de fournaise",
       price: "À partir de 349 $",
@@ -131,6 +134,8 @@ export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
   },
   {
     id: "echangeur",
+    homeDescription:
+      "Entretien de l'échangeur pour un renouvellement d'air efficace et un environnement intérieur plus sain.",
     servicesPage: {
       title: "Nettoyage de l'échangeur d'air",
       price: "249 $",
@@ -155,6 +160,8 @@ export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
   },
   {
     id: "secheuse",
+    homeDescription:
+      "Retrait de la charpie accumulée dans le conduit pour un séchage plus rapide et une utilisation plus sécuritaire.",
     servicesPage: {
       title: "Nettoyage du conduit de sécheuse",
       price: "149 $",
@@ -179,6 +186,8 @@ export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
   },
   {
     id: "climatiseur",
+    homeDescription:
+      "Nettoyage en profondeur de l'unité murale pour un meilleur rendement pendant les mois chauds.",
     servicesPage: {
       title: "Nettoyage d'air climatisé mural",
       price: "249 $",
@@ -204,6 +213,8 @@ export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
   },
   {
     id: "commercial",
+    homeDescription:
+      "Solutions d'entretien sur mesure pour bureaux, commerces et immeubles à revenus, après estimation gratuite.",
     servicesPage: {
       title: "Nettoyage de conduits commerciaux",
       price: "Sur estimation",
