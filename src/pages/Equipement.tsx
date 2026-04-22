@@ -4,6 +4,8 @@ import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
+import { PageBottomCta } from "@/components/PageBottomCta";
+import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTE_PATHS } from "@/consts/navigation";
@@ -39,24 +41,13 @@ const Equipement = () => {
                 <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl mb-8">
                   VentiPure travaille avec un matériel professionnel sélectionné pour la puissance, la propreté et la fiabilité, autant en résidentiel qu'en commercial.
                 </p>
-                <p className="text-sm text-muted-foreground max-w-xl mb-8 leading-relaxed">
-                  Découvrez aussi nos{" "}
-                  <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
-                    services de nettoyage de conduits de ventilation
-                  </Link>
-                  , nos{" "}
-                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
-                    prix pour le nettoyage d'échangeur d'air et de sécheuse
-                  </Link>{" "}
-                  et nos{" "}
-                  <Link
-                    to={ROUTE_PATHS.SECTEURS}
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    zones desservies dans le Grand Montréal
-                  </Link>
-                  .
-                </p>
+                <SeoLinksParagraph
+                  className="max-w-xl mb-8"
+                >
+                  Découvrez aussi nos <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link>, nos{" "}
+                  <Link to={ROUTE_PATHS.TARIFS}>prix pour le nettoyage d'échangeur d'air et de sécheuse</Link> et nos{" "}
+                  <Link to={ROUTE_PATHS.SECTEURS}>zones desservies dans le Grand Montréal</Link>.
+                </SeoLinksParagraph>
                 <div className="flex flex-wrap gap-3">
                   <Link to={ROUTE_PATHS.CONTACT}>
                     <Button variant="default" size="lg">Nous contacter</Button>
@@ -227,27 +218,12 @@ const Equipement = () => {
             </div>
           </section>
 
-          {/* Final CTA */}
-          <section className="pb-20 md:pb-32">
-            <div className="vp-container max-w-2xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4">
-                  Besoin d'un service de ventilation?
-                </h2>
-                <p className="text-muted-foreground text-[15px] mb-8">
-                  Parlez-nous de votre besoin et obtenez une soumission adaptée à votre résidence ou à votre commerce.
-                </p>
-                <Link to={ROUTE_PATHS.CONTACT}>
-                  <Button variant="default" size="lg">Nous contacter</Button>
-                </Link>
-              </motion.div>
-            </div>
-          </section>
+          <PageBottomCta
+            title="Besoin d'un service de ventilation?"
+            description="Parlez-nous de votre besoin et obtenez une soumission adaptée à votre résidence ou à votre commerce."
+            buttonTo={ROUTE_PATHS.CONTACT}
+            buttonLabel="Nous contacter"
+          />
         </main>
 
         <Footer />

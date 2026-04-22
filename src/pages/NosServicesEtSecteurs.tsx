@@ -3,9 +3,10 @@ import { Header } from "@/components/Header";
 import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
+import { PageBottomCta } from "@/components/PageBottomCta";
+import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { SERVICE_ZONES } from "@/consts/zones";
@@ -38,17 +39,13 @@ const NosServicesEtSecteurs = () => {
                 <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl">
                   VentiPure intervient dans les principales régions du Grand Montréal et de la Rive-Nord. Nous desservons résidences, bureaux et commerces dans les villes et quartiers ci-dessous.
                 </p>
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mt-5">
+                <SeoLinksParagraph
+                  className="max-w-xl mt-5"
+                >
                   Avant de réserver, consultez nos{" "}
-                  <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
-                    services de nettoyage de ventilation
-                  </Link>{" "}
-                  et les{" "}
-                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
-                    tarifs de nettoyage de conduits résidentiels et commerciaux
-                  </Link>
-                  .
-                </p>
+                  <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de ventilation</Link> et les{" "}
+                  <Link to={ROUTE_PATHS.TARIFS}>tarifs de nettoyage de conduits résidentiels et commerciaux</Link>.
+                </SeoLinksParagraph>
               </motion.div>
             </div>
           </section>
@@ -112,34 +109,22 @@ const NosServicesEtSecteurs = () => {
             </div>
           </section>
 
-          {/* CTA */}
-          <section className="pb-20 md:pb-32">
-            <div className="vp-container max-w-2xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4">
-                  Votre ville n'est pas listée?
-                </h2>
-                <p className="text-muted-foreground text-[15px] mb-8">
-                  Contactez-nous, nous évaluons chaque demande au cas par cas dans le Grand Montréal.
-                </p>
-                <p className="text-sm text-muted-foreground mb-8">
-                  Faites votre{" "}
-                  <Link to={ROUTE_PATHS.CONTACT} className="text-primary hover:text-primary/80 transition-colors">
-                    demande de soumission pour le nettoyage de conduits à Montréal, Laval, Longueuil, Rive-Sud ou Repentigny
-                  </Link>
-                  .
-                </p>
-                <Link to={ROUTE_PATHS.CONTACT}>
-                  <Button variant="default" size="lg">Demander une soumission</Button>
-                </Link>
-              </motion.div>
-            </div>
-          </section>
+          <PageBottomCta
+            title="Votre ville n'est pas listée?"
+            description="Contactez-nous, nous évaluons chaque demande au cas par cas dans le Grand Montréal."
+            buttonTo={ROUTE_PATHS.CONTACT}
+            buttonLabel="Demander une soumission"
+          >
+            <SeoLinksParagraph
+            >
+              Faites votre{" "}
+              <Link to={ROUTE_PATHS.CONTACT}>
+                demande de soumission pour le nettoyage de conduits à Montréal, Laval, Longueuil, Rive-Sud ou
+                Repentigny
+              </Link>
+              .
+            </SeoLinksParagraph>
+          </PageBottomCta>
         </main>
 
         <Footer />

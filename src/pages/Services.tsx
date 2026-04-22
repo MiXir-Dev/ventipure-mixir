@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ROUTE_PATHS, buildContactServicePath } from "@/consts/navigation";
 import { SERVICE_MARKETING_ENTRIES, type ServiceMarketingId } from "@/consts/services";
+import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
+import { PageBottomCta } from "@/components/PageBottomCta";
 
 const Services = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -53,24 +55,13 @@ const Services = () => {
                   Des interventions professionnelles pour aider à maintenir un air
                   intérieur plus sain et des systèmes mieux entretenus.
                 </p>
-                <p className="text-sm text-muted-foreground max-w-xl mb-8 leading-relaxed">
-                  Consultez aussi nos{" "}
-                  <Link to={ROUTE_PATHS.TARIFS} className="text-primary hover:text-primary/80 transition-colors">
-                    prix du nettoyage de ventilation
-                  </Link>
-                  , notre{" "}
-                  <Link to={ROUTE_PATHS.EQUIPEMENT} className="text-primary hover:text-primary/80 transition-colors">
-                    équipement professionnel de nettoyage de conduits
-                  </Link>{" "}
-                  et nos{" "}
-                  <Link
-                    to={ROUTE_PATHS.SECTEURS}
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    secteurs desservis à Montréal, Laval et Longueuil
-                  </Link>
-                  .
-                </p>
+                <SeoLinksParagraph
+                  className="max-w-xl mb-8"
+                >
+                  Consultez aussi nos <Link to={ROUTE_PATHS.TARIFS}>prix du nettoyage de ventilation</Link>, notre{" "}
+                  <Link to={ROUTE_PATHS.EQUIPEMENT}>équipement professionnel de nettoyage de conduits</Link> et nos{" "}
+                  <Link to={ROUTE_PATHS.SECTEURS}>secteurs desservis à Montréal, Laval et Longueuil</Link>.
+                </SeoLinksParagraph>
                 <div className="flex flex-wrap gap-3">
                   <Link to={ROUTE_PATHS.CONTACT}>
                     <Button variant="default" size="lg">
@@ -105,10 +96,11 @@ const Services = () => {
                       type="button"
                       aria-pressed={selectedServiceFilters.includes(s.id)}
                       onClick={() => toggleServiceFilter(s.id)}
+                      onPointerUp={(e) => e.currentTarget.blur()}
                       className={`px-4 py-2.5 rounded-full border text-sm font-medium ${
                         selectedServiceFilters.includes(s.id)
                           ? "border-primary text-primary bg-primary/5"
-                          : "border-border hover:border-primary hover:text-primary"
+                          : "border-border text-foreground/80 hover:border-primary hover:text-primary"
                       }`}
                     >
                       {s.servicesPage.title
@@ -191,29 +183,12 @@ const Services = () => {
             );
           })}
 
-          {/* Final CTA */}
-          <section className="pb-20 md:pb-32">
-            <div className="vp-container max-w-2xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4">
-                  Besoin d'un service de nettoyage résidentiel?
-                </h2>
-                <p className="text-muted-foreground text-[15px] mb-8">
-                  Parlez-nous de votre besoin et obtenez une soumission adaptée.
-                </p>
-                <Link to={ROUTE_PATHS.CONTACT}>
-                  <Button variant="default" size="lg">
-                    Nous contacter
-                  </Button>
-                </Link>
-              </motion.div>
-            </div>
-          </section>
+          <PageBottomCta
+            title="Besoin d'un service de nettoyage résidentiel?"
+            description="Parlez-nous de votre besoin et obtenez une soumission adaptée."
+            buttonTo={ROUTE_PATHS.CONTACT}
+            buttonLabel="Nous contacter"
+          />
         </main>
 
         <Footer />

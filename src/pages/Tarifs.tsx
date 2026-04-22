@@ -3,7 +3,8 @@ import { Header } from "@/components/Header";
 import { SidePanel } from "@/components/SidePanel";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
-import { Button } from "@/components/ui/button";
+import { PageBottomCta } from "@/components/PageBottomCta";
+import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -34,20 +35,14 @@ const Tarifs = () => {
               <p className="text-muted-foreground text-[15px]">
                 Prix affichés, sans surprise. Service professionnel de nettoyage de ventilation pour résidences, bureaux et commerces au Québec.
               </p>
-              <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              <SeoLinksParagraph
+                className="mt-4"
+              >
                 Pour comparer les interventions en détail, visitez la page{" "}
-                <Link to={ROUTE_PATHS.SERVICES} className="text-primary hover:text-primary/80 transition-colors">
-                  nettoyage de conduits de ventilation résidentiels et commerciaux
-                </Link>{" "}
+                <Link to={ROUTE_PATHS.SERVICES}>nettoyage de conduits de ventilation résidentiels et commerciaux</Link>{" "}
                 puis confirmez votre zone sur{" "}
-                <Link
-                  to={ROUTE_PATHS.SECTEURS}
-                  className="text-primary hover:text-primary/80 transition-colors"
-                >
-                  nos secteurs desservis à Montréal, Laval, Longueuil et la Rive-Sud
-                </Link>
-                .
-              </p>
+                <Link to={ROUTE_PATHS.SECTEURS}>nos secteurs desservis à Montréal, Laval, Longueuil et la Rive-Sud</Link>.
+              </SeoLinksParagraph>
             </motion.div>
 
             <div className="grid sm:grid-cols-2 gap-5 md:gap-6 mb-20">
@@ -102,28 +97,18 @@ const Tarifs = () => {
               ))}
             </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="text-center"
+            <PageBottomCta
+              className="pb-0 md:pb-0"
+              description="Soumission gratuite pour tous nos services de nettoyage résidentiel et commercial."
+              buttonTo={ROUTE_PATHS.CONTACT}
+              buttonLabel="Demander une soumission"
             >
-              <p className="text-sm text-muted-foreground mb-6">
-                Soumission gratuite pour tous nos services de nettoyage résidentiel et commercial.
-              </p>
-              <p className="text-sm text-muted-foreground mb-6">
+              <SeoLinksParagraph>
                 Consultez aussi notre{" "}
-                <Link to={ROUTE_PATHS.EQUIPEMENT} className="text-primary hover:text-primary/80 transition-colors">
-                  méthode et équipement de nettoyage de conduits
-                </Link>{" "}
-                pour comprendre comment nous réalisons chaque intervention.
-              </p>
-              <Link to={ROUTE_PATHS.CONTACT}>
-                <Button variant="default" size="lg">
-                  Demander une soumission
-                </Button>
-              </Link>
-            </motion.div>
+                <Link to={ROUTE_PATHS.EQUIPEMENT}>méthode et équipement de nettoyage de conduits</Link> pour comprendre
+                comment nous réalisons chaque intervention.
+              </SeoLinksParagraph>
+            </PageBottomCta>
           </div>
         </main>
 
