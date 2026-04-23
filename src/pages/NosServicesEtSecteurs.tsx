@@ -7,11 +7,18 @@ import { PageBottomCta } from "@/components/PageBottomCta";
 import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin } from "lucide-react";
+import { MapPin, MapPinned } from "lucide-react";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { SERVICE_ZONES } from "@/consts/zones";
 import { SERVICE_AREAS_MAP_EMBED_URL } from "@/consts/contact";
 import { Breadcrumb } from "@/components/Breadcrumb";
+
+const REGION_ROUTE_MAP: Record<string, string> = {
+  Montréal: ROUTE_PATHS.MONTREAL,
+  "Laval et alentours": ROUTE_PATHS.LAVAL,
+  "Longueuil et alentours": ROUTE_PATHS.LONGUEUIL,
+  "Repentigny et alentours": ROUTE_PATHS.REPENTIGNY,
+};
 
 const NosServicesEtSecteurs = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -42,14 +49,16 @@ const NosServicesEtSecteurs = () => {
                   Nettoyage de ventilation à Montréal et la Rive-Sud
                 </h1>
                 <p className="text-muted-foreground text-[15px] leading-relaxed">
-                  VentiPure intervient dans les principales régions du Grand Montréal et de la Rive-Nord. Nous desservons résidences, bureaux et commerces dans les villes et quartiers ci-dessous.
+                  VentiPure intervient dans les principales régions du Grand Montréal et de la Rive-Nord.
+                  Nous desservons résidences, bureaux et commerces dans les villes et quartiers ci-dessous.
                 </p>
-                <SeoLinksParagraph
-                  className="mt-5"
-                >
+                <SeoLinksParagraph className="mt-5">
                   Avant de réserver, consultez nos{" "}
                   <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de ventilation</Link> et les{" "}
-                  <Link to={ROUTE_PATHS.TARIFS}>tarifs de nettoyage de conduits résidentiels et commerciaux</Link>.
+                  <Link to={ROUTE_PATHS.TARIFS}>
+                    tarifs de nettoyage de conduits résidentiels et commerciaux
+                  </Link>
+                  .
                 </SeoLinksParagraph>
               </motion.div>
             </div>
@@ -83,55 +92,50 @@ const NosServicesEtSecteurs = () => {
           <section className="pb-20 md:pb-28">
             <div className="vp-container">
               <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
-                {SERVICE_ZONES.map((z, i) => (
-                  <motion.article
-                    key={z.region}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ delay: i * 0.08, duration: 0.5 }}
-                    className="rounded-2xl border border-border bg-card p-7 md:p-8"
-                  >
-                    <div className="flex items-center gap-2.5 mb-5">
-                      <MapPin className="h-4 w-4 text-primary" strokeWidth={2.2} />
-                      <h2 className="text-lg font-bold text-foreground tracking-tight">
-                        {z.region}
-                      </h2>
-                    </div>
-                    <ul className="flex flex-wrap gap-2">
-                      {z.areas.map((a) => (
-                        <li
-                          key={a}
-                          className="text-sm text-foreground/80 px-3 py-1.5 rounded-full bg-muted/60"
-                        >
-                          {a}
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.article>
-                ))}
-              </div>
-            </div>
-          </section>
+                {SERVICE_ZONES.map((z, i) => {
+                  const regionPath = REGION_ROUTE_MAP[z.region];
 
-          <section className="pb-12 md:pb-16">
-            <div className="vp-container max-w-3xl">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4">
-                Pages locales les plus consultées
-              </h2>
-              <div className="grid gap-2 text-sm">
-                <Link to={ROUTE_PATHS.MONTREAL} className="text-primary hover:text-primary/80 transition-colors">
-                  Nettoyage de ventilation à Montréal
-                </Link>
-                <Link to={ROUTE_PATHS.LAVAL} className="text-primary hover:text-primary/80 transition-colors">
-                  Nettoyage de ventilation à Laval
-                </Link>
-                <Link to={ROUTE_PATHS.LONGUEUIL} className="text-primary hover:text-primary/80 transition-colors">
-                  Nettoyage de ventilation à Longueuil
-                </Link>
-                <Link to={ROUTE_PATHS.REPENTIGNY} className="text-primary hover:text-primary/80 transition-colors">
-                  Nettoyage de ventilation à Repentigny
-                </Link>
+                  return (
+                    <motion.div
+                      key={z.region}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-60px" }}
+                      transition={{ delay: i * 0.08, duration: 0.5 }}
+                    >
+                      <Link
+                        to={regionPath}
+                        className="group block h-full rounded-2xl border border-border bg-card p-7 md:p-8 transition-all duration-200 hover:border-primary/30 hover:bg-muted/20 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        aria-label={`Voir la page locale ${z.region}`}
+                      >
+                        <div className="flex items-start justify-between gap-4 mb-5">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <MapPin
+                              className="h-4 w-4 text-primary shrink-0"
+                              strokeWidth={2.2}
+                            />
+                            <h2 className="text-lg font-bold text-foreground tracking-tight">
+                              {z.region}
+                            </h2>
+                          </div>
+
+                          <MapPinned className="h-4 w-4 text-muted-foreground transition-colors duration-200 group-hover:text-primary shrink-0" />
+                        </div>
+
+                        <ul className="flex flex-wrap gap-2">
+                          {z.areas.map((a) => (
+                            <li
+                              key={a}
+                              className="text-sm text-foreground/80 px-3 py-1.5 rounded-full bg-muted/60 transition-colors duration-200 group-hover:bg-muted"
+                            >
+                              {a}
+                            </li>
+                          ))}
+                        </ul>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -142,12 +146,11 @@ const NosServicesEtSecteurs = () => {
             buttonTo={ROUTE_PATHS.CONTACT}
             buttonLabel="Demander une soumission gratuite"
           >
-            <SeoLinksParagraph
-            >
+            <SeoLinksParagraph>
               Faites votre{" "}
               <Link to={ROUTE_PATHS.CONTACT}>
-                demande de soumission pour le nettoyage de conduits à Montréal, Laval, Longueuil, Rive-Sud ou
-                Repentigny
+                demande de soumission pour le nettoyage de conduits à Montréal, Laval, Longueuil,
+                Rive-Sud ou Repentigny
               </Link>
               .
             </SeoLinksParagraph>

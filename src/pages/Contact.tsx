@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send } from "lucide-react";
 import { Header } from "@/components/Header";
@@ -14,6 +14,7 @@ import { ContactBottomDetails } from "@/components/contact/ContactBottomDetails"
 import { useContactForm } from "@/components/contact/useContactForm";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { ROUTE_PATHS } from "@/consts/navigation";
+import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 
 const Contact = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -134,6 +135,15 @@ const Contact = () => {
             </motion.form>
 
             <ContactBottomDetails />
+
+            <SeoLinksParagraph
+              className="mt-4"
+            >
+              Vous pouvez aussi consulter nos{" "}
+              <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link> et nos{" "}
+              <Link to={ROUTE_PATHS.TARIFS}>prix de nettoyage d'échangeur d'air, sécheuse et fournaise</Link> avant de
+              soumettre votre demande.
+            </SeoLinksParagraph>
           </div>
         </main>
 
