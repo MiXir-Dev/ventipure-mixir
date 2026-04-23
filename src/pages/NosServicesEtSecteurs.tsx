@@ -11,6 +11,7 @@ import { MapPin } from "lucide-react";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { SERVICE_ZONES } from "@/consts/zones";
 import { SERVICE_AREAS_MAP_EMBED_URL } from "@/consts/contact";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const NosServicesEtSecteurs = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -23,24 +24,28 @@ const NosServicesEtSecteurs = () => {
 
         <main>
           {/* Hero */}
-          <section className="pt-32 pb-12 md:pt-44 md:pb-16">
+          <section className="pt-32 pb-20 md:pt-40 md:pb-28">
             <div className="vp-container max-w-3xl">
+              <Breadcrumb
+                className="mb-6"
+                items={[
+                  { label: "Accueil", to: ROUTE_PATHS.HOME },
+                  { label: "Zones desservies" },
+                ]}
+              />
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-4">
-                  Secteurs desservis
-                </p>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight mb-5 leading-[1.1]">
                   Nettoyage de ventilation à Montréal et la Rive-Sud
                 </h1>
-                <p className="text-muted-foreground text-[15px] leading-relaxed max-w-xl">
+                <p className="text-muted-foreground text-[15px] leading-relaxed">
                   VentiPure intervient dans les principales régions du Grand Montréal et de la Rive-Nord. Nous desservons résidences, bureaux et commerces dans les villes et quartiers ci-dessous.
                 </p>
                 <SeoLinksParagraph
-                  className="max-w-xl mt-5"
+                  className="mt-5"
                 >
                   Avant de réserver, consultez nos{" "}
                   <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de ventilation</Link> et les{" "}
@@ -109,11 +114,33 @@ const NosServicesEtSecteurs = () => {
             </div>
           </section>
 
+          <section className="pb-12 md:pb-16">
+            <div className="vp-container max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4">
+                Pages locales les plus consultées
+              </h2>
+              <div className="grid gap-2 text-sm">
+                <Link to={ROUTE_PATHS.MONTREAL} className="text-primary hover:text-primary/80 transition-colors">
+                  Nettoyage de ventilation à Montréal
+                </Link>
+                <Link to={ROUTE_PATHS.LAVAL} className="text-primary hover:text-primary/80 transition-colors">
+                  Nettoyage de ventilation à Laval
+                </Link>
+                <Link to={ROUTE_PATHS.LONGUEUIL} className="text-primary hover:text-primary/80 transition-colors">
+                  Nettoyage de ventilation à Longueuil
+                </Link>
+                <Link to={ROUTE_PATHS.REPENTIGNY} className="text-primary hover:text-primary/80 transition-colors">
+                  Nettoyage de ventilation à Repentigny
+                </Link>
+              </div>
+            </div>
+          </section>
+
           <PageBottomCta
             title="Votre ville n'est pas listée?"
             description="Contactez-nous, nous évaluons chaque demande au cas par cas dans le Grand Montréal."
             buttonTo={ROUTE_PATHS.CONTACT}
-            buttonLabel="Demander une soumission"
+            buttonLabel="Demander une soumission gratuite"
           >
             <SeoLinksParagraph
             >
