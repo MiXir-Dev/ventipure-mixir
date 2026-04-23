@@ -133,7 +133,7 @@ const Contact = () => {
                 </Button>
               </div>
             </motion.form>
-
+ 
             <ContactBottomDetails />
 
             <SeoLinksParagraph
