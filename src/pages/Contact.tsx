@@ -105,7 +105,7 @@ const Contact = () => {
 
               <div>
                 <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
-                  Message{" "}
+                  Informations supplémentaires{" "}
                   <span className="text-muted-foreground/60 normal-case tracking-normal">
                     (optionnel)
                   </span>

@@ -53,7 +53,7 @@ const Tarifs = () => {
                   className="animate-fade-in h-full"
                   style={{ animationDelay: `${i * 60}ms` }}
                 >
-                  <div className="group h-full rounded-2xl border border-border bg-card overflow-hidden hover:shadow-[var(--vp-shadow-card)] transition-shadow duration-300">
+                  <div className="group h-full rounded-2xl border border-border overflow-hidden hover:shadow-[var(--vp-shadow-card)] transition-shadow duration-300">
                     <Link to={SERVICE_ROUTE_BY_ID[s.id]} className="block">
                       <div className="aspect-[16/10] overflow-hidden bg-muted">
                         <img

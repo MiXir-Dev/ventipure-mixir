@@ -4,10 +4,27 @@ import {
   SERVICE_ROUTE_BY_ID,
   type ServiceMarketingId,
 } from "@/consts/services";
+import {
+  FAQ_CLIMATISEUR,
+  FAQ_COMMERCIAUX,
+  FAQ_CONDUIT,
+  FAQ_ECHANGER,
+  FAQ_SECHEUSE,
+} from "@/consts/faqs";
 
 export type ServiceLandingFaqItem = {
   q: string;
   a: string;
+};
+
+export type ServiceLandingImage = {
+  src: string;
+  alt: string;
+};
+
+export type ServiceLandingProcessStep = {
+  title: string;
+  description: string;
 };
 
 export type ServiceLandingPageConfig = {
@@ -16,21 +33,30 @@ export type ServiceLandingPageConfig = {
   h1: string;
   subtitle: string;
   priceSignal: string;
+
+  heroImage: ServiceLandingImage;
+  supportImage?: ServiceLandingImage;
+
+  benefits: string[];
+  symptomChips: string[];
+
   problemSection: string;
   includes: string[];
   excludes: string[];
-  processSteps: string[];
+  processSteps: ServiceLandingProcessStep[];
   faq: ServiceLandingFaqItem[];
   relatedServices: ServiceMarketingId[];
+
+  primaryCtaLabel: string;
+  secondaryCtaLabel: string;
 };
 
-const entriesById = SERVICE_MARKETING_ENTRIES.reduce<Record<ServiceMarketingId, (typeof SERVICE_MARKETING_ENTRIES)[number]>>(
-  (acc, entry) => {
-    acc[entry.id] = entry;
-    return acc;
-  },
-  {} as Record<ServiceMarketingId, (typeof SERVICE_MARKETING_ENTRIES)[number]>,
-);
+const entriesById = SERVICE_MARKETING_ENTRIES.reduce<
+  Record<ServiceMarketingId, (typeof SERVICE_MARKETING_ENTRIES)[number]>
+>((acc, entry) => {
+  acc[entry.id] = entry;
+  return acc;
+}, {} as Record<ServiceMarketingId, (typeof SERVICE_MARKETING_ENTRIES)[number]>);
 
 export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
   {
@@ -38,118 +64,169 @@ export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
     path: ROUTE_PATHS.SERVICES_CONDUITS,
     h1: "Nettoyage des conduits de fournaise à Montréal et Grand Montréal",
     subtitle:
-      "Respirez un air intérieur plus sain et gardez un système de chauffage à air pulsé plus efficace toute l'année.",
-    priceSignal: "Dès 349 $",
+      "Améliorez la circulation de l’air dans votre maison et gardez un réseau de ventilation résidentiel mieux entretenu toute l’année.",
+    priceSignal: "À partir de 349 $",
+    heroImage: {
+      src: "/nettoyage-ventillations/service-conduits.jpg",
+      alt: "Nettoyage professionnel des conduits de fournaise dans une résidence du Grand Montréal",
+    },
+    supportImage: {
+      src: "/nettoyage-ventillations/tarif-conduits.jpg",
+      alt: "Intervention de nettoyage de conduits de fournaise résidentiels au Québec",
+    },
+    benefits: [
+      "Jusqu’à 15 sorties incluses",
+      "Meilleure circulation de l’air",
+      "Entretien résidentiel professionnel",
+    ],
+    symptomChips: [
+      "Poussière persistante",
+      "Air inégal d’une pièce à l’autre",
+      "Après rénovations",
+      "Présence d’animaux",
+    ],
     problemSection:
-      "Les conduits de fournaise d'un système de chauffage à air pulsé accumulent naturellement poussière fine, squames, résidus de rénovation et particules en suspension. Au Québec, la fournaise fonctionne souvent entre 6 et 8 mois par année, donc l'air circule longtemps dans le même réseau et transporte ces dépôts dans les pièces. Dans plusieurs maisons de Montréal construites avant 1990, on retrouve encore des sections de conduits galvanisés ou des raccords ajoutés au fil des travaux, ce qui favorise l'accumulation de particules. Quand le réseau est encrassé, la qualité de l'air intérieur peut se dégrader, le confort devient irrégulier d'une pièce à l'autre et la fournaise peut forcer davantage, ce qui nuit à l'efficacité énergétique. Un nettoyage de conduits de fournaise réalisé selon les bonnes pratiques ACNOR/NADCA aide à rétablir une circulation d'air plus stable. Pour la plupart des résidences, une fréquence de 3 à 5 ans est réaliste; en présence d'animaux, d'allergies ou après des rénovations, un entretien annuel peut être plus approprié.",
+      "Les conduits de fournaise accumulent naturellement poussière fine, squames, résidus de rénovation et autres particules en suspension. Avec le temps, cette accumulation peut nuire au confort, rendre la circulation d’air moins uniforme et diminuer l’efficacité globale du système. Un nettoyage professionnel aide à repartir sur une base plus saine et plus stable pour l’entretien du réseau résidentiel.",
     includes: [
-      "Inspection visuelle des conduits accessibles avant l'intervention",
-      "Nettoyage mécanique des conduits d'alimentation et de retour accessibles",
-      "Aspiration avec filtration adaptée au nettoyage résidentiel",
+      "Inspection visuelle des conduits accessibles avant l’intervention",
+      "Nettoyage des conduits d’alimentation et de retour accessibles",
+      "Aspiration avec équipement adapté au nettoyage résidentiel",
       "Nettoyage des grilles et sorties incluses au forfait de base",
       "Vérification finale des composantes traitées",
     ],
     excludes: [
       "Démontage complet de conduits encastrés non accessibles",
       "Réparation de conduits endommagés ou fuyants",
-      "Travaux d'électricité, de plomberie ou de conversion de système",
+      "Travaux d’électricité, de plomberie ou de conversion de système",
     ],
     processSteps: [
-      "Inspection du réseau et validation du nombre de sorties",
-      "Mise en pression négative et préparation des points d'accès",
-      "Brossage et soufflage contrôlé de chaque section de conduit",
-      "Nettoyage final, vérification et résumé de l'intervention",
-    ],
-    faq: [
       {
-        q: "Combien de temps dure le nettoyage des conduits de fournaise?",
-        a: "La plupart des interventions durent entre 2 h et 3 h selon la taille de la maison et le nombre de sorties à traiter.",
+        title: "Inspection du réseau",
+        description:
+          "Validation du réseau accessible, du nombre de sorties et des points d’intervention.",
       },
       {
-        q: "À quelle fréquence faut-il nettoyer les conduits de fournaise au Québec?",
-        a: "Un intervalle de 3 à 5 ans est courant, mais il peut être plus court après des rénovations, avec animaux ou allergies marquées.",
+        title: "Préparation de l’intervention",
+        description:
+          "Mise en pression négative et préparation des accès pour travailler proprement.",
       },
       {
-        q: "Le nettoyage des conduits améliore-t-il la qualité de l'air intérieur?",
-        a: "Oui, il aide à réduire la recirculation de poussière et de particules dans les pièces lorsque le chauffage fonctionne.",
+        title: "Nettoyage des sections ciblées",
+        description:
+          "Brossage, soufflage contrôlé et aspiration des conduits accessibles.",
       },
       {
-        q: "Le nettoyage inclut-il toutes les sorties de ventilation?",
-        a: "Le forfait de base inclut un nombre défini de sorties. Les sorties supplémentaires sont validées avant le début des travaux.",
-      },
-      {
-        q: "Est-ce que je dois quitter la maison pendant l'intervention?",
-        a: "Non, dans la majorité des cas vous pouvez rester sur place. Notre équipe vous indique simplement les zones à garder dégagées.",
+        title: "Vérification finale",
+        description:
+          "Contrôle des composantes traitées et résumé clair de l’intervention.",
       },
     ],
+    faq: FAQ_CONDUIT,
     relatedServices: ["secheuse", "echangeur"],
+    primaryCtaLabel: "Demander une soumission pour les conduits",
+    secondaryCtaLabel: "Voir les tarifs",
   },
   {
     id: "secheuse",
     path: ROUTE_PATHS.SERVICES_SECHEUSE,
     h1: "Nettoyage du conduit de sécheuse à Montréal et Grand Montréal",
     subtitle:
-      "Réduisez l'accumulation de charpie et retrouvez un séchage plus rapide avec un conduit entretenu correctement.",
-    priceSignal: "Dès 149 $",
+      "Réduisez l’accumulation de charpie et retrouvez un séchage plus rapide avec un conduit entretenu correctement.",
+    priceSignal: "À partir de 149 $",
+    heroImage: {
+      src: "/nettoyage-ventillations/service-secheuse.jpg",
+      alt: "Nettoyage professionnel d’un conduit de sécheuse dans une résidence du Grand Montréal",
+    },
+    supportImage: {
+      src: "/nettoyage-ventillations/tarif-secheuse.jpg",
+      alt: "Entretien d’un conduit de sécheuse résidentiel au Québec",
+    },
+    benefits: [
+      "Réduction de la charpie accumulée",
+      "Séchage plus efficace",
+      "Entretien important pour la sécurité",
+    ],
+    symptomChips: [
+      "Temps de séchage plus long",
+      "Accumulation de charpie",
+      "Conduit long ou avec coudes",
+      "Usage fréquent",
+    ],
     problemSection:
-      "Le conduit de sécheuse est l'un des éléments les plus à risque quand il est négligé. Avec l'usage, l'accumulation de charpie se colle aux parois, réduit le débit d'air et oblige la sécheuse à fonctionner plus longtemps pour un même chargement. Les conséquences sont concrètes: cycles plus longs, consommation d'énergie plus élevée, surchauffe de l'appareil et hausse du risque d'incendie. Dans les maisons familiales du Grand Montréal, où la sécheuse roule souvent plusieurs fois par semaine, ce problème se développe rapidement. Un conduit partiellement bloqué peut facilement doubler la durée de séchage, surtout si le trajet est long ou comporte plusieurs coudes. Un nettoyage de conduit de sécheuse bien exécuté retire les dépôts de charpie, améliore l'efficacité du séchage et réduit les risques évitables. Pour la majorité des foyers québécois, un nettoyage annuel est recommandé; pour les grandes familles ou un usage intensif, un entretien aux 6 mois est souvent plus prudent. Cette approche s'aligne avec les recommandations d'inspection périodique du fabricant et les bonnes pratiques de sécurité résidentielle.",
+      "Avec l’usage, la charpie et les résidus s’accumulent dans le conduit de sécheuse et réduisent le débit d’air. La sécheuse doit alors fonctionner plus longtemps, ce qui augmente l’usure, la consommation d’énergie et les risques évitables. Un nettoyage bien exécuté aide à retirer les dépôts accumulés et à garder une évacuation plus efficace.",
     includes: [
       "Inspection du trajet du conduit de sécheuse",
-      "Retrait de la charpie accumulée dans les sections accessibles",
+      "Retrait de la charpie dans les sections accessibles",
       "Nettoyage de la sortie extérieure quand accessible",
-      "Vérification du débit d'air après intervention",
-      "Recommandations d'entretien adaptées à l'usage du foyer",
+      "Vérification du débit d’air après intervention",
+      "Recommandations d’entretien selon l’usage du foyer",
     ],
     excludes: [
       "Remplacement de conduit écrasé ou non conforme",
-      "Réparation d'appareil électroménager",
-      "Travaux de menuiserie ou d'ouverture de mur pour accès fermé",
+      "Réparation d’appareil électroménager",
+      "Travaux d’ouverture de mur pour accès fermé",
     ],
     processSteps: [
-      "Évaluation du trajet et des points d'accumulation",
-      "Délogement contrôlé des résidus de charpie",
-      "Aspiration complète du conduit et de la sortie",
-      "Test de fonctionnement et conseils de prévention",
-    ],
-    faq: [
       {
-        q: "Pourquoi le nettoyage du conduit de sécheuse est-il important?",
-        a: "Parce qu'un conduit obstrué nuit au débit d'air, allonge les cycles et augmente les risques de surchauffe liés à la charpie.",
+        title: "Évaluation du trajet",
+        description:
+          "Repérage des zones d’accumulation et des contraintes du conduit.",
       },
       {
-        q: "À quelle fréquence faut-il faire nettoyer un conduit de sécheuse?",
-        a: "Généralement chaque 12 à 24 mois selon la fréquence d'utilisation et la longueur du conduit.",
+        title: "Délogement des résidus",
+        description:
+          "Retrait contrôlé de la charpie et des dépôts accumulés.",
       },
       {
-        q: "Quels signes indiquent qu'un nettoyage est nécessaire?",
-        a: "Séchage plus long, appareil très chaud, odeur inhabituelle ou accumulation visible de charpie près de la sortie extérieure.",
+        title: "Aspiration complète",
+        description:
+          "Nettoyage du conduit et de la sortie extérieure lorsque possible.",
       },
       {
-        q: "Le service inclut-il la sortie extérieure?",
-        a: "Oui, quand elle est accessible et sécuritaire, elle est nettoyée dans le cadre de l'intervention.",
-      },
-      {
-        q: "Est-ce que le nettoyage peut réduire ma consommation d'énergie?",
-        a: "Un meilleur débit d'air peut réduire la durée des cycles et donc limiter la consommation globale de la sécheuse.",
+        title: "Validation finale",
+        description:
+          "Vérification du fonctionnement et conseils d’entretien préventif.",
       },
     ],
+    faq: FAQ_SECHEUSE,
     relatedServices: ["conduits", "climatiseur"],
+    primaryCtaLabel: "Demander une soumission pour la sécheuse",
+    secondaryCtaLabel: "Voir les tarifs",
   },
   {
     id: "echangeur",
     path: ROUTE_PATHS.SERVICES_ECHANGEUR,
-    h1: "Nettoyage de l'échangeur d'air à Montréal et Grand Montréal",
+    h1: "Nettoyage de l’échangeur d’air à Montréal et Grand Montréal",
     subtitle:
-      "Maintenez un renouvellement d'air efficace et un environnement intérieur plus sain grâce à un échangeur bien entretenu.",
+      "Maintenez un renouvellement d’air plus efficace et un environnement intérieur mieux entretenu grâce à un échangeur propre.",
     priceSignal: "249 $",
+    heroImage: {
+      src: "/nettoyage-ventillations/service-echangeur.jpg",
+      alt: "Nettoyage professionnel d’un échangeur d’air résidentiel à Montréal et dans le Grand Montréal",
+    },
+    supportImage: {
+      src: "/nettoyage-ventillations/tarif-echangeur.jpg",
+      alt: "Entretien d’un échangeur d’air dans une résidence québécoise",
+    },
+    benefits: [
+      "Air intérieur mieux renouvelé",
+      "Entretien préventif utile",
+      "Fonctionnement plus stable de l’appareil",
+    ],
+    symptomChips: [
+      "Humidité persistante",
+      "Odeurs qui restent",
+      "Filtres encrassés",
+      "Ventilation moins efficace",
+    ],
     problemSection:
-      "Dans une maison moderne bien isolée, l'échangeur d'air est essentiel pour évacuer l'humidité et renouveler l'air intérieur. Au Québec, le Code du bâtiment impose depuis les années 1990 une ventilation mécanique dans les constructions neuves, ce qui explique la présence fréquente de VRC ou de VRÉ dans le Grand Montréal. Quand les filtres, le noyau et les conduits accessibles s'encrassent, le ventilateur récupérateur de chaleur perd en rendement: l'air circule moins bien, l'humidité monte et les odeurs persistent plus longtemps. En hiver, cette situation peut accentuer la condensation et l'inconfort dans les pièces les plus fermées. Un nettoyage d'échangeur d'air complet redonne au système sa capacité de renouvellement et améliore la qualité de l'air intérieur au quotidien. Pour la plupart des résidences, une inspection des filtres deux fois par année et un nettoyage complet tous les 1 à 2 ans donnent de bons résultats. Dans les foyers plus occupés ou plus humides, une fréquence annuelle est souvent préférable pour garder un fonctionnement stable.",
+      "Dans une maison bien isolée, l’échangeur d’air joue un rôle important dans le renouvellement de l’air intérieur. Quand les filtres, le noyau et les sections accessibles s’encrassent, la circulation devient moins efficace et l’appareil peut perdre en rendement. Un nettoyage complet aide à garder un fonctionnement plus stable et un meilleur confort au quotidien.",
     includes: [
-      "Nettoyage du noyau de l'échangeur d'air",
+      "Nettoyage du noyau de l’échangeur d’air",
       "Nettoyage ou entretien des filtres selon leur type",
       "Nettoyage des sections de conduits accessibles",
-      "Vérification de base du fonctionnement de l'appareil",
-      "Recommandations de fréquence d'entretien",
+      "Vérification de base du fonctionnement de l’appareil",
+      "Recommandations de fréquence d’entretien",
     ],
     excludes: [
       "Remplacement de pièces électroniques défectueuses",
@@ -157,34 +234,31 @@ export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
       "Modification de la configuration du système de ventilation",
     ],
     processSteps: [
-      "Inspection de l'appareil et de ses composantes",
-      "Nettoyage du noyau, des filtres et des accès",
-      "Remontage et vérification du fonctionnement",
-      "Validation finale et recommandations d'entretien",
-    ],
-    faq: [
       {
-        q: "Pourquoi nettoyer l'échangeur d'air régulièrement?",
-        a: "Pour maintenir un bon renouvellement de l'air et éviter que poussière et humidité nuisent au confort intérieur.",
+        title: "Inspection de l’appareil",
+        description:
+          "Vérification des composantes, des accès et de l’état général de l’échangeur.",
       },
       {
-        q: "Le nettoyage inclut-il les filtres de l'échangeur?",
-        a: "Oui, les filtres sont nettoyés ou vérifiés selon leur type et leur état au moment de l'intervention.",
+        title: "Nettoyage des composantes",
+        description:
+          "Nettoyage du noyau, des filtres et des sections accessibles.",
       },
       {
-        q: "Combien de temps dure le nettoyage d'un échangeur d'air?",
-        a: "En moyenne entre 60 et 90 minutes selon le modèle et l'accès aux composantes.",
+        title: "Remontage et vérification",
+        description:
+          "Remise en place des composantes et validation du fonctionnement.",
       },
       {
-        q: "Est-ce que ce service est utile même si l'appareil fonctionne encore?",
-        a: "Oui, un appareil qui fonctionne peut tout de même perdre en efficacité si ses composantes sont encrassées.",
-      },
-      {
-        q: "À quelle fréquence planifier l'entretien d'un échangeur d'air?",
-        a: "Un entretien annuel est une bonne base pour la majorité des résidences.",
+        title: "Conseils d’entretien",
+        description:
+          "Recommandations simples selon votre installation et votre usage.",
       },
     ],
+    faq: FAQ_ECHANGER,
     relatedServices: ["conduits", "climatiseur"],
+    primaryCtaLabel: "Demander une soumission pour l’échangeur d’air",
+    secondaryCtaLabel: "Voir les tarifs",
   },
   {
     id: "climatiseur",
@@ -193,13 +267,32 @@ export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
     subtitle:
       "Retrouvez un air plus propre et une meilleure performance de refroidissement pendant les périodes chaudes.",
     priceSignal: "249 $",
+    heroImage: {
+      src: "/nettoyage-ventillations/service-climatiseur.jpg",
+      alt: "Nettoyage d’un climatiseur mural résidentiel dans le Grand Montréal",
+    },
+    supportImage: {
+      src: "/nettoyage-ventillations/tarif-climatiseur.jpg",
+      alt: "Entretien professionnel d’un climatiseur mural au Québec",
+    },
+    benefits: [
+      "Air plus propre",
+      "Réduction des odeurs",
+      "Meilleure performance saisonnière",
+    ],
+    symptomChips: [
+      "Odeurs à l’allumage",
+      "Filtres encrassés",
+      "Débit d’air plus faible",
+      "Entretien avant l’été",
+    ],
     problemSection:
-      "Un climatiseur mural ou une thermopompe murale accumule rapidement poussière, biofilm et résidus sur les filtres, l'évaporateur et le bac de récupération. Quand ces composantes sont encrassées, l'air passe moins bien, les odeurs augmentent et l'appareil doit travailler plus fort pour maintenir la température demandée. Dans le climat du Québec, les périodes chaudes et humides de juillet-août favorisent la croissance de moisissures dans l'unité si l'entretien est repoussé trop longtemps. Résultat: qualité de l'air plus faible, inconfort et baisse de rendement. Un nettoyage de climatiseur mural ciblé sur les zones critiques aide à rétablir un débit d'air stable, limite la dispersion de particules et soutient la performance saisonnière de l'appareil. Pour un usage standard, une intervention annuelle avant l'été est recommandée. Si la thermopompe fonctionne aussi en chauffage pendant l'hiver, deux entretiens par année sont souvent plus adaptés. Cette routine réduit l'usure prématurée et garde un air intérieur plus sain pour toute la famille.",
+      "Un climatiseur mural ou une thermopompe murale accumule rapidement poussière, résidus et humidité sur les filtres et les surfaces critiques. Quand ces composantes sont encrassées, l’air passe moins bien, les odeurs augmentent et l’appareil doit travailler plus fort. Un entretien ciblé aide à garder un fonctionnement plus propre et plus efficace pendant la saison chaude.",
     includes: [
-      "Nettoyage des filtres de l'unité murale",
-      "Nettoyage de l'évaporateur et des surfaces accessibles",
+      "Nettoyage des filtres de l’unité murale",
+      "Nettoyage de l’évaporateur et des surfaces accessibles",
       "Nettoyage du bac de récupération",
-      "Vérification visuelle de l'écoulement de base",
+      "Vérification visuelle de l’écoulement de base",
       "Contrôle de fonctionnement après intervention",
     ],
     excludes: [
@@ -208,49 +301,65 @@ export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
       "Réparation électronique de carte ou compresseur",
     ],
     processSteps: [
-      "Inspection de l'unité et des composantes accessibles",
-      "Nettoyage ciblé des filtres, évaporateur et bac",
-      "Rinçage et assainissement des zones traitées",
-      "Remise en marche et validation du rendement",
-    ],
-    faq: [
       {
-        q: "Quand faut-il nettoyer un climatiseur mural?",
-        a: "Idéalement une fois par année, avant la saison chaude, ou plus souvent si l'appareil fonctionne intensivement.",
+        title: "Inspection de l’unité",
+        description:
+          "Vérification des composantes accessibles et de l’état général de l’appareil.",
       },
       {
-        q: "Le nettoyage peut-il réduire les odeurs du climatiseur?",
-        a: "Oui, le nettoyage des composantes encrassées aide souvent à diminuer les odeurs causées par l'accumulation de résidus.",
+        title: "Nettoyage ciblé",
+        description:
+          "Traitement des filtres, de l’évaporateur et des zones critiques.",
       },
       {
-        q: "Le service inclut-il la vérification du bac de récupération?",
-        a: "Oui, le bac est nettoyé et vérifié dans le cadre du service standard.",
+        title: "Rinçage et remise en état",
+        description:
+          "Nettoyage des surfaces traitées et vérification des écoulements visibles.",
       },
       {
-        q: "Combien de temps dure un nettoyage de climatiseur mural?",
-        a: "En moyenne entre 60 et 90 minutes selon l'état de l'unité.",
-      },
-      {
-        q: "Est-ce que le nettoyage améliore le rendement de refroidissement?",
-        a: "Un appareil propre peut mieux circuler l'air et maintenir un rendement plus stable pendant l'été.",
+        title: "Validation du rendement",
+        description:
+          "Remise en marche et contrôle de fonctionnement après intervention.",
       },
     ],
+    faq: FAQ_CLIMATISEUR,
     relatedServices: ["echangeur", "secheuse"],
+    primaryCtaLabel: "Demander une soumission pour le climatiseur mural",
+    secondaryCtaLabel: "Voir les tarifs",
   },
   {
     id: "commercial",
     path: ROUTE_PATHS.SERVICES_COMMERCIAUX,
     h1: "Nettoyage de conduits commerciaux à Montréal et Grand Montréal",
     subtitle:
-      "Planifiez des interventions adaptées à vos opérations pour maintenir un environnement plus propre dans vos locaux.",
+      "Planifiez une intervention adaptée à vos opérations pour maintenir un environnement plus propre dans vos locaux.",
     priceSignal: "Sur estimation",
+    heroImage: {
+      src: "/nettoyage-ventillations/service-editorial.jpg",
+      alt: "Nettoyage de conduits commerciaux pour bureaux et commerces à Montréal et dans le Grand Montréal",
+    },
+    supportImage: {
+      src: "/nettoyage-ventillations/service-editorial.jpg",
+      alt: "Intervention de nettoyage de ventilation commerciale au Québec",
+    },
+    benefits: [
+      "Intervention adaptée à vos opérations",
+      "Approche planifiée selon vos horaires",
+      "Soumission sur mesure",
+    ],
+    symptomChips: [
+      "Bureaux et commerces",
+      "Qualité d’air en milieu de travail",
+      "Entretien planifié",
+      "Intervention sur mesure",
+    ],
     problemSection:
-      "En milieu commercial, la ventilation commerciale influence directement le confort des employés, l'expérience client et la conformité opérationnelle. Dans des bureaux, cliniques, commerces ou immeubles multilocatifs, les conduits commerciaux accumulent poussière, particules fines et résidus liés à l'occupation quotidienne. Sans plan d'entretien, la qualité de l'air en milieu de travail se dégrade, les plaintes d'odeur augmentent et certains systèmes CVAC perdent en efficacité. Au Québec, les obligations générales de la LSST et les attentes CNESST sur la qualité de l'environnement de travail poussent les exploitants à documenter l'entretien de leurs installations. Un nettoyage structuré selon les pratiques reconnues (NADCA/ASHRAE 62.1) aide à maintenir un réseau plus sain et plus stable. Pour des environnements exigeants comme restauration, cliniques ou installations médicales, une fréquence annuelle est souvent recommandée. Pour des bureaux standards, un cycle de 2 à 3 ans peut suffire selon l'occupation et le type d'activité. L'approche VentiPure vise des interventions planifiées, avec minimum d'interruption des opérations.",
+      "En milieu commercial, la ventilation influence directement le confort des occupants, l’expérience client et la stabilité des opérations. Avec le temps, les conduits accumulent poussière, particules et résidus liés à l’usage quotidien du bâtiment. Une intervention planifiée permet d’entretenir les sections visées sans perturber inutilement vos activités.",
     includes: [
       "Évaluation initiale du réseau et des accès",
-      "Plan d'intervention adapté au bâtiment et aux horaires",
+      "Plan d’intervention adapté au bâtiment et aux horaires",
       "Nettoyage des conduits accessibles selon la portée validée",
-      "Coordination avec la gestion du bâtiment ou l'exploitant",
+      "Coordination avec la gestion du bâtiment ou l’exploitant",
       "Compte rendu des travaux réalisés",
     ],
     excludes: [
@@ -259,52 +368,47 @@ export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
       "Maintenance mécanique complète des unités CVAC",
     ],
     processSteps: [
-      "Visite technique et définition de la portée",
-      "Planification du chantier selon vos heures d'opération",
-      "Nettoyage des sections ciblées avec équipements spécialisés",
-      "Vérification finale et rapport d'intervention",
-    ],
-    faq: [
       {
-        q: "Comment est établi le prix d'un nettoyage commercial?",
-        a: "Le prix dépend de la superficie, de la complexité du réseau, des accès et des contraintes d'horaire. Une estimation est fournie après évaluation.",
+        title: "Visite technique",
+        description:
+          "Évaluation du bâtiment, des accès et de la portée d’intervention.",
       },
       {
-        q: "Pouvez-vous intervenir en dehors des heures d'ouverture?",
-        a: "Oui, les interventions peuvent être planifiées tôt le matin, en soirée ou selon un horaire compatible avec vos activités.",
+        title: "Planification",
+        description:
+          "Organisation du chantier selon vos horaires et vos contraintes opérationnelles.",
       },
       {
-        q: "Quels types de bâtiments commerciaux desservez-vous?",
-        a: "Nous intervenons dans des bureaux, commerces, immeubles à revenus et autres bâtiments institutionnels selon le mandat.",
+        title: "Nettoyage ciblé",
+        description:
+          "Intervention avec équipements spécialisés sur les sections validées.",
       },
       {
-        q: "Fournissez-vous un compte rendu après l'intervention?",
-        a: "Oui, un résumé de la portée réalisée est remis à la fin des travaux.",
-      },
-      {
-        q: "Est-ce possible de planifier un entretien préventif annuel?",
-        a: "Oui, nous pouvons définir une fréquence d'entretien adaptée à votre bâtiment et à votre niveau d'occupation.",
+        title: "Compte rendu",
+        description:
+          "Résumé clair des travaux réalisés et recommandations au besoin.",
       },
     ],
+    faq: FAQ_COMMERCIAUX,
     relatedServices: ["conduits", "echangeur"],
+    primaryCtaLabel: "Demander une estimation commerciale",
+    secondaryCtaLabel: "Nous contacter",
   },
 ];
 
-export const SERVICE_LANDING_BY_PATH = SERVICE_LANDING_PAGES.reduce<Record<string, ServiceLandingPageConfig>>(
-  (acc, page) => {
-    acc[page.path] = page;
-    return acc;
-  },
-  {},
-);
+export const SERVICE_LANDING_BY_PATH = SERVICE_LANDING_PAGES.reduce<
+  Record<string, ServiceLandingPageConfig>
+>((acc, page) => {
+  acc[page.path] = page;
+  return acc;
+}, {});
 
-export const SERVICE_LANDING_BY_ID = SERVICE_LANDING_PAGES.reduce<Record<ServiceMarketingId, ServiceLandingPageConfig>>(
-  (acc, page) => {
-    acc[page.id] = page;
-    return acc;
-  },
-  {} as Record<ServiceMarketingId, ServiceLandingPageConfig>,
-);
+export const SERVICE_LANDING_BY_ID = SERVICE_LANDING_PAGES.reduce<
+  Record<ServiceMarketingId, ServiceLandingPageConfig>
+>((acc, page) => {
+  acc[page.id] = page;
+  return acc;
+}, {} as Record<ServiceMarketingId, ServiceLandingPageConfig>);
 
 export const getServiceEntryForLanding = (id: ServiceMarketingId) => entriesById[id];
 

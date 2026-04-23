@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useInView } from "@/hooks/useInView";
 const serviceAction3 = "/nettoyage-ventillations/service-action-3.jpg";
 const serviceActionPrecision = "/nettoyage-ventillations/service-action-precision.jpg";
 const serviceAction4 = "/nettoyage-ventillations/service-action-4.jpg";
@@ -26,8 +27,9 @@ const slides = [
   },
 ];
 
-export function GallerySection() {
+function GallerySection() {
   const [current, setCurrent] = useState(0);
+  const { ref, inView } = useInView();
 
   const next = () => setCurrent((c) => (c + 1) % slides.length);
   const prev = () => setCurrent((c) => (c - 1 + slides.length) % slides.length);
@@ -35,12 +37,9 @@ export function GallerySection() {
   return (
     <section className="vp-section-padding bg-muted/20 overflow-hidden">
       <div className="vp-container">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center"
+        <div
+          ref={ref}
+          className={`${inView ? "animate-fade-in" : "opacity-0"} grid lg:grid-cols-12 gap-12 lg:gap-16 items-center`}
         >
           {/* Text column */}
           <div className="lg:col-span-4">
@@ -51,7 +50,7 @@ export function GallerySection() {
               Un travail soigné, des résultats concrets
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 text-[15px]">
-              Chaque intervention est réalisée avec rigueur. Nos techniciens nettoient l'ensemble 
+              Chaque intervention est réalisée avec rigueur. Nos techniciens nettoient l'ensemble
               du réseau de ventilation pour améliorer la qualité de l'air dans votre résidence.
             </p>
 
@@ -105,27 +104,11 @@ export function GallerySection() {
                 />
               </AnimatePresence>
             </div>
-            {/* Caption */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.35 }}
-                className="mt-5"
-              >
-                <p className="text-sm font-semibold text-foreground mb-1">
-                  {slides[current].title}
-                </p>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {slides[current].caption}
-                </p>
-              </motion.div>
-            </AnimatePresence>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
+
+export default GallerySection;

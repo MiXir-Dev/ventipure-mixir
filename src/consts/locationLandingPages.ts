@@ -1,9 +1,25 @@
 import { ROUTE_PATHS } from "@/consts/navigation";
-import { ZONE_AREA_LABELS } from "@/consts/zones";
+import { AREA_SERVED_LABELS, ZONE_AREA_LABELS } from "@/consts/zones";
+import {
+  FAQ_LAVAL,
+  FAQ_LONGUEUIL,
+  FAQ_MONTREAL,
+  FAQ_REPENTIGNY,
+} from "./faqs";
 
 export type LocationFaqItem = {
   q: string;
   a: string;
+};
+
+export type LocationLandingImage = {
+  src: string;
+  alt: string;
+};
+
+export type LocationHighlightItem = {
+  title: string;
+  image: LocationLandingImage;
 };
 
 export type LocationLandingPageConfig = {
@@ -14,12 +30,15 @@ export type LocationLandingPageConfig = {
   serviceApproach: string;
   neighborhoods: string[];
   faq: LocationFaqItem[];
+  heroImage: LocationLandingImage;
+  primaryCtaLabel: string;
+  highlightItems: LocationHighlightItem[];
 };
 
 export const LOCATION_LANDING_PAGES: LocationLandingPageConfig[] = [
   {
     path: ROUTE_PATHS.MONTREAL,
-    cityName: "Montréal",
+    cityName: AREA_SERVED_LABELS.MONTREAL,
     subtitle:
       "Interventions de nettoyage de ventilation adaptées aux immeubles urbains, plex et maisons unifamiliales.",
     localContext:
@@ -33,32 +52,39 @@ export const LOCATION_LANDING_PAGES: LocationLandingPageConfig[] = [
       ZONE_AREA_LABELS.SAINT_LEONARD,
       ZONE_AREA_LABELS.VILLE_MARIE,
     ],
-    faq: [
+    faq: FAQ_MONTREAL,
+    heroImage: {
+      src: "/nettoyage-ventillations/location-montreal.jpg",
+      alt: "Nettoyage de ventilation résidentielle et commerciale à Montréal",
+    },
+    primaryCtaLabel: "Demander une soumission à Montréal",
+    highlightItems: [
       {
-        q: "Desservez-vous le Plateau-Mont-Royal et Rosemont?",
-        a: "Oui, nous intervenons régulièrement dans le Plateau-Mont-Royal, Rosemont et d'autres secteurs centraux de Montréal.",
+        title: "Maisons, plex et petits immeubles",
+        image: {
+          src: "/nettoyage-ventillations/location-montreal-highlight-1.jpg",
+          alt: "Maisons et plex desservis à Montréal",
+        },
       },
       {
-        q: "Les maisons plus anciennes de Montréal ont-elles besoin d'un entretien plus fréquent?",
-        a: "Souvent oui, surtout après des rénovations ou lorsqu'il y a accumulation visible de poussière dans les conduits.",
+        title: "Interventions adaptées aux accès urbains",
+        image: {
+          src: "/nettoyage-ventillations/location-montreal-highlight-2.jpg",
+          alt: "Intervention de nettoyage de ventilation en milieu urbain à Montréal",
+        },
       },
       {
-        q: "Offrez-vous le nettoyage de conduit de sécheuse à Montréal?",
-        a: "Oui, ce service est disponible partout dans Montréal avec prise de rendez-vous rapide selon les disponibilités.",
-      },
-      {
-        q: "Quel est le délai habituel pour un rendez-vous à Montréal?",
-        a: "Les délais varient selon la saison, mais nous proposons des plages rapides dès qu'un créneau est disponible.",
-      },
-      {
-        q: "Pouvez-vous intervenir dans un duplex ou un triplex?",
-        a: "Oui, nous adaptons la portée de l'intervention au type d'immeuble et à la configuration des conduits.",
+        title: "Soumission rapide dans l’île de Montréal",
+        image: {
+          src: "/nettoyage-ventillations/location-montreal-highlight-3.jpg",
+          alt: "Soumission rapide pour un service de ventilation à Montréal",
+        },
       },
     ],
   },
   {
     path: ROUTE_PATHS.LAVAL,
-    cityName: "Laval",
+    cityName: AREA_SERVED_LABELS.LAVAL,
     subtitle:
       "Nettoyage de conduits et d'échangeurs d'air pour maisons unifamiliales et copropriétés de la rive nord.",
     localContext:
@@ -72,32 +98,40 @@ export const LOCATION_LANDING_PAGES: LocationLandingPageConfig[] = [
       ZONE_AREA_LABELS.PONT_VIAU,
       ZONE_AREA_LABELS.DUVERNAY,
     ],
-    faq: [
+    faq: FAQ_LAVAL,
+    heroImage: {
+      src: "/nettoyage-ventillations/location-laval.jpg",
+      alt: "Service de nettoyage de ventilation à Laval et sur la rive nord",
+    },
+    primaryCtaLabel: "Demander une soumission à Laval",
+    highlightItems: [
       {
-        q: "Est-ce que VentiPure dessert Chomedey et Laval-des-Rapides?",
-        a: "Nous desservons Chomedey, Pont-Viau, Duvernay et l'ensemble du territoire de Laval selon les disponibilités.",
+        title: "Maisons récentes, condos et copropriétés",
+        image: {
+          src: "/nettoyage-ventillations/location-laval-highlight-1.jpg",
+          alt: "Maisons et copropriétés desservies à Laval",
+        },
       },
       {
-        q: "Le nettoyage de l'échangeur d'air est-il recommandé dans les maisons récentes à Laval?",
-        a: "Oui, l'entretien de l'échangeur d'air demeure essentiel pour maintenir un renouvellement d'air efficace.",
+        title: "Interventions organisées par secteur",
+        image: {
+          src: "/nettoyage-ventillations/location-laval-highlight-2.jpg",
+          alt: "Interventions locales de ventilation à Laval",
+        },
       },
       {
-        q: "Proposez-vous des services combinés à Laval?",
-        a: "Oui, plusieurs clients combinent le nettoyage des conduits de fournaise et du conduit de sécheuse lors d'une même visite.",
-      },
-      {
-        q: "Combien coûte un nettoyage de conduit de sécheuse à Laval?",
-        a: "Le service commence à 149 $, avec validation de la configuration avant l'intervention.",
-      },
-      {
-        q: "Intervenez-vous dans des condos à Laval?",
-        a: "Oui, nous adaptons la méthode selon les règles d'accès et la configuration propre aux immeubles en copropriété.",
+        title: "Nettoyage de ventilation simple et efficace",
+        image: {
+          src: "/nettoyage-ventillations/location-laval-highlight-3.jpg",
+          alt: "Service de ventilation résidentielle à Laval",
+        },
       },
     ],
   },
   {
     path: ROUTE_PATHS.LONGUEUIL,
-    cityName: "Longueuil",
+    cityName: AREA_SERVED_LABELS.LONGUEUIL,
+    eyebrow: "cale",
     subtitle:
       "Services de nettoyage de ventilation sur la Rive-Sud pour maisons, condos et petits immeubles.",
     localContext:
@@ -111,32 +145,39 @@ export const LOCATION_LANDING_PAGES: LocationLandingPageConfig[] = [
       ZONE_AREA_LABELS.SAINT_LAMBERT,
       ZONE_AREA_LABELS.GREENFIELD_PARK,
     ],
-    faq: [
+    faq: FAQ_LONGUEUIL,
+    heroImage: {
+      src: "/nettoyage-ventillations/location-longueuil.jpg",
+      alt: "Nettoyage de ventilation à Longueuil et sur la Rive-Sud",
+    },
+    primaryCtaLabel: "Demander une soumission à Longueuil",
+    highlightItems: [
       {
-        q: "Desservez-vous Brossard et Saint-Hubert?",
-        a: "Oui, Brossard, Saint-Hubert, Boucherville et les secteurs autour de Longueuil font partie de notre zone d'intervention.",
+        title: "Maisons, condos et petits immeubles",
+        image: {
+          src: "/nettoyage-ventillations/location-longueuil-highlight-1.jpg",
+          alt: "Maisons et condos desservis à Longueuil",
+        },
       },
       {
-        q: "Est-il possible de réserver un nettoyage de ventilation pour un condo à Longueuil?",
-        a: "Oui, nous intervenons en condo avec une portée adaptée à l'installation disponible et aux règles d'accès de l'immeuble.",
+        title: "Approche adaptée à la Rive-Sud",
+        image: {
+          src: "/nettoyage-ventillations/location-longueuil-highlight-2.jpg",
+          alt: "Service de ventilation adapté à la Rive-Sud",
+        },
       },
       {
-        q: "Quel service est le plus demandé sur la Rive-Sud?",
-        a: "Le nettoyage des conduits de fournaise et du conduit de sécheuse est très demandé, souvent en combinaison.",
-      },
-      {
-        q: "Offrez-vous des interventions commerciales à Longueuil?",
-        a: "Oui, des mandats commerciaux sont possibles sur estimation selon la configuration du bâtiment.",
-      },
-      {
-        q: "Peut-on obtenir une soumission rapide pour Saint-Lambert?",
-        a: "Oui, vous pouvez demander une soumission en ligne pour Saint-Lambert et les secteurs voisins de la Rive-Sud.",
+        title: "Soumission rapide pour Longueuil et les environs",
+        image: {
+          src: "/nettoyage-ventillations/location-longueuil-highlight-3.jpg",
+          alt: "Soumission rapide pour un service de ventilation à Longueuil",
+        },
       },
     ],
   },
   {
     path: ROUTE_PATHS.REPENTIGNY,
-    cityName: "Repentigny",
+    cityName: AREA_SERVED_LABELS.REPENTIGNY,
     subtitle:
       "Interventions de nettoyage de ventilation pour les résidences familiales de Repentigny et des environs.",
     localContext:
@@ -150,35 +191,43 @@ export const LOCATION_LANDING_PAGES: LocationLandingPageConfig[] = [
       ZONE_AREA_LABELS.MASCOUCHE,
       ZONE_AREA_LABELS.TERREBONNE,
     ],
-    faq: [
+    faq: FAQ_REPENTIGNY,
+    heroImage: {
+      src: "/nettoyage-ventillations/location-repentigny.jpg",
+      alt: "Nettoyage de ventilation résidentielle à Repentigny et dans les environs",
+    },
+    primaryCtaLabel: "Demander une soumission à Repentigny",
+    highlightItems: [
       {
-        q: "Desservez-vous Le Gardeur et L'Assomption?",
-        a: "Oui, nous couvrons Le Gardeur, L'Assomption et les secteurs voisins autour de Repentigny.",
+        title: "Résidences familiales et maisons récentes",
+        image: {
+          src: "/nettoyage-ventillations/location-repentigny-highlight-1.jpg",
+          alt: "Résidences familiales desservies à Repentigny",
+        },
       },
       {
-        q: "Le nettoyage des conduits est-il utile dans une maison récente à Repentigny?",
-        a: "Oui, même les maisons récentes accumulent poussière et résidus au fil du temps dans les conduits.",
+        title: "Planification par zones pour plus d’efficacité",
+        image: {
+          src: "/nettoyage-ventillations/location-repentigny-highlight-2.jpg",
+          alt: "Planification locale des interventions à Repentigny",
+        },
       },
       {
-        q: "Proposez-vous le service de climatiseur mural dans le secteur de Repentigny?",
-        a: "Oui, le nettoyage de climatiseur mural est offert à Repentigny et dans les environs.",
-      },
-      {
-        q: "Quel est le meilleur moment pour planifier l'entretien?",
-        a: "Idéalement au printemps ou à l'automne, mais nous intervenons toute l'année selon les disponibilités.",
-      },
-      {
-        q: "Peut-on demander un service commercial à Terrebonne ou Mascouche?",
-        a: "Oui, des interventions commerciales sont possibles sur estimation dans ces secteurs.",
+        title: "Entretien simple et préventif",
+        image: {
+          src: "/nettoyage-ventillations/location-repentigny-highlight-3.jpg",
+          alt: "Entretien préventif de ventilation à Repentigny",
+        },
       },
     ],
   },
 ];
 
-export const LOCATION_LANDING_BY_PATH = LOCATION_LANDING_PAGES.reduce<Record<string, LocationLandingPageConfig>>(
-  (acc, page) => {
-    acc[page.path] = page;
-    return acc;
-  },
-  {},
-);
+export const LOCATION_LANDING_BY_PATH =
+  LOCATION_LANDING_PAGES.reduce<Record<string, LocationLandingPageConfig>>(
+    (acc, page) => {
+      acc[page.path] = page;
+      return acc;
+    },
+    {},
+  );

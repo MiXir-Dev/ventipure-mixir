@@ -65,21 +65,6 @@ const Equipement = () => {
             </div>
           </section>
 
-          {/* Intro */}
-          <section className="pb-20 md:pb-28">
-            <div className="vp-container max-w-3xl">
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5 }}
-                className="text-foreground/90 text-base md:text-lg leading-relaxed"
-              >
-                La qualité d'une intervention dépend des outils utilisés et de la méthode appliquée. Nous combinons une unité d'aspiration haute performance et un compresseur d'air industriel pour traiter chaque conduit en profondeur, sans compromis sur la propreté du domicile.
-              </motion.p>
-            </div>
-          </section>
-
           {/* Equipment 1: NexAir */}
           <section className="pb-20 md:pb-28">
             <div className="vp-container">
@@ -175,49 +160,6 @@ const Equipement = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* Why it matters */}
-          <section className="py-10 md:py-28">
-            <div className="vp-container max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">
-                  Ce que ça change pour vous
-                </p>
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-8">
-                  Un travail rigoureux, du début à la fin
-                </h2>
-                <div className="space-y-6">
-                  {[
-                    {
-                      title: "Intervention plus rigoureuse",
-                      text: "L'équipement professionnel permet un nettoyage plus complet que les méthodes conventionnelles.",
-                    },
-                    {
-                      title: "Travail plus propre dans la maison",
-                      text: "La pression négative et la filtration HEPA empêchent la poussière de se redéposer chez vous.",
-                    },
-                    {
-                      title: "Adapté au résidentiel et au commercial",
-                      text: "Les mêmes équipements desservent maisons, bureaux et bâtiments à plus grande échelle.",
-                    },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                      <div>
-                        <p className="text-[15px] font-semibold text-foreground mb-1">{item.title}</p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </motion.div>
             </div>

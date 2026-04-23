@@ -144,7 +144,7 @@ const Services = () => {
                     </div>
 
                     {/* Content */}
-                    <div className={`${isEven ? "" : "md:[direction:ltr]"}`}>
+                    <div className={`${isEven ? "" : "md:[direction:ltr]"} flex flex-col`}>
                       <span className="inline-block text-xs font-semibold text-primary uppercase tracking-[0.15em] mb-3">
                         {s.servicesPage.price}
                       </span>
