@@ -11,6 +11,7 @@ import { FaqSection } from "@/components/FAQSection";
 import { ROUTE_PATHS } from "@/consts/navigation";
 import { type LocationLandingPageConfig } from "@/consts/locationLandingPages";
 import { PageBottomCta } from "@/components/PageBottomCta";
+import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
 
 const sectionTransition = { duration: 0.45 };
 const swipeThreshold = 60;
@@ -266,42 +267,20 @@ export function LocationLandingPage({ config }: LocationLandingPageProps) {
           />
 
           {/* Internal links */}
-          <section className="pb-16 md:pb-18">
-            <div className="vp-container max-w-5xl">
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={sectionTransition}
-                className="rounded-3xl bg-muted/20 px-6 py-6 md:px-8"
-              >
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Vous pouvez aussi{" "}
-                  <Link
-                    to={ROUTE_PATHS.SERVICES}
-                    className="text-primary transition-colors hover:text-primary/80"
-                  >
-                    explorer nos services
-                  </Link>
-                  ,{" "}
-                  <Link
-                    to={ROUTE_PATHS.TARIFS}
-                    className="text-primary transition-colors hover:text-primary/80"
-                  >
-                    voir les tarifs
-                  </Link>{" "}
-                  ou{" "}
-                  <Link
-                    to={ROUTE_PATHS.SECTEURS}
-                    className="text-primary transition-colors hover:text-primary/80"
-                  >
-                    consulter toutes les zones desservies
-                  </Link>
-                  .
-                </p>
-              </motion.div>
-            </div>
-          </section>
+          <SeoLinksParagraph
+            className="p-4 mb-4"
+          >
+            Vous pouvez aussi consulter nos{" "}
+            <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link> et nos{" "}
+            <Link to={ROUTE_PATHS.TARIFS}>prix de nettoyage d'échangeur d'air, sécheuse et fournaise</Link> avant de
+            soumettre votre demande. consulter toutes les{" "}
+            <Link
+              to={ROUTE_PATHS.SECTEURS}
+              className="text-primary transition-colors hover:text-primary/80"
+            >
+              zones desservies
+            </Link>
+          </SeoLinksParagraph>
 
          <PageBottomCta
           className="pb-20 md:pb-28"

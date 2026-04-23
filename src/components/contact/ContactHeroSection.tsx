@@ -20,7 +20,7 @@ export function ContactHeroSection() {
         commercial à {CONTACT_AREA_SERVED_SUMMARY}.
       </p>
       <SeoLinksParagraph
-        className=" mt-4"
+        className="mt-4"
       >
         Vous pouvez aussi consulter nos{" "}
         <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link> et nos{" "}
