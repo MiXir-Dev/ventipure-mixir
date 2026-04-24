@@ -131,7 +131,6 @@ export const LOCATION_LANDING_PAGES: LocationLandingPageConfig[] = [
   {
     path: ROUTE_PATHS.LONGUEUIL,
     cityName: AREA_SERVED_LABELS.LONGUEUIL,
-    eyebrow: "cale",
     subtitle:
       "Services de nettoyage de ventilation sur la Rive-Sud pour maisons, condos et petits immeubles.",
     localContext:

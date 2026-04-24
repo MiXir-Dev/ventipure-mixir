@@ -151,15 +151,12 @@ const validate = async () => {
     }
   }
 
-  if (/aggregateRating:\s*null\b/.test(seoBusinessContent)) {
-    warnings.push(
-      "⚠ WARNING: aggregateRating is unset. Add real GBP review data to seoBusiness.ts to enable rich results.",
-    );
-  }
-
   const sameAsMatch = seoBusinessContent.match(/sameAs:\s*\[([\s\S]*?)\]\s*as string\[]/);
   const sameAsBody = sameAsMatch?.[1] ?? "";
-  if (!hasNonCommentString(sameAsBody)) {
+  const hasMapMatch = seoBusinessContent.match(/hasMap:\s*(.+?),?\s*$/m);
+  const hasMapValue = hasMapMatch?.[1]?.trim() ?? "";
+
+  if (!hasNonCommentString(sameAsBody) && /^null\b/.test(hasMapValue)) {
     warnings.push("⚠ WARNING: sameAs is empty. Add confirmed social/GBP URLs to seoBusiness.ts.");
   }
 

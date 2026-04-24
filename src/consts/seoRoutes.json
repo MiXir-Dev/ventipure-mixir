@@ -130,10 +130,10 @@
     "ogImage": "/og/zone.jpg"
   },
   {
-    "path": "/montreal",
+    "path": "/nettoyage-ventilation-montreal",
     "title": "Nettoyage ventilation à Montréal - VentiPure | Dès 149 $",
     "description": "Nettoyage de conduits de fournaise, sécheuse et échangeur d'air à Montréal. Service professionnel à domicile, soumission gratuite dès 149 $.",
-    "canonical": "https://ventipure.ca/montreal",
+    "canonical": "https://ventipure.ca/nettoyage-ventilation-montreal",
     "robots": "index,follow",
     "indexable": true,
     "changefreq": "monthly",
@@ -143,10 +143,10 @@
     "ogImage": "/og/service-conduits.jpg"
   },
   {
-    "path": "/laval",
+    "path": "/nettoyage-ventilation-laval",
     "title": "Nettoyage ventilation à Laval - VentiPure | Dès 149 $",
     "description": "Nettoyage de ventilation à Laval: conduits de fournaise, sécheuse, échangeur d'air et climatiseur mural. Soumission gratuite dès 149 $.",
-    "canonical": "https://ventipure.ca/laval",
+    "canonical": "https://ventipure.ca/nettoyage-ventilation-laval",
     "robots": "index,follow",
     "indexable": true,
     "changefreq": "monthly",
@@ -156,10 +156,10 @@
     "ogImage": "/og/service-echangeur.jpg"
   },
   {
-    "path": "/longueuil",
+    "path": "/nettoyage-ventilation-longueuil",
     "title": "Nettoyage ventilation à Longueuil - VentiPure | Dès 149 $",
     "description": "Service de nettoyage de conduits à Longueuil et Rive-Sud. Fournaise, sécheuse, échangeur d'air et climatiseur mural. Soumission rapide dès 149 $.",
-    "canonical": "https://ventipure.ca/longueuil",
+    "canonical": "https://ventipure.ca/nettoyage-ventilation-longueuil",
     "robots": "index,follow",
     "indexable": true,
     "changefreq": "monthly",
@@ -169,10 +169,10 @@
     "ogImage": "/og/service-climatiseur.jpg"
   },
   {
-    "path": "/repentigny",
+    "path": "/nettoyage-ventilation-repentigny",
     "title": "Nettoyage ventilation à Repentigny - VentiPure | Dès 149 $",
     "description": "Nettoyage de ventilation à Repentigny et environs: conduits, sécheuse, échangeur d'air et climatiseur mural. Soumission gratuite dès 149 $.",
-    "canonical": "https://ventipure.ca/repentigny",
+    "canonical": "https://ventipure.ca/nettoyage-ventilation-repentigny",
     "robots": "index,follow",
     "indexable": true,
     "changefreq": "monthly",

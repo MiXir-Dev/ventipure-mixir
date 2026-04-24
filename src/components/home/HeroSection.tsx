@@ -43,7 +43,6 @@ export function HeroSection() {
                   className="w-full h-auto object-cover aspect-[4/3]"
                   width={1280}
                   height={960}
-                  fetchPriority="high"
                   loading="eager"
                   decoding="async"
                 />
