@@ -8,8 +8,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run validate:seo && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server --emptyOutDir false && node scripts/prerender.mjs && node scripts/generate-seo-assets.mjs && node scripts/validate-structured-data.mjs && node scripts/validate-dist-integrity.mjs && node scripts/validate-seo.mjs --postbuild",
+    "build": "npm run build:site",
+    "build:site": "vite build && vite build --ssr src/entry-server.tsx --outDir dist/server --emptyOutDir false && node scripts/prerender.mjs && node scripts/generate-seo-assets.mjs",
     "build:dev": "vite build --mode development",
+    "ci": "npm run validate:seo && npm run build:site && node scripts/validate-structured-data.mjs && node scripts/validate-dist-integrity.mjs && node scripts/validate-seo.mjs --postbuild",
     "seo:generate": "node scripts/generate-seo-assets.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
     "validate:dist": "node scripts/validate-dist-integrity.mjs",
