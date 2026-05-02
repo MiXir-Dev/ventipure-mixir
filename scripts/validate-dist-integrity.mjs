@@ -10,10 +10,10 @@ const distDir = path.join(rootDir, "dist");
 const LOCAL_BUSINESS_ROUTES = new Set([
   "/",
   "/contact",
-  "/montreal",
-  "/laval",
-  "/longueuil",
-  "/repentigny",
+  "/nettoyage-ventilation-montreal",
+  "/nettoyage-ventilation-laval",
+  "/nettoyage-ventilation-longueuil",
+  "/nettoyage-ventilation-repentigny",
 ]);
 
 const jsonLdRegex = /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi;

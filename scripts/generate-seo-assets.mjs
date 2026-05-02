@@ -40,10 +40,10 @@ const routeToComponentMap = {
   "/tarifs": "src/pages/Tarifs.tsx",
   "/equipement": "src/pages/Equipement.tsx",
   "/nos-services-et-secteurs": "src/pages/NosServicesEtSecteurs.tsx",
-  "/montreal": "src/pages/locations/MontrealPage.tsx",
-  "/laval": "src/pages/locations/LavalPage.tsx",
-  "/longueuil": "src/pages/locations/LongueuilPage.tsx",
-  "/repentigny": "src/pages/locations/RepentignyPage.tsx",
+  "/nettoyage-ventilation-montreal": "src/pages/locations/MontrealPage.tsx",
+  "/nettoyage-ventilation-laval": "src/pages/locations/LavalPage.tsx",
+  "/nettoyage-ventilation-longueuil": "src/pages/locations/LongueuilPage.tsx",
+  "/nettoyage-ventilation-repentigny": "src/pages/locations/RepentignyPage.tsx",
   "/contact": "src/pages/Contact.tsx",
   "/404": "src/pages/NotFound.tsx",
   "/politique-de-confidentialite": "src/pages/PolitiqueDeConfidentialite.tsx",
@@ -285,10 +285,24 @@ const sitemapIndexXml = (files) => {
 const generateSitemaps = async (indexableRoutes) => {
   if (indexableRoutes.length > 50) {
     const core = indexableRoutes.filter(
-      (route) => !route.path.startsWith("/services/") && !["/montreal", "/laval", "/longueuil", "/repentigny"].includes(route.path),
+      (route) =>
+        !route.path.startsWith("/services/") &&
+        ![
+          "/nettoyage-ventilation-montreal",
+          "/nettoyage-ventilation-laval",
+          "/nettoyage-ventilation-longueuil",
+          "/nettoyage-ventilation-repentigny",
+        ].includes(route.path),
     );
     const services = indexableRoutes.filter((route) => route.path.startsWith("/services/"));
-    const locations = indexableRoutes.filter((route) => ["/montreal", "/laval", "/longueuil", "/repentigny"].includes(route.path));
+    const locations = indexableRoutes.filter((route) =>
+      [
+        "/nettoyage-ventilation-montreal",
+        "/nettoyage-ventilation-laval",
+        "/nettoyage-ventilation-longueuil",
+        "/nettoyage-ventilation-repentigny",
+      ].includes(route.path),
+    );
 
     await writeFile(path.join(distDir, "sitemap-main.xml"), buildSitemapXml(core), "utf8");
     await writeFile(path.join(distDir, "sitemap-services.xml"), buildSitemapXml(services), "utf8");
