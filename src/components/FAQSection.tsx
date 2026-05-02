@@ -1,13 +1,6 @@
 import { motion } from "framer-motion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import type { FaqItem } from "@/consts/faqs";
-
 
 type FaqSectionProps = {
   items: FaqItem[];
@@ -50,23 +43,26 @@ export function FaqSection({
           </h2>
         </motion.div>
 
-        <Accordion type="single" collapsible className="divide-y divide-border">
+        <div className="divide-y divide-border">
           {items.map((faq, index) => (
-            <AccordionItem
+            <details
               key={`${faq.q}-${index}`}
-              value={`faq-${index}`}
-              className="border-none py-1"
+              className="group border-none py-1"
+              open={index === 0}
             >
-              <AccordionTrigger className="text-left text-sm md:text-[15px] font-semibold text-foreground py-5 hover:no-underline">
-                {faq.q}
-              </AccordionTrigger>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-sm font-semibold text-foreground marker:hidden md:text-[15px]">
+                <span>{faq.q}</span>
+                <span className="shrink-0 text-lg leading-none text-muted-foreground transition-transform duration-200 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
 
-              <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-5">
+              <div className="pb-5 text-sm leading-relaxed text-muted-foreground">
                 {faq.a}
-              </AccordionContent>
-            </AccordionItem>
+              </div>
+            </details>
           ))}
-        </Accordion>
+        </div>
       </div>
     </section>
   );

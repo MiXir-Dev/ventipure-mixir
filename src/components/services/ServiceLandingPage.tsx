@@ -14,6 +14,7 @@ import {
   getServiceRoute,
   type ServiceLandingPageConfig,
 } from "@/consts/serviceLandingPages";
+import { MAJOR_ZONE_LINKS } from "@/consts/zones";
 
 const sectionTransition = { duration: 0.45 };
 
@@ -248,6 +249,36 @@ export function ServiceLandingPage({ config }: ServiceLandingPageProps) {
                         {step.description}
                       </p>
                     </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          <section className="pb-16 md:pb-20">
+            <div className="vp-container max-w-6xl">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={sectionTransition}
+                className="border-y border-border py-8"
+              >
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  Zones desservies
+                </p>
+                <h2 className="mb-5 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                  Ce service est offert dans les principaux secteurs couverts
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {MAJOR_ZONE_LINKS.map((zone) => (
+                    <Link
+                      key={zone.path}
+                      to={zone.path}
+                      className="inline-flex rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/85 transition-colors hover:border-primary/30 hover:text-primary"
+                    >
+                      {zone.label}
+                    </Link>
                   ))}
                 </div>
               </motion.div>

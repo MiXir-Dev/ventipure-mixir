@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ROUTE_PATHS } from "@/consts/navigation";
-import { CONTACT_AREA_SERVED_LINE_1, CONTACT_AREA_SERVED_LINE_2 } from "@/consts/zones";
+import {
+  CONTACT_AREA_SERVED_LINE_2,
+  MAJOR_ZONE_LINKS,
+} from "@/consts/zones";
 import {
   CONTACT_ADDRESS_LINE_1,
   CONTACT_ADDRESS_LINE_2,
@@ -69,7 +72,18 @@ export function ContactMapSection() {
                   Secteurs desservis
                 </p>
                 <p className="text-[15px] text-foreground leading-relaxed">
-                  {CONTACT_AREA_SERVED_LINE_1},<br />
+                  {MAJOR_ZONE_LINKS.map((zone, index) => (
+                    <span key={zone.path}>
+                      <Link
+                        to={zone.path}
+                        className="text-primary hover:text-primary/80 transition-colors"
+                      >
+                        {zone.label}
+                      </Link>
+                      {index < MAJOR_ZONE_LINKS.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                  ,<br />
                   {CONTACT_AREA_SERVED_LINE_2}
                 </p>
               </div>

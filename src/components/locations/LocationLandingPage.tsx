@@ -12,6 +12,7 @@ import { ROUTE_PATHS } from "@/consts/navigation";
 import { type LocationLandingPageConfig } from "@/consts/locationLandingPages";
 import { PageBottomCta } from "@/components/PageBottomCta";
 import { SeoLinksParagraph } from "@/components/SeoLinksParagraph";
+import { MAJOR_ZONE_LINKS, ZONE_ROUTE_BY_AREA_LABEL } from "@/consts/zones";
 
 const sectionTransition = { duration: 0.45 };
 const swipeThreshold = 60;
@@ -245,12 +246,13 @@ export function LocationLandingPage({ config }: LocationLandingPageProps) {
 
                   <div className="flex flex-wrap items-center gap-3 lg:self-center">
                     {config.neighborhoods.map((area) => (
-                      <span
+                      <Link
                         key={area}
-                        className="inline-flex rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/85"
+                        to={ZONE_ROUTE_BY_AREA_LABEL[area]}
+                        className="inline-flex rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/85 transition-colors hover:border-primary/30 hover:text-primary"
                       >
                         {area}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -273,7 +275,19 @@ export function LocationLandingPage({ config }: LocationLandingPageProps) {
             Vous pouvez aussi consulter nos{" "}
             <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link> et nos{" "}
             <Link to={ROUTE_PATHS.TARIFS}>prix de nettoyage d'échangeur d'air, sécheuse et fournaise</Link> avant de
-            soumettre votre demande. consulter toutes les{" "}
+            soumettre votre demande. Consultez aussi{" "}
+            {MAJOR_ZONE_LINKS.filter((zone) => zone.path !== config.path).map((zone, index, zones) => (
+              <span key={zone.path}>
+                <Link
+                  to={zone.path}
+                  className="text-primary transition-colors hover:text-primary/80"
+                >
+                  {zone.label}
+                </Link>
+                {index < zones.length - 1 ? ", " : " "}
+              </span>
+            ))}
+            et toutes les{" "}
             <Link
               to={ROUTE_PATHS.SECTEURS}
               className="text-primary transition-colors hover:text-primary/80"

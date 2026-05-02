@@ -130,7 +130,7 @@ const buildServiceSchemaNode = (serviceId: string) => {
     name: service.title,
     description: getServiceDescription(service.id),
     provider: { "@id": BUSINESS_ID },
-    areaServed: { "@type": "City", name: "Montréal" },
+    areaServed: GLOBAL_AREA_SERVED,
   };
 
   if (service.price !== null) {
@@ -150,6 +150,23 @@ const buildServiceSchemaNode = (serviceId: string) => {
   }
 
   return node;
+};
+
+const buildLocationServiceSchemaNode = (path: string) => {
+  const location = LOCATION_LANDING_BY_PATH[path];
+  if (!location) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SEO_SITE_URL}${path}#service`,
+    name: `Nettoyage de ventilation à ${location.cityName}`,
+    serviceType: "Nettoyage de ventilation",
+    url: `${SEO_SITE_URL}${path}`,
+    areaServed: [buildCityNode(location.cityName)],
+    provider: { "@id": BUSINESS_ID },
+    description: location.subtitle,
+  };
 };
 
 const allCoreServiceSchemaNodes = () =>
@@ -202,20 +219,15 @@ const serviceLandingSchemas = (path: string, config: ServiceLandingPageConfig) =
 const locationLandingSchemas = (path: string) => {
   const location = LOCATION_LANDING_BY_PATH[path];
   if (!location) return [];
-
-  const localBusiness = baseLocalBusinessSchema();
-  const locationBusiness = {
-    ...localBusiness,
-    url: `${SEO_SITE_URL}${path}`,
-    areaServed: [buildCityNode(location.cityName)],
-  };
+  const locationService = buildLocationServiceSchemaNode(path);
 
   return [
     breadcrumbSchema([
       { name: "Accueil", path: ROUTE_PATHS.HOME },
       { name: `Nettoyage de ventilation à ${location.cityName}`, path },
     ]),
-    locationBusiness,
+    baseLocalBusinessSchema(),
+    ...(locationService ? [locationService] : []),
     faqSchema(location.faq),
   ];
 };

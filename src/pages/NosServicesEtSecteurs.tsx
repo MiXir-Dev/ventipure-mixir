@@ -9,16 +9,9 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin, MapPinned } from "lucide-react";
 import { ROUTE_PATHS } from "@/consts/navigation";
-import { SERVICE_ZONES } from "@/consts/zones";
+import { SERVICE_ZONES, ZONE_ROUTE_BY_AREA_LABEL, ZONE_ROUTE_BY_REGION_LABEL } from "@/consts/zones";
 import { SERVICE_AREAS_MAP_EMBED_URL } from "@/consts/contact";
 import { Breadcrumb } from "@/components/Breadcrumb";
-
-const REGION_ROUTE_MAP: Record<string, string> = {
-  Montréal: ROUTE_PATHS.MONTREAL,
-  "Laval et alentours": ROUTE_PATHS.LAVAL,
-  "Longueuil et alentours": ROUTE_PATHS.LONGUEUIL,
-  "Repentigny et alentours": ROUTE_PATHS.REPENTIGNY,
-};
 
 const NosServicesEtSecteurs = () => {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -93,7 +86,7 @@ const NosServicesEtSecteurs = () => {
             <div className="vp-container">
               <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
                 {SERVICE_ZONES.map((z, i) => {
-                  const regionPath = REGION_ROUTE_MAP[z.region];
+                  const regionPath = ZONE_ROUTE_BY_REGION_LABEL[z.region];
 
                   return (
                     <motion.div
@@ -103,19 +96,20 @@ const NosServicesEtSecteurs = () => {
                       viewport={{ once: true, margin: "-60px" }}
                       transition={{ delay: i * 0.08, duration: 0.5 }}
                     >
-                      <Link
-                        to={regionPath}
-                        className="group block h-full rounded-2xl border border-border bg-card p-7 md:p-8 transition-all duration-200 hover:border-primary/30 hover:bg-muted/20 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/20"
-                        aria-label={`Voir la page locale ${z.region}`}
-                      >
+                      <div className="group h-full rounded-2xl border border-border bg-card p-7 md:p-8 transition-all duration-200 hover:border-primary/30 hover:bg-muted/20 hover:-translate-y-0.5">
                         <div className="flex items-start justify-between gap-4 mb-5">
                           <div className="flex items-center gap-2.5 min-w-0">
                             <MapPin
                               className="h-4 w-4 text-primary shrink-0"
                               strokeWidth={2.2}
                             />
-                            <h2 className="text-lg font-bold text-foreground tracking-tight">
-                              {z.region}
+                            <h2 className="text-lg font-bold tracking-tight">
+                              <Link
+                                to={regionPath}
+                                className="text-foreground transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                              >
+                                {z.region}
+                              </Link>
                             </h2>
                           </div>
 
@@ -126,13 +120,18 @@ const NosServicesEtSecteurs = () => {
                           {z.areas.map((a) => (
                             <li
                               key={a}
-                              className="text-sm text-foreground/80 px-3 py-1.5 rounded-full bg-muted/60 transition-colors duration-200 group-hover:bg-muted"
+                              className="rounded-full bg-muted/60 transition-colors duration-200 group-hover:bg-muted"
                             >
-                              {a}
+                              <Link
+                                to={ZONE_ROUTE_BY_AREA_LABEL[a]}
+                                className="block px-3 py-1.5 text-sm text-foreground/80 transition-colors hover:text-primary"
+                              >
+                                {a}
+                              </Link>
                             </li>
                           ))}
                         </ul>
-                      </Link>
+                      </div>
                     </motion.div>
                   );
                 })}
