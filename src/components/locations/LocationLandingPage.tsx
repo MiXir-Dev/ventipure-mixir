@@ -268,34 +268,6 @@ export function LocationLandingPage({ config }: LocationLandingPageProps) {
             title={`Réponses utiles pour ${config.cityName}`}
           />
 
-          {/* Internal links */}
-          <SeoLinksParagraph
-            className="p-4 mb-4"
-          >
-            Vous pouvez aussi consulter nos{" "}
-            <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link> et nos{" "}
-            <Link to={ROUTE_PATHS.TARIFS}>prix de nettoyage d'échangeur d'air, sécheuse et fournaise</Link> avant de
-            soumettre votre demande. Consultez aussi{" "}
-            {MAJOR_ZONE_LINKS.filter((zone) => zone.path !== config.path).map((zone, index, zones) => (
-              <span key={zone.path}>
-                <Link
-                  to={zone.path}
-                  className="text-primary transition-colors hover:text-primary/80"
-                >
-                  {zone.label}
-                </Link>
-                {index < zones.length - 1 ? ", " : " "}
-              </span>
-            ))}
-            et toutes les{" "}
-            <Link
-              to={ROUTE_PATHS.SECTEURS}
-              className="text-primary transition-colors hover:text-primary/80"
-            >
-              zones desservies
-            </Link>
-          </SeoLinksParagraph>
-
          <PageBottomCta
           className="pb-20 md:pb-28"
           title={`Besoin d’un service à ${config.cityName}?`}

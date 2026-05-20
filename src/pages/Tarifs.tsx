@@ -36,14 +36,6 @@ const Tarifs = () => {
               <p className="text-muted-foreground text-[15px]">
                 Prix affichés, sans surprise. Service professionnel de nettoyage de ventilation pour résidences, bureaux et commerces au Québec.
               </p>
-              <SeoLinksParagraph
-                className="mt-4"
-              >
-                Pour comparer les interventions en détail, visitez la page{" "}
-                <Link to={ROUTE_PATHS.SERVICES}>nettoyage de conduits de ventilation résidentiels et commerciaux</Link>{" "}
-                puis confirmez votre zone sur{" "}
-                <Link to={ROUTE_PATHS.SECTEURS}>nos secteurs desservis à Montréal, Laval, Longueuil et la Rive-Sud</Link>.
-              </SeoLinksParagraph>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-5 md:gap-6 mb-20">

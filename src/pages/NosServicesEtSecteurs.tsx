@@ -45,14 +45,6 @@ const NosServicesEtSecteurs = () => {
                   VentiPure intervient dans les principales régions du Grand Montréal et de la Rive-Nord.
                   Nous desservons résidences, bureaux et commerces dans les villes et quartiers ci-dessous.
                 </p>
-                <SeoLinksParagraph className="mt-5">
-                  Avant de réserver, consultez nos{" "}
-                  <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de ventilation</Link> et les{" "}
-                  <Link to={ROUTE_PATHS.TARIFS}>
-                    tarifs de nettoyage de conduits résidentiels et commerciaux
-                  </Link>
-                  .
-                </SeoLinksParagraph>
               </motion.div>
             </div>
           </section>

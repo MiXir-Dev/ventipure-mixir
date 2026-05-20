@@ -46,13 +46,6 @@ const Equipement = () => {
                 <p className="text-muted-foreground text-[15px] leading-relaxed mb-8">
                   VentiPure travaille avec un matériel professionnel sélectionné pour la puissance, la propreté et la fiabilité, autant en résidentiel qu'en commercial.
                 </p>
-                <SeoLinksParagraph
-                  className="mb-8"
-                >
-                  Découvrez aussi nos <Link to={ROUTE_PATHS.SERVICES}>services de nettoyage de conduits de ventilation</Link>, nos{" "}
-                  <Link to={ROUTE_PATHS.TARIFS}>prix pour le nettoyage d'échangeur d'air et de sécheuse</Link> et nos{" "}
-                  <Link to={ROUTE_PATHS.SECTEURS}>zones desservies dans le Grand Montréal</Link>.
-                </SeoLinksParagraph>
                 <div className="flex flex-wrap gap-3">
                   <Link to={ROUTE_PATHS.CONTACT}>
                     <Button variant="default" size="lg">Demander une soumission gratuite</Button>

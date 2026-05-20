@@ -59,13 +59,6 @@ const Services = () => {
                   Des interventions professionnelles pour aider à maintenir un air
                   intérieur plus sain et des systèmes mieux entretenus.
                 </p>
-                <SeoLinksParagraph
-                  className="mb-8"
-                >
-                  Consultez aussi nos <Link to={ROUTE_PATHS.TARIFS}>prix du nettoyage de ventilation</Link>, notre{" "}
-                  <Link to={ROUTE_PATHS.EQUIPEMENT}>équipement professionnel de nettoyage de conduits</Link> et nos{" "}
-                  <Link to={ROUTE_PATHS.SECTEURS}>secteurs desservis à Montréal, Laval et Longueuil</Link>.
-                </SeoLinksParagraph>
                 <div className="flex flex-wrap gap-3">
                   <Link to={ROUTE_PATHS.CONTACT}>
                     <Button variant="default" size="lg">
