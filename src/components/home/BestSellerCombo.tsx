@@ -7,13 +7,13 @@ import { buildContactComboPath } from "@/consts/navigation";
 
 /**
  * Best-seller combo section.
- * Officially: Furnace ducts (349$) + Dryer vent (149$) - $20 off = 478$.
+ * Officially: Furnace ducts (499$) + Dryer vent (149$) - $20 off = 628$.
  */
 export function BestSellerCombo() {
   const furnace = getService("conduits")!;
   const dryer = getService("secheuse")!;
-  const subtotal = (furnace.price ?? 0) + (dryer.price ?? 0); // 498
-  const total = subtotal - COMBO_DISCOUNT; // 478
+  const subtotal = (furnace.price ?? 0) + (dryer.price ?? 0); // 648
+  const total = subtotal - COMBO_DISCOUNT; // 628
 
   return (
     <section className="vp-section-padding bg-background">

@@ -65,7 +65,7 @@ export const SERVICE_LANDING_PAGES: ServiceLandingPageConfig[] = [
     h1: "Nettoyage des conduits de fournaise à Montréal et Grand Montréal",
     subtitle:
       "Améliorez la circulation de l’air dans votre maison et gardez un réseau de ventilation résidentiel mieux entretenu toute l’année.",
-    priceSignal: "À partir de 349 $",
+    priceSignal: "À partir de 499 $",
     heroImage: {
       src: "/nettoyage-ventillations/service-conduits.jpg",
       alt: "Nettoyage professionnel des conduits de fournaise dans une résidence du Grand Montréal",

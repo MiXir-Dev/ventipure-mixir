@@ -21,8 +21,8 @@ export const SERVICES: ServiceItem[] = [
     id: "conduits",
     label: "Conduits de fournaise",
     title: "Nettoyage des conduits de fournaise",
-    price: 349,
-    priceLabel: "349 $",
+    price: 499,
+    priceLabel: "499 $",
   },
   {
     id: "secheuse",
@@ -121,7 +121,7 @@ export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
       "Nettoyage complet du réseau de conduits pour une meilleure circulation d'air chaud et un système plus performant.",
     servicesPage: {
       title: "Nettoyage des conduits de fournaise",
-      price: "À partir de 349 $",
+      price: "À partir de 499 $",
       description:
         "Ce service cible les conduits de ventilation reliés à votre fournaise résidentielle. Le nettoyage professionnel permet de réduire l'accumulation de poussière et de favoriser une meilleure circulation de l'air dans toute la maison.",
       benefits: [
@@ -134,7 +134,7 @@ export const SERVICE_MARKETING_ENTRIES: ServiceMarketingEntry[] = [
     },
     tarifsPage: {
       title: "Conduits de fournaise",
-      price: "349 $",
+      price: "499 $",
       priceNote: "à partir de",
       includes:
         "Jusqu'à 15 sorties incluses. Frais variables selon la distance et les sorties supplémentaires.",

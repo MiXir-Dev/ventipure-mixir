@@ -12,7 +12,7 @@ export const HOME_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Combien coute un nettoyage de conduits de fournaise?",
-    a: "Le nettoyage des conduits de fournaise est offert a partir de 349 $ et inclut jusqu'a 15 sorties de ventilation. Des frais peuvent s'appliquer selon la distance et le nombre de sorties supplementaires.",
+    a: "Le nettoyage des conduits de fournaise est offert a partir de 499 $ et inclut jusqu'a 15 sorties de ventilation. Des frais peuvent s'appliquer selon la distance et le nombre de sorties supplementaires.",
   },
   {
     q: "Pourquoi faire nettoyer un conduit de secheuse?",

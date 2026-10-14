@@ -17,7 +17,7 @@ Public website for **VentiPure**, a Quebec ventilation-cleaning company focused 
 
 ### Core Services
 
-- Nettoyage des conduits de fournaise (from **349 $**)
+- Nettoyage des conduits de fournaise (from **499 $**)
 - Nettoyage du conduit de sécheuse (**149 $**)
 - Nettoyage de l'échangeur d'air (**249 $**)
 - Nettoyage de climatiseur mural (**249 $**)
